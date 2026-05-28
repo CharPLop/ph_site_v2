@@ -1,0 +1,43 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { faq } from "@/config/site";
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.domanda,
+    acceptedAnswer: { "@type": "Answer", text: f.risposta },
+  })),
+};
+---
+
+<BaseLayout
+  title="Domande frequenti"
+  description="Domande frequenti sullo studio Psiche Holos: primo appuntamento, durata dei percorsi, CBT, Schema Therapy, sedute online e prenotazioni."
+  path="/faq/"
+>
+  <section class="container-ph max-w-3xl pt-16 md:pt-24">
+    <p class="kicker">Tutto quello che vuoi sapere</p>
+    <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Domande frequenti</h1>
+
+    <div class="mt-10 space-y-3">
+      {faq.map((f) => (
+        <details class="group rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-5 md:p-6">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 font-semibold text-[var(--color-ink)] marker:content-['']">
+            {f.domanda}
+            <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-[var(--color-sage)] text-[var(--color-verde)] transition-transform duration-300 group-open:rotate-45">+</span>
+          </summary>
+          <p class="mt-3 text-[var(--color-ink-soft)]">{f.risposta}</p>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <a href="/contatti/" class="btn btn-primary">Hai altre domande? Scrivici</a>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+</BaseLayout>

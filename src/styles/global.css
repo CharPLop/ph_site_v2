@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   PSICHE HOLOS — Design System
+   Direzione: organica · editoriale · calda · sanitaria-rassicurante
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Palette brand Psiche Holos ── */
+  --color-verde: #4a6741; /* primario   */
+  --color-verde-2: #6b8e5b; /* secondario */
+  --color-sage: #c5d4bf; /* salvia     */
+  --color-cream: #f7f4ec; /* crema (bg) */
+
+  /* ── Neutri derivati (coerenti col verde) ── */
+  --color-ink: #25301f; /* testo principale (verde-carbone) */
+  --color-ink-soft: #4f5a47; /* testo secondario */
+  --color-line: #e3ddcf; /* bordi su crema */
+  --color-cream-deep: #efe9da; /* superfici alternate */
+  --color-white-warm: #fffdf8;
+
+  /* ── Tipografia ── */
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Nunito Sans", system-ui, -apple-system, sans-serif;
+
+  /* ── Raggi & ombre ── */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.75rem;
+  --shadow-soft: 0 18px 40px -24px rgba(37, 48, 31, 0.35);
+  --shadow-card: 0 24px 60px -32px rgba(37, 48, 31, 0.45);
+
+  /* ── Container ── */
+  --breakpoint-3xl: 90rem;
+}
+
+/* ── Reset/base ── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+/* Selezione testo a tema */
+::selection {
+  background: var(--color-sage);
+  color: var(--color-ink);
+}
+
+/* Focus accessibile */
+:focus-visible {
+  outline: 2px solid var(--color-verde);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Utility di composizione ── */
+.container-ph {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) {
+  .container-ph { padding-inline: 2.5rem; }
+}
+
+/* Eyebrow / kicker editoriale */
+.kicker {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-verde-2);
+}
+
+/* Link sottolineato organico */
+.link-underline {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-verde), var(--color-verde));
+  background-size: 0% 1.5px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.35s ease;
+}
+.link-underline:hover { background-size: 100% 1.5px; }
+
+/* Bottoni */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: var(--color-verde);
+  color: var(--color-cream);
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover {
+  background-color: var(--color-ink);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-verde);
+  border: 1.5px solid var(--color-verde);
+}
+.btn-ghost:hover {
+  background-color: var(--color-verde);
+  color: var(--color-cream);
+}
+
+/* Reveal al caricamento (staggered via inline animation-delay) */
+@keyframes ph-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  animation: ph-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; }
+  html { scroll-behavior: auto; }
+}

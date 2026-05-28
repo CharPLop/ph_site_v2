@@ -1,0 +1,53 @@
+---
+import { site, sedi, nav } from "@/config/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 bg-[var(--color-ink)] text-[var(--color-cream)]">
+  <div class="container-ph grid gap-10 py-16 md:grid-cols-3">
+    <div>
+      <img src="/loghi/logo-psiche-holos-cream.png" alt={`${site.nome} — logo`} width="104" height="95" class="h-24 w-auto" />
+      <p class="mt-4 text-sm text-[color-mix(in_srgb,var(--color-cream)_70%,transparent)]">
+        Studio di Psicologia e Psicoterapia · Brescia
+      </p>
+      <p class="mt-5 text-sm">
+        <a href={`mailto:${site.email}`} class="link-underline">{site.email}</a><br />
+        <a href={`tel:${site.telefono}`} class="link-underline">{site.telefonoDisplay}</a>
+      </p>
+      <div class="mt-5 flex gap-3 text-sm">
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="link-underline">WhatsApp</a>
+        <a href={site.instagram} target="_blank" rel="noopener" class="link-underline">Instagram</a>
+      </div>
+    </div>
+
+    <div>
+      <p class="kicker !text-[var(--color-sage)]">Pagine</p>
+      <ul class="mt-4 space-y-2 text-sm">
+        {nav.map((item) => (
+          <li><a href={item.href} class="link-underline">{item.label}</a></li>
+        ))}
+        <li><a href="/faq/" class="link-underline">Domande frequenti</a></li>
+        <li><a href="/privacy/" class="link-underline opacity-80">Privacy & Cookie</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="kicker !text-[var(--color-sage)]">Sedi</p>
+      <ul class="mt-4 space-y-3 text-sm">
+        {sedi.map((s) => (
+          <li>
+            <span class="font-semibold">{s.citta}</span><br />
+            <span class="text-[color-mix(in_srgb,var(--color-cream)_70%,transparent)]">{s.indirizzo}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-[color-mix(in_srgb,var(--color-cream)_15%,transparent)]">
+    <div class="container-ph flex flex-col gap-2 py-5 text-xs text-[color-mix(in_srgb,var(--color-cream)_60%,transparent)] md:flex-row md:items-center md:justify-between">
+      <span>© {year} Psiche Holos — Studio di Psicologia</span>
+      <span>Via Guido Zadei, 60 · 25128 Brescia</span>
+    </div>
+  </div>
+</footer>
