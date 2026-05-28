@@ -1,0 +1,34 @@
+---
+import "@/styles/global.css";
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  noindex?: boolean;
+}
+const { title, description, path, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <BaseHead title={title} description={description} path={path} noindex={noindex} />
+  </head>
+  <body>
+    <a
+      href="#contenuto"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-[var(--color-verde)] focus:px-4 focus:py-2 focus:text-[var(--color-cream)]"
+    >
+      Vai al contenuto
+    </a>
+    <Header />
+    <main id="contenuto">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

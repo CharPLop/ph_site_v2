@@ -1,0 +1,87 @@
+---
+import { site } from "@/config/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** path della pagina (es. "/studio/") per canonical/OG */
+  path?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.descrizione,
+  path = Astro.url.pathname,
+  image = "/foto/team-psiche-holos.jpg",
+  type = "website",
+  noindex = false,
+} = Astro.props;
+
+// title coerente: "Pagina | Psiche Holos" (la home passa già il title completo)
+const fullTitle = title.includes(site.nome) ? title : `${title} | ${site.nome}`;
+
+const canonical = new URL(path, Astro.site ?? site.url).href;
+const ogImage = new URL(image, Astro.site ?? site.url).href;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:locale" content={site.locale} />
+<meta property="og:site_name" content={site.nome} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+
+<!-- Twitter/X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Font: Playfair Display (display) + Nunito Sans (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Playfair+Display:ital,wght@0,400..600;1,400..500&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- JSON-LD: lo studio come organizzazione sanitaria locale -->
+<script
+  type="application/ld+json"
+  set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    name: site.nome,
+    description: site.descrizione,
+    url: site.url,
+    email: site.email,
+    telephone: site.telefono,
+    medicalSpecialty: "Psychiatric",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Via Guido Zadei, 60",
+      addressLocality: "Brescia",
+      postalCode: "25128",
+      addressRegion: "BS",
+      addressCountry: "IT",
+    },
+    areaServed: ["Brescia"],
+  })}
+/>

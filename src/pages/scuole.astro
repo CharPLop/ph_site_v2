@@ -1,0 +1,152 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { scuole, team } from "@/config/site";
+const referenti = team.filter((m) => scuole.professioniste.includes(m.slug));
+const { leadMagnet, formazione, sportello, laboratori } = scuole;
+---
+
+<BaseLayout
+  title="Progetto Scuole"
+  description="Psiche Holos progetta interventi psicologici su misura per le Scuole Secondarie di I Grado: formazione docenti su DSA e BES, sportello d'ascolto, percorsi individuali e laboratori di gruppo. Scarica la guida gratuita per docenti."
+  path="/scuole/"
+>
+  <!-- Hero -->
+  <section class="container-ph pt-16 md:pt-24">
+    <p class="kicker">Per gli istituti</p>
+    <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Progetti integrati per il benessere scolastico</h1>
+    <p class="mt-5 max-w-2xl text-lg text-[var(--color-ink-soft)]">
+      {scuole.intro} Rivolto alle <strong>{scuole.target}</strong>.
+    </p>
+  </section>
+
+  <!-- Obiettivo -->
+  <section class="container-ph mt-10">
+    <div class="rounded-[var(--radius-md)] bg-[var(--color-sage)] p-7 md:p-9">
+      <p class="kicker">Obiettivo</p>
+      <p class="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.4vw,1.6rem)] leading-snug text-[var(--color-verde)]">
+        {scuole.obiettivo}
+      </p>
+    </div>
+  </section>
+
+  <!-- Lead magnet -->
+  <section class="container-ph mt-14">
+    <div class="overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-verde)] text-[var(--color-cream)] md:grid md:grid-cols-[1.6fr_1fr]">
+      <div class="p-8 md:p-10">
+        <p class="kicker text-[var(--color-sage)]">Guida gratuita · {leadMagnet.pagine} pagine</p>
+        <h2 class="mt-3 font-[family-name:var(--font-display)] text-[clamp(1.7rem,3vw,2.3rem)] leading-tight">
+          {leadMagnet.titolo}
+        </h2>
+        <p class="mt-1 text-lg italic text-[var(--color-sage)]">{leadMagnet.sottotitolo}</p>
+        <p class="mt-4 max-w-xl text-[0.97rem] leading-relaxed text-[var(--color-cream)]/90">
+          {leadMagnet.descrizione}
+        </p>
+        <a
+          href={leadMagnet.file}
+          download
+          class="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--color-cream)] px-7 py-3 font-medium text-[var(--color-verde)] transition hover:opacity-90"
+        >
+          ↓ Scarica la guida (PDF)
+        </a>
+      </div>
+      <div class="hidden items-center justify-center bg-[var(--color-verde-dark,#3a5233)] p-10 md:flex">
+        <div class="font-[family-name:var(--font-display)] text-center leading-none">
+          <span class="block text-[5rem] text-[var(--color-sage)]">5</span>
+          <span class="mt-2 block text-sm uppercase tracking-[0.2em] text-[var(--color-cream)]/80">segnali<br />da osservare</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formazione docenti -->
+  <section class="container-ph mt-16">
+    <p class="kicker">1 · Formazione docenti</p>
+    <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">{formazione.sottotitolo}</h2>
+    <p class="mt-4 max-w-3xl text-[var(--color-ink-soft)]">{formazione.descrizione}</p>
+    <div class="mt-7 grid gap-5 md:grid-cols-2">
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+        <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Obiettivi</h3>
+        <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
+          {formazione.obiettivi.map((o) => (
+            <li class="flex gap-2"><span class="text-[var(--color-verde)]">•</span><span>{o}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+        <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Tematiche</h3>
+        <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
+          {formazione.tematiche.map((t) => (
+            <li class="flex gap-2"><span class="text-[var(--color-verde)]">•</span><span>{t}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sportello -->
+  <section class="container-ph mt-16">
+    <p class="kicker">2 · Percorsi individuali per studenti</p>
+    <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">{sportello.sottotitolo}</h2>
+    <p class="mt-4 max-w-3xl text-[var(--color-ink-soft)]">{sportello.descrizione}</p>
+    <div class="mt-7 grid gap-5 md:grid-cols-2">
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+        <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Finalità</h3>
+        <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
+          {sportello.finalita.map((f) => (
+            <li class="flex gap-2"><span class="text-[var(--color-verde)]">•</span><span>{f}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+        <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Ambiti di intervento</h3>
+        <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
+          {sportello.ambiti.map((a) => (
+            <li class="flex gap-2"><span class="text-[var(--color-verde)]">•</span><span>{a}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Laboratori -->
+  <section class="container-ph mt-16">
+    <p class="kicker">3 · Laboratori di gruppo</p>
+    <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">Laboratori psicoeducativi per classi</h2>
+    <p class="mt-4 max-w-3xl text-[var(--color-ink-soft)]">
+      Sei aree di intervento, ciascuna con obiettivi specifici, declinabili in base ai bisogni della classe e al ciclo scolastico.
+    </p>
+    <div class="mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {laboratori.map((lab) => (
+        <article class="flex flex-col rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+          <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">{lab.titolo}</h3>
+          <p class="mt-2 text-[0.95rem] text-[var(--color-ink-soft)]">{lab.desc}</p>
+          <p class="mt-4 border-t border-[var(--color-line)] pt-3 text-[0.8rem] uppercase tracking-wide text-[var(--color-verde)]">Focus</p>
+          <p class="mt-1 text-[0.85rem] text-[var(--color-ink-soft)]">{lab.focus}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Referenti -->
+  <section class="container-ph mt-16">
+    <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-7 md:p-9">
+      <p class="kicker">Le referenti del progetto</p>
+      <div class="mt-4 flex flex-wrap gap-8">
+        {referenti.map((m) => (
+          <div>
+            <p class="font-[family-name:var(--font-display)] text-xl text-[var(--color-verde)]">{m.nome.replace("Dott.ssa ", "Dott.ssa ")}</p>
+            <p class="text-sm text-[var(--color-ink-soft)]">{m.ruolo}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-5 text-[0.85rem] text-[var(--color-ink-soft)]">Iscritte all'Ordine degli Psicologi della Lombardia · L. 4/2013</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container-ph mt-14 mb-4 text-center">
+    <h2 class="text-[clamp(1.5rem,3vw,2rem)]">Costruiamo insieme il progetto della tua scuola</h2>
+    <p class="mx-auto mt-3 max-w-xl text-[var(--color-ink-soft)]">Prenota una call gratuita di 30 minuti per progettare un intervento su misura per il tuo istituto.</p>
+    <a href="/contatti/" class="btn btn-primary mt-6">Progettiamo un intervento su misura</a>
+  </section>
+</BaseLayout>

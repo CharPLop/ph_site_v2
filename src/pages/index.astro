@@ -1,0 +1,156 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
+---
+
+<BaseLayout
+  title="Studio di Psicologia e Psicoterapia a Brescia | Psiche Holos"
+  description={site.descrizione}
+  path="/"
+>
+  <!-- ░░░ HERO ░░░ -->
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute -right-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-[var(--color-sage)] opacity-40 blur-3xl"></div>
+    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-[var(--color-verde-2)] opacity-10 blur-3xl"></div>
+
+    <div class="container-ph relative grid items-center gap-12 pb-12 pt-16 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
+      <div>
+        <p class="kicker reveal" style="animation-delay:.05s">Studio di Psicologia e Psicoterapia · Brescia</p>
+        <h1 class="reveal mt-4 text-[clamp(2.5rem,5.5vw,4.2rem)] leading-[1.06]" style="animation-delay:.12s">
+          Il benessere psicologico,<br />
+          <em class="font-[450] not-italic text-[var(--color-verde)]">nella sua totalità</em>
+        </h1>
+        <p class="reveal mt-6 max-w-xl text-lg text-[var(--color-ink-soft)]" style="animation-delay:.2s">
+          Uno spazio di ascolto, accoglienza e cura per la persona in ogni fase
+          della vita: percorsi individuali, di gruppo, online e supporto
+          scolastico.
+        </p>
+        <div class="reveal mt-8 flex flex-wrap gap-3" style="animation-delay:.28s">
+          <a href="/contatti/" class="btn btn-primary">Prenota un colloquio</a>
+          <a href="/servizi/" class="btn btn-ghost">Scopri i servizi</a>
+        </div>
+      </div>
+
+      <div class="reveal" style="animation-delay:.34s">
+        <div class="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7 shadow-[var(--shadow-card)]">
+          <p class="kicker">Il team</p>
+          <p class="mt-3 font-[family-name:var(--font-display)] text-2xl leading-snug">
+            Tre professioniste, un'unica missione.
+          </p>
+          <ul class="mt-6 space-y-3 text-[0.95rem]">
+            {team.map((m) => (
+              <li class="flex items-center gap-3 border-t border-[var(--color-line)] pt-3 first:border-0 first:pt-0">
+                {m.foto && (
+                  <img src={m.foto} alt={m.nome} width="72" height="72" loading="lazy" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
+                )}
+                <span>
+                  <span class="block font-semibold leading-tight">{m.nome.replace("Dott.ssa ", "")}</span>
+                  <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruolo}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <a href="/team/" class="link-underline mt-5 inline-block text-sm font-semibold text-[var(--color-verde)]">Conosci il team →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ FOTO DI GRUPPO ░░░ -->
+  <section class="container-ph mt-6">
+    <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-line)] shadow-[var(--shadow-card)]">
+      <img src={site.fotoGruppo} alt="Le tre professioniste dello studio Psiche Holos" width="1200" height="1045" loading="lazy" class="h-[clamp(20rem,42vw,32rem)] w-full object-cover object-top" />
+    </figure>
+  </section>
+
+  <!-- ░░░ CITAZIONE ░░░ -->
+  <section class="border-y border-[var(--color-line)] bg-[var(--color-cream-deep)]">
+    <div class="container-ph py-16 text-center">
+      <p class="mx-auto max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.5vw,2.5rem)] italic leading-snug text-[var(--color-verde)]">
+        “{citazione}”
+      </p>
+    </div>
+  </section>
+
+  <!-- ░░░ SERVIZI ░░░ -->
+  <section class="container-ph py-20">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="kicker">Cosa facciamo</p>
+        <h2 class="mt-3 text-[clamp(1.9rem,4vw,2.8rem)]">Percorsi per ogni esigenza</h2>
+      </div>
+      <a href="/servizi/" class="link-underline font-semibold text-[var(--color-verde)]">Tutti i servizi →</a>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {servizi.map((s) => (
+        <a href={`/servizi/#${s.slug}`} class="group flex flex-col rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]">
+          <span class="text-3xl" aria-hidden="true">{s.icona}</span>
+          <h3 class="mt-3 text-xl group-hover:text-[var(--color-verde)]">{s.titolo}</h3>
+          <p class="mt-2 text-[0.95rem] text-[var(--color-ink-soft)]">{s.testo}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ░░░ FASCE D'ETÀ ░░░ -->
+  <section class="container-ph pb-4">
+    <p class="kicker text-center">Per ogni fase della vita</p>
+    <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
+      {fasce.map((f) => (
+        <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-5 text-center">
+          <span class="text-3xl" aria-hidden="true">{f.emoji}</span>
+          <p class="mt-2 font-semibold text-[var(--color-verde)]">{f.titolo}</p>
+          <p class="text-sm text-[var(--color-ink-soft)]">{f.testo}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ░░░ SCUOLE ░░░ -->
+  <section class="container-ph mt-16">
+    <div class="overflow-hidden rounded-[var(--radius-lg)] bg-[var(--color-verde)] text-[var(--color-cream)]">
+      <div class="grid gap-8 p-9 md:grid-cols-[1.3fr_1fr] md:p-12">
+        <div>
+          <p class="kicker !text-[var(--color-sage)]">Per le scuole</p>
+          <h2 class="mt-3 text-[clamp(1.8rem,4vw,2.6rem)] !text-[var(--color-cream)]">Progetti su misura per gli istituti</h2>
+          <p class="mt-4 max-w-lg text-[color-mix(in_srgb,var(--color-cream)_85%,transparent)]">{scuole.intro} Rivolto a {scuole.target}.</p>
+          <a href="/scuole/" class="btn mt-7 bg-[var(--color-cream)] text-[var(--color-verde)] hover:bg-[var(--color-white-warm)]">Scopri il progetto scuole</a>
+        </div>
+        <ul class="space-y-4 self-center">
+          {scuole.pilastri.map((p, i) => (
+            <li class="flex gap-3">
+              <span class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-sage)]">0{i + 1}</span>
+              <span>
+                <span class="block font-semibold">{p.titolo}</span>
+                <span class="block text-sm text-[color-mix(in_srgb,var(--color-cream)_80%,transparent)]">{p.desc}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░░ CTA / SEDE ░░░ -->
+  <section class="container-ph mt-20">
+    <div class="grid gap-8 rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-10 md:grid-cols-2 md:p-14">
+      <div>
+        <h2 class="text-[clamp(1.8rem,4vw,2.6rem)]">Il primo passo? Contattaci.</h2>
+        <p class="mt-4 max-w-md text-[var(--color-ink-soft)]">
+          Non serve aver chiaro cosa dire. La prima seduta è uno spazio per
+          conoscersi. Scrivici e ti ricontatteremo in giornata.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
+          <a href={`mailto:${site.email}`} class="btn btn-ghost">{site.email}</a>
+        </div>
+      </div>
+      <div class="self-center">
+        <p class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-verde)]">Dove siamo</p>
+        <p class="mt-2 text-[var(--color-ink-soft)]">Via Guido Zadei, 60<br />25128 Brescia (BS)</p>
+        <p class="mt-2 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online · 🅿️ parcheggio nelle vicinanze</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

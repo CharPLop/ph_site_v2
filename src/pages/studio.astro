@@ -1,0 +1,143 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { chiSiamo, metodologie, fasce, citazione, galleria } from "@/config/site";
+---
+
+<BaseLayout
+  title="Chi siamo"
+  description="Psiche Holos: uno studio di psicologia e psicoterapia a Brescia. Uno spazio di ascolto e cura per il benessere della persona nella sua totalità."
+  path="/studio/"
+>
+  <section class="container-ph pt-16 md:pt-24">
+    <p class="kicker">Chi siamo</p>
+    <h1 class="mt-3 max-w-3xl text-[clamp(2.2rem,5vw,3.4rem)]">{chiSiamo.titolo}</h1>
+    <p class="mt-6 max-w-3xl text-lg text-[var(--color-ink-soft)]">{chiSiamo.testo}</p>
+  </section>
+
+  <section class="container-ph mt-12 grid gap-5 md:grid-cols-3">
+    {chiSiamo.valori.map((v) => (
+      <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
+        <span class="text-3xl" aria-hidden="true">{v.icona}</span>
+        <h2 class="mt-3 text-xl">{v.titolo}</h2>
+        <p class="mt-2 text-[0.95rem] text-[var(--color-ink-soft)]">{v.testo}</p>
+      </div>
+    ))}
+  </section>
+
+  <!-- Citazione -->
+  <section class="border-y border-[var(--color-line)] bg-[var(--color-cream-deep)] mt-16">
+    <div class="container-ph py-14 text-center">
+      <p class="mx-auto max-w-2xl font-[family-name:var(--font-display)] text-[clamp(1.5rem,3.2vw,2.2rem)] italic text-[var(--color-verde)]">
+        “{citazione}”
+      </p>
+    </div>
+  </section>
+
+  <!-- Approccio -->
+  <section class="container-ph mt-16">
+    <p class="kicker">Il nostro approccio</p>
+    <h2 class="mt-3 text-[clamp(1.7rem,3.5vw,2.4rem)]">Diverse metodologie, nel rispetto dell'unicità di ogni persona</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-2">
+      {metodologie.map((m) => (
+        <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6">
+          <span class="text-2xl" aria-hidden="true">{m.icona}</span>
+          <h3 class="mt-2 text-lg">{m.titolo}</h3>
+          <p class="mt-1 text-[0.95rem] text-[var(--color-ink-soft)]">{m.testo}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Fasce -->
+  <section class="container-ph mt-16">
+    <p class="kicker">Per ogni fase della vita</p>
+    <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
+      {fasce.map((f) => (
+        <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-5 text-center">
+          <span class="text-3xl" aria-hidden="true">{f.emoji}</span>
+          <p class="mt-2 font-semibold text-[var(--color-verde)]">{f.titolo}</p>
+          <p class="text-sm text-[var(--color-ink-soft)]">{f.testo}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+  <!-- Galleria studio (carosello) -->
+  <section class="container-ph mt-16">
+    <p class="kicker">Lo studio</p>
+    <h2 class="mt-3 text-[clamp(1.7rem,3.5vw,2.4rem)]">Uno spazio pensato per accoglierti</h2>
+
+    <div
+      class="ph-carousel relative mt-8 overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-line)] shadow-[var(--shadow-card)]"
+      data-interval="4500"
+      aria-roledescription="carosello"
+      aria-label="Galleria dello studio Psiche Holos"
+    >
+      <div class="relative aspect-[16/10] w-full bg-[var(--color-cream-deep)]">
+        {galleria.map((f, i) => (
+          <figure
+            class:list={[
+              "ph-slide absolute inset-0 transition-opacity duration-700 ease-out",
+              i === 0 ? "opacity-100" : "opacity-0",
+            ]}
+            aria-hidden={i !== 0 ? "true" : "false"}
+          >
+            <img src={f.src} alt={f.alt} loading={i === 0 ? "eager" : "lazy"} class="h-full w-full object-cover" />
+            <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent px-5 pb-10 pt-12 text-sm text-white">
+              {f.alt}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <button type="button" class="ph-prev absolute left-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-[color-mix(in_srgb,var(--color-cream)_85%,transparent)] text-[var(--color-verde)] shadow transition hover:bg-[var(--color-cream)]" aria-label="Immagine precedente">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" class="ph-next absolute right-3 top-1/2 grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full bg-[color-mix(in_srgb,var(--color-cream)_85%,transparent)] text-[var(--color-verde)] shadow transition hover:bg-[var(--color-cream)]" aria-label="Immagine successiva">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="absolute inset-x-0 bottom-3 flex justify-center gap-2">
+        {galleria.map((_, i) => (
+          <button type="button" class="ph-dot h-2.5 w-2.5 rounded-full bg-white/50 transition hover:bg-white" data-index={i} aria-label={`Vai all'immagine ${i + 1}`}></button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll(".ph-carousel").forEach((root) => {
+      const slides = Array.from(root.querySelectorAll(".ph-slide"));
+      const dots = Array.from(root.querySelectorAll(".ph-dot"));
+      if (!slides.length) return;
+      const interval = Number(root.getAttribute("data-interval")) || 4500;
+      let current = 0;
+      let timer = null;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const show = (n) => {
+        current = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => {
+          const active = i === current;
+          s.style.opacity = active ? "1" : "0";
+          s.setAttribute("aria-hidden", active ? "false" : "true");
+        });
+        dots.forEach((d, i) => d.classList.toggle("!bg-white", i === current));
+      };
+      const next = () => show(current + 1);
+      const prev = () => show(current - 1);
+      const start = () => { if (!reduce && !timer) timer = setInterval(next, interval); };
+      const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+
+      root.querySelector(".ph-next")?.addEventListener("click", () => { next(); stop(); start(); });
+      root.querySelector(".ph-prev")?.addEventListener("click", () => { prev(); stop(); start(); });
+      dots.forEach((d) => d.addEventListener("click", () => { show(Number(d.dataset.index)); stop(); start(); }));
+      root.addEventListener("mouseenter", stop);
+      root.addEventListener("mouseleave", start);
+      root.addEventListener("focusin", stop);
+      root.addEventListener("focusout", start);
+
+      show(0);
+      start();
+    });
+  </script>
+</BaseLayout>
