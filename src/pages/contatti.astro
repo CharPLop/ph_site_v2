@@ -34,12 +34,16 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         </a>
       </div>
 
+      <p class="mt-8 text-sm text-[var(--color-ink-soft)]">
+        Non sai a chi rivolgerti? Scrivici con uno dei canali qui sopra: ti rispondiamo noi e ti indirizziamo alla professionista più adatta.
+      </p>
+
       <div class="mt-8">
         <p class="kicker">Telefono diretto</p>
         <ul class="mt-3 space-y-1.5 text-sm">
           {team.map((m) => (
             <li>
-              <span class="text-[var(--color-ink-soft)]">{m.nome.replace("Dott.ssa ", "Dott.ssa ")} — </span>
+              <span class="text-[var(--color-ink-soft)]">{m.nome} — </span>
               <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="link-underline font-semibold text-[var(--color-verde)]">{m.telefonoDisplay}</a>
             </li>
           ))}

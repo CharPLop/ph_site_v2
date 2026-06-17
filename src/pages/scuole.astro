@@ -7,7 +7,7 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
 
 <BaseLayout
   title="Progetto Scuole"
-  description="Psiche Holos progetta interventi psicologici su misura per le Scuole Secondarie di I Grado: formazione docenti su DSA e BES, sportello d'ascolto, percorsi individuali e laboratori di gruppo. Scarica la guida gratuita per docenti."
+  description="Psiche Holos progetta interventi psicologici su misura per le Scuole Secondarie di I Grado: formazione docenti su DSA e BES, sportello d'ascolto, percorsi individuali e laboratori di gruppo. Scarica la presentazione completa in PDF."
   path="/scuole/"
 >
   <!-- Hero -->
@@ -33,7 +33,7 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
   <section class="container-ph mt-14">
     <div class="overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-verde)] text-[var(--color-cream)] md:grid md:grid-cols-[1.6fr_1fr]">
       <div class="p-8 md:p-10">
-        <p class="kicker text-[var(--color-sage)]">Guida gratuita · {leadMagnet.pagine} pagine</p>
+        <p class="kicker text-[var(--color-sage)]">Presentazione · {leadMagnet.pagine} pagine</p>
         <h2 class="mt-3 font-[family-name:var(--font-display)] text-[clamp(1.7rem,3vw,2.3rem)] leading-tight">
           {leadMagnet.titolo}
         </h2>
@@ -46,13 +46,13 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
           download
           class="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--color-cream)] px-7 py-3 font-medium text-[var(--color-verde)] transition hover:opacity-90"
         >
-          ↓ Scarica la guida (PDF)
+          ↓ Scarica la presentazione (PDF)
         </a>
       </div>
       <div class="hidden items-center justify-center bg-[var(--color-verde-dark,#3a5233)] p-10 md:flex">
         <div class="font-[family-name:var(--font-display)] text-center leading-none">
-          <span class="block text-[5rem] text-[var(--color-sage)]">5</span>
-          <span class="mt-2 block text-sm uppercase tracking-[0.2em] text-[var(--color-cream)]/80">segnali<br />da osservare</span>
+          <span class="block text-[5rem] text-[var(--color-sage)]">3</span>
+          <span class="mt-2 block text-sm uppercase tracking-[0.2em] text-[var(--color-cream)]/80">percorsi<br />integrati</span>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
       <div class="mt-4 flex flex-wrap gap-8">
         {referenti.map((m) => (
           <div>
-            <p class="font-[family-name:var(--font-display)] text-xl text-[var(--color-verde)]">{m.nome.replace("Dott.ssa ", "Dott.ssa ")}</p>
+            <p class="font-[family-name:var(--font-display)] text-xl text-[var(--color-verde)]">{m.nome}</p>
             <p class="text-sm text-[var(--color-ink-soft)]">{m.ruolo}</p>
           </div>
         ))}

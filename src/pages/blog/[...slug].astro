@@ -1,0 +1,81 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { site } from "@/config/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.bozza);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const fmtData = (d: Date): string =>
+  new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric" }).format(d);
+
+const articleLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: post.data.titolo,
+  description: post.data.descrizione,
+  datePublished: post.data.data.toISOString(),
+  inLanguage: "it-IT",
+  author: { "@type": "Organization", name: post.data.autore },
+  publisher: { "@type": "Organization", name: site.nome, url: site.url },
+  ...(post.data.copertina
+    ? { image: new URL(post.data.copertina, site.url).href }
+    : {}),
+};
+---
+
+<BaseLayout
+  title={post.data.titolo}
+  description={post.data.descrizione}
+  path={`/blog/${post.id}/`}
+  image={post.data.copertina}
+  type="article"
+>
+  <article class="container-ph max-w-2xl pt-16 md:pt-24">
+    <a href="/blog/" class="text-sm font-semibold text-[var(--color-verde)] link-underline">
+      ← Tutti gli articoli
+    </a>
+
+    <time
+      datetime={post.data.data.toISOString()}
+      class="mt-8 block text-xs font-bold uppercase tracking-wider text-[var(--color-verde)]"
+    >
+      {fmtData(post.data.data)}
+    </time>
+    <h1 class="mt-2 text-[clamp(2rem,4.5vw,3.2rem)]">{post.data.titolo}</h1>
+    <p class="mt-3 text-sm text-[var(--color-ink-soft)]">di {post.data.autore}</p>
+
+    {post.data.copertina && (
+      <img
+        src={post.data.copertina}
+        alt={post.data.copertinaAlt ?? post.data.titolo}
+        class="mt-8 aspect-[16/9] w-full rounded-[var(--radius-md)] object-cover"
+      />
+    )}
+
+    <div class="prose-ph mt-10">
+      <Content />
+    </div>
+
+    <aside class="mt-12 rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-5 text-sm text-[var(--color-ink-soft)]">
+      <strong class="text-[var(--color-ink)]">Nota.</strong> I contenuti di questo articolo hanno
+      finalità informative ed educative e non sostituiscono una consulenza psicologica o un percorso
+      personalizzato. Per una valutazione del tuo caso,
+      <a href="/contatti/" class="link-underline text-[var(--color-verde)]">contattaci</a>.
+    </aside>
+
+    <div class="mt-10">
+      <a href="/contatti/" class="btn btn-primary">Prenota un primo colloquio</a>
+    </div>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+</BaseLayout>

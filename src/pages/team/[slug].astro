@@ -1,0 +1,83 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { team, site } from "@/config/site";
+
+export function getStaticPaths() {
+  return team
+    .filter((m) => !m.sitoWeb)
+    .map((m) => ({ params: { slug: m.slug }, props: { membro: m } }));
+}
+
+const { membro } = Astro.props;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: membro.nome,
+  jobTitle: membro.ruolo,
+  worksFor: { "@type": "Organization", name: site.nome, url: site.url },
+  url: `${site.url}/team/${membro.slug}/`,
+  ...(membro.foto ? { image: `${site.url}${membro.foto}` } : {}),
+};
+---
+
+<BaseLayout
+  title={membro.nome}
+  description={membro.bioBreve}
+  path={`/team/${membro.slug}/`}
+>
+  <section class="container-ph pt-16 md:pt-24">
+    <a href="/team/" class="link-underline text-sm font-semibold text-[var(--color-verde)]">← Torna al team</a>
+
+    <div class="mt-6 grid gap-10 md:grid-cols-[0.9fr_1.1fr]">
+      {membro.foto && (
+        <img
+          src={membro.foto}
+          alt={`Ritratto di ${membro.nome}`}
+          width="660"
+          height="825"
+          loading="eager"
+          class="aspect-[4/5] w-full max-w-sm rounded-[var(--radius-lg)] border border-[var(--color-line)] object-cover object-center"
+        />
+      )}
+
+      <div>
+        <h1 class="text-[clamp(2.1rem,4.5vw,3rem)]">{membro.nome}</h1>
+        <p class="mt-2 text-base font-semibold text-[var(--color-verde)]">{membro.ruolo}</p>
+
+        <div class="mt-5 flex flex-wrap gap-2 text-sm">
+          <a href={`tel:+39${membro.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">📞 {membro.telefonoDisplay}</a>
+          <a href={membro.whatsapp} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">💬 WhatsApp</a>
+          <a href={membro.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">📷 Instagram</a>
+        </div>
+
+        {membro.profilo ? (
+          <div class="mt-6 space-y-7">
+            {membro.profilo.map((sez) => (
+              <div>
+                <h2 class="text-xl text-[var(--color-verde)]">{sez.titolo}</h2>
+                <div class="mt-2 space-y-3">
+                  {sez.blocchi.map((b) =>
+                    b.tipo === "ul" ? (
+                      <ul class="list-disc space-y-1.5 pl-5 text-[1.02rem] leading-relaxed text-[var(--color-ink-soft)]">
+                        {b.voci?.map((v) => <li>{v}</li>)}
+                      </ul>
+                    ) : (
+                      <p class="text-[1.02rem] leading-relaxed text-[var(--color-ink-soft)]">{b.testo}</p>
+                    )
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="mt-6 text-[1.02rem] leading-relaxed text-[var(--color-ink-soft)]">{membro.bio}</p>
+        )}
+
+        <a href="/contatti/" class="btn btn-primary mt-8">Prenota un colloquio</a>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+</BaseLayout>

@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+/* ── Font self-hosted (Playfair Display + Nunito Sans, variabili, subset latino) ── */
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair-display.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair-display-italic.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/nunito-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ═══════════════════════════════════════════════════════════
    PSICHE HOLOS — Design System
    Direzione: organica · editoriale · calda · sanitaria-rassicurante
@@ -90,7 +113,7 @@ h1, h2, h3, h4 {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-verde-2);
+  color: var(--color-verde);
 }
 
 /* Link sottolineato organico */
@@ -149,3 +172,37 @@ h1, h2, h3, h4 {
   .reveal { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ── Tipografia contenuti (blog / novità) ── */
+.prose-ph {
+  color: var(--color-ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+.prose-ph > * + * { margin-top: 1.1rem; }
+.prose-ph h2 {
+  font-size: 1.55rem;
+  margin-top: 2.2rem;
+  color: var(--color-ink);
+}
+.prose-ph h3 {
+  font-size: 1.25rem;
+  margin-top: 1.8rem;
+  color: var(--color-ink);
+}
+.prose-ph a {
+  color: var(--color-verde);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-ph ul { list-style: disc; padding-left: 1.4rem; }
+.prose-ph ol { list-style: decimal; padding-left: 1.4rem; }
+.prose-ph li + li { margin-top: 0.4rem; }
+.prose-ph blockquote {
+  border-left: 3px solid var(--color-sage);
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--color-ink);
+}
+.prose-ph strong { color: var(--color-ink); font-weight: 700; }
+.prose-ph img { border-radius: var(--radius-md); }

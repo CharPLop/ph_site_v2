@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const items = await getCollection("news", ({ data }) => !data.bozza);
+  return items.map((item) => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+
+const fmtData = (d: Date): string =>
+  new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric" }).format(d);
+---
+
+<BaseLayout
+  title={item.data.titolo}
+  description={item.data.descrizione}
+  path={`/novita/${item.id}/`}
+  type="article"
+>
+  <article class="container-ph max-w-2xl pt-16 md:pt-24">
+    <a href="/novita/" class="text-sm font-semibold text-[var(--color-verde)] link-underline">
+      ← Tutte le novità
+    </a>
+
+    <time
+      datetime={item.data.data.toISOString()}
+      class="mt-8 block text-xs font-bold uppercase tracking-wider text-[var(--color-verde)]"
+    >
+      {fmtData(item.data.data)}
+    </time>
+    <h1 class="mt-2 text-[clamp(2rem,4.5vw,3.2rem)]">{item.data.titolo}</h1>
+
+    <div class="prose-ph mt-8">
+      <Content />
+    </div>
+
+    {item.data.ctaLabel && item.data.ctaHref && (
+      <div class="mt-10">
+        <a href={item.data.ctaHref} class="btn btn-primary">{item.data.ctaLabel}</a>
+      </div>
+    )}
+  </article>
+</BaseLayout>

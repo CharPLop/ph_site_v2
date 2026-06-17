@@ -1,0 +1,29 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Pagina non trovata"
+  description="La pagina che cerchi non esiste o è stata spostata."
+  path="/404/"
+  noindex={true}
+>
+  <section class="container-ph flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
+    <p class="kicker">Errore 404</p>
+    <h1 class="mt-3 text-[clamp(2.4rem,6vw,4rem)]">Questa pagina non c'è</h1>
+    <p class="mt-5 max-w-md text-lg text-[var(--color-ink-soft)]">
+      La pagina che cerchi non esiste o è stata spostata. Ma sei nel posto
+      giusto per ripartire.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a href="/" class="btn btn-primary">Torna alla home</a>
+      <a href="/contatti/" class="btn btn-ghost">Contattaci</a>
+    </div>
+    <ul class="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+      <li><a href="/servizi/" class="link-underline text-[var(--color-verde)]">Servizi</a></li>
+      <li><a href="/team/" class="link-underline text-[var(--color-verde)]">Team</a></li>
+      <li><a href="/scuole/" class="link-underline text-[var(--color-verde)]">Scuole</a></li>
+      <li><a href="/faq/" class="link-underline text-[var(--color-verde)]">FAQ</a></li>
+    </ul>
+  </section>
+</BaseLayout>
