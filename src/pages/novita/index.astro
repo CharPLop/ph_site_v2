@@ -1,0 +1,51 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("news", ({ data }) => !data.bozza)).sort(
+  (a, b) => b.data.data.getTime() - a.data.data.getTime()
+);
+
+const fmtData = (d: Date): string =>
+  new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric" }).format(d);
+---
+
+<BaseLayout
+  title="Novità"
+  description="Iniziative, nuovi gruppi e appuntamenti in programma allo studio Psiche Holos di Brescia."
+  path="/novita/"
+>
+  <section class="container-ph max-w-3xl pt-16 md:pt-24">
+    <p class="kicker">In studio</p>
+    <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Novità</h1>
+    <p class="mt-4 max-w-2xl text-[var(--color-ink-soft)]">
+      Iniziative, nuovi gruppi e appuntamenti in programma.
+    </p>
+
+    {items.length === 0 ? (
+      <p class="mt-12 text-[var(--color-ink-soft)]">Nessuna novità al momento. Torna presto!</p>
+    ) : (
+      <div class="mt-10 space-y-5">
+        {items.map((n) => (
+          <article class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6 md:p-7">
+            <time
+              datetime={n.data.data.toISOString()}
+              class="text-xs font-bold uppercase tracking-wider text-[var(--color-verde)]"
+            >
+              {fmtData(n.data.data)}
+            </time>
+            <h2 class="mt-1 font-[family-name:var(--font-display)] text-2xl text-[var(--color-ink)]">
+              <a href={`/novita/${n.id}/`} class="link-underline">{n.data.titolo}</a>
+            </h2>
+            <p class="mt-2 text-[var(--color-ink-soft)]">{n.data.descrizione}</p>
+            {n.data.ctaLabel && n.data.ctaHref && (
+              <a href={n.data.ctaHref} class="btn btn-ghost mt-4 !px-4 !py-2 text-sm">
+                {n.data.ctaLabel}
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>

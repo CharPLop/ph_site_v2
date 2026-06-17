@@ -14,15 +14,22 @@ const isActive = (href: string) =>
       </span>
     </a>
 
-    <input type="checkbox" id="nav-toggle" class="peer hidden" />
-    <label for="nav-toggle" class="cursor-pointer p-2 md:hidden" aria-label="Apri menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <button
+      type="button"
+      id="nav-toggle"
+      class="p-2 md:hidden"
+      aria-label="Apri menu"
+      aria-expanded="false"
+      aria-controls="nav-menu"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
         <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
       </svg>
-    </label>
+    </button>
 
     <ul
-      class="absolute left-0 right-0 top-full hidden flex-col gap-1 border-b border-[var(--color-line)] bg-[var(--color-cream)] p-4 peer-checked:flex md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0"
+      id="nav-menu"
+      class="absolute left-0 right-0 top-full hidden flex-col gap-1 border-b border-[var(--color-line)] bg-[var(--color-cream)] p-4 md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0"
     >
       {nav.map((item) => (
         <li>
@@ -42,4 +49,16 @@ const isActive = (href: string) =>
       </li>
     </ul>
   </nav>
+
+  <script>
+    const t = document.getElementById("nav-toggle");
+    const m = document.getElementById("nav-menu");
+    if (t && m) {
+      const close = () => { m.classList.add("hidden"); m.classList.remove("flex"); t.setAttribute("aria-expanded", "false"); t.setAttribute("aria-label", "Apri menu"); };
+      const open = () => { m.classList.remove("hidden"); m.classList.add("flex"); t.setAttribute("aria-expanded", "true"); t.setAttribute("aria-label", "Chiudi menu"); };
+      t.addEventListener("click", () => (t.getAttribute("aria-expanded") === "true" ? close() : open()));
+      m.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    }
+  </script>
 </header>

@@ -1,0 +1,75 @@
+---
+// Analytics + consenso cookie — Psiche Holos
+// INERTE finché site.ga4Id è vuoto: non carica nulla e non mostra alcun banner.
+// Quando incolli l'ID GA4 in site.ts, si attivano insieme:
+//  • banner cookie (Accetta / Rifiuta)
+//  • GA4 caricato SOLO dopo "Accetta"
+//  • tracciamento eventi: WhatsApp, email, telefono, invio form, download brochure
+import { site } from "@/config/site";
+const GA4 = site.ga4Id;
+---
+
+{GA4 && (
+  <>
+    <div
+      id="ph-cookie"
+      hidden
+      role="dialog"
+      aria-label="Preferenze cookie"
+      class="fixed inset-x-0 bottom-0 z-[60] border-t border-[var(--color-line)] bg-[var(--color-white-warm)] p-4 shadow-[var(--shadow-card)]"
+    >
+      <div class="container-ph flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
+        <p class="text-sm text-[var(--color-ink-soft)]">
+          Usiamo cookie analitici per capire come viene usato il sito. Puoi accettarli o rifiutarli.
+          <a href="/privacy/" class="link-underline text-[var(--color-verde)]">Maggiori informazioni</a>.
+        </p>
+        <div class="flex shrink-0 gap-2">
+          <button id="ph-cookie-no" type="button" class="btn btn-ghost !py-2 !px-4 text-sm">Rifiuta</button>
+          <button id="ph-cookie-ok" type="button" class="btn btn-primary !py-2 !px-4 text-sm">Accetta</button>
+        </div>
+      </div>
+    </div>
+
+    <script define:vars={{ GA4 }}>
+      (function () {
+        var KEY = "ph-consent";
+        function loadGA() {
+          if (window.__phGA) return;
+          window.__phGA = true;
+          var s = document.createElement("script");
+          s.async = true;
+          s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA4;
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag("js", new Date());
+          window.gtag("config", GA4, { anonymize_ip: true });
+        }
+        function track(name, params) { if (window.gtag) window.gtag("event", name, params || {}); }
+
+        var banner = document.getElementById("ph-cookie");
+        var consent = localStorage.getItem(KEY);
+        if (consent === "granted") loadGA();
+        else if (consent !== "denied" && banner) banner.hidden = false;
+
+        var ok = document.getElementById("ph-cookie-ok");
+        var no = document.getElementById("ph-cookie-no");
+        if (ok) ok.addEventListener("click", function () { localStorage.setItem(KEY, "granted"); if (banner) banner.hidden = true; loadGA(); });
+        if (no) no.addEventListener("click", function () { localStorage.setItem(KEY, "denied"); if (banner) banner.hidden = true; });
+
+        // Tracciamento micro-conversioni (attivo solo se GA4 è stato caricato)
+        function bind(sel, name) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.addEventListener("click", function () { track(name); });
+          });
+        }
+        bind('a[href^="https://wa.me/"]', "contact_whatsapp");
+        bind('a[href^="mailto:"]', "contact_email");
+        bind('a[href^="tel:"]', "contact_phone");
+        bind('a[href$=".pdf"][download]', "download_brochure");
+        var f = document.getElementById("contactForm");
+        if (f) f.addEventListener("submit", function () { track("contact_form_submit"); });
+      })();
+    </script>
+  </>
+)}

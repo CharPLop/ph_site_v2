@@ -1,0 +1,8 @@
+# Cloudflare Worker (Static Assets) — Psiche Holos v2
+name = "phsitev2"
+account_id = "7a6e07f42c865ae299814319ab9cebb8"
+compatibility_date = "2025-01-01"
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"

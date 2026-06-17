@@ -33,7 +33,18 @@ import { team } from "@/config/site";
         <div class="flex flex-1 flex-col p-7">
           <h2 class="text-xl">{m.nome}</h2>
           <p class="text-sm font-semibold text-[var(--color-verde)]">{m.ruolo}</p>
-          <p class="mt-4 flex-1 text-[0.95rem] text-[var(--color-ink-soft)]">{m.bio}</p>
+
+          <div class="mt-4 flex-1">
+            <p class="text-[0.95rem] text-[var(--color-ink-soft)]">{m.bioBreve}</p>
+            <a
+              href={m.sitoWeb ?? `/team/${m.slug}/`}
+              target={m.sitoWeb ? "_blank" : undefined}
+              rel={m.sitoWeb ? "noopener" : undefined}
+              class="link-underline mt-3 inline-block text-sm font-semibold text-[var(--color-verde)]"
+            >
+              {m.sitoWeb ? "Scopri di più sul suo sito →" : "Approfondisci →"}
+            </a>
+          </div>
 
           <div class="mt-5 flex flex-wrap gap-2 text-sm">
             <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
@@ -45,14 +56,10 @@ import { team } from "@/config/site";
             <a href={m.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
               📷 Instagram
             </a>
-            {m.sitoWeb && (
-              <a href={m.sitoWeb} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-                🌐 Sito web
-              </a>
-            )}
           </div>
         </div>
       </article>
     ))}
   </section>
+
 </BaseLayout>

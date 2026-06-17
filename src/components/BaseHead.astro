@@ -15,7 +15,7 @@ const {
   title,
   description = site.descrizione,
   path = Astro.url.pathname,
-  image = "/foto/team-psiche-holos.jpg",
+  image = "/foto/edit/og-card.jpg",
   type = "website",
   noindex = false,
 } = Astro.props;
@@ -25,6 +25,21 @@ const fullTitle = title.includes(site.nome) ? title : `${title} | ${site.nome}`;
 
 const canonical = new URL(path, Astro.site ?? site.url).href;
 const ogImage = new URL(image, Astro.site ?? site.url).href;
+
+// Breadcrumb (SEO) — costruito dal path
+const _base = Astro.site ?? site.url;
+const _labels: Record<string, string> = {
+  studio: "Chi siamo", servizi: "Servizi", team: "Team", scuole: "Scuole",
+  faq: "Domande frequenti", blog: "Blog", contatti: "Contatti", privacy: "Privacy",
+};
+const _segs = path.split("/").filter(Boolean);
+const breadcrumb = [{ name: "Home", url: new URL("/", _base).href }];
+let _acc = "";
+_segs.forEach((s, i) => {
+  _acc += "/" + s;
+  const name = _labels[s] ?? (i === _segs.length - 1 ? title : s);
+  breadcrumb.push({ name, url: new URL(_acc + "/", _base).href });
+});
 ---
 
 <meta charset="utf-8" />
@@ -51,29 +66,28 @@ const ogImage = new URL(image, Astro.site ?? site.url).href;
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-<!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<!-- Favicon (logo Psiche Holos) -->
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-<!-- Font: Playfair Display (display) + Nunito Sans (body) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&family=Playfair+Display:ital,wght@0,400..600;1,400..500&display=swap"
-  rel="stylesheet"
-/>
+<!-- Font self-hosted (vedi @font-face in global.css) -->
+<link rel="preload" href="/fonts/nunito-sans.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin />
 
 <!-- JSON-LD: lo studio come organizzazione sanitaria locale -->
 <script
   type="application/ld+json"
   set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
+    "@type": ["MedicalBusiness", "Psychologist"],
     name: site.nome,
     description: site.descrizione,
     url: site.url,
     email: site.email,
     telephone: site.telefono,
-    medicalSpecialty: "Psychiatric",
+    image: `${site.url}/foto/edit/team-portrait.jpg`,
     address: {
       "@type": "PostalAddress",
       streetAddress: "Via Guido Zadei, 60",
@@ -82,6 +96,23 @@ const ogImage = new URL(image, Astro.site ?? site.url).href;
       addressRegion: "BS",
       addressCountry: "IT",
     },
-    areaServed: ["Brescia"],
+    areaServed: ["Brescia", "Provincia di Brescia"],
+    sameAs: [site.instagram],
   })}
 />
+
+{breadcrumb.length > 1 && (
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumb.map((b, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: b.name,
+        item: b.url,
+      })),
+    })}
+  />
+)}
