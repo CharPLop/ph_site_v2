@@ -1,0 +1,144 @@
+---
+// ═══════════════════════════════════════════════════════════
+//  StudioSchema.astro — Dati strutturati E-E-A-T (JSON-LD @graph)
+//  Lo studio come MedicalBusiness + le 3 professioniste come Person,
+//  con titoli, albo, università e competenze. Fonte: site.ts.
+//  Le credenziali "discrete" (numero albo, ateneo, knowsAbout) stanno
+//  qui sotto per arricchire lo schema senza appesantire site.ts.
+// ═══════════════════════════════════════════════════════════
+import { site, team, servizi } from "@/config/site";
+
+interface Credenziali {
+  alboRegione?: string;
+  alboNumero?: string;
+  universita?: string;
+  knowsAbout?: string[];
+}
+
+const credenziali: Record<string, Credenziali> = {
+  "ilenia-tagliaferro": {
+    alboRegione: "Ordine degli Psicologi della Lombardia",
+    knowsAbout: [
+      "Psicoterapia Cognitivo-Comportamentale (CBT)",
+      "Psicologia clinica",
+      "Ansia e attacchi di panico",
+      "Difficoltà emotive e relazionali",
+      "Psicologia dell'età evolutiva",
+    ],
+  },
+  "anna-marini": {
+    alboRegione: "Ordine degli Psicologi della Lombardia",
+    alboNumero: "7229",
+    universita: "Università degli Studi di Padova",
+    knowsAbout: [
+      "Psicoterapia a orientamento psicodinamico",
+      "Psicoterapia individuale e di gruppo",
+      "Sostegno alla genitorialità",
+      "EMDR",
+      "Mindfulness e training autogeno",
+      "Psicodramma",
+      "Formazione e supervisione",
+    ],
+  },
+  "valentina-nicolai": {
+    alboRegione: "Ordine degli Psicologi della Lombardia",
+    universita: "Università degli Studi di Bergamo",
+    knowsAbout: [
+      "Psicologia scolastica",
+      "Disturbi Specifici dell'Apprendimento (DSA)",
+      "Bisogni Educativi Speciali (BES)",
+      "Metodo di studio",
+      "Potenziamento degli apprendimenti",
+      "Strumenti compensativi",
+    ],
+  },
+};
+
+const studioId = `${site.url}/#studio`;
+const abs = (p?: string): string | undefined =>
+  p ? new URL(p, site.url).href : undefined;
+
+const studio = {
+  "@type": ["MedicalBusiness", "Psychologist"],
+  "@id": studioId,
+  name: site.nome,
+  alternateName: site.tagline,
+  description: site.descrizione,
+  url: site.url,
+  email: site.email,
+  telephone: site.telefono,
+  image: abs("/foto/edit/team-portrait.jpg"),
+  logo: abs(site.logo),
+  priceRange: "€€",
+  currenciesAccepted: "EUR",
+  paymentAccepted: "Contanti, Bonifico bancario",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Via Guido Zadei, 60",
+    addressLocality: "Brescia",
+    postalCode: "25128",
+    addressRegion: "BS",
+    addressCountry: "IT",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 45.534, longitude: 10.2175 },
+  areaServed: [
+    { "@type": "City", name: "Brescia" },
+    { "@type": "AdministrativeArea", name: "Provincia di Brescia" },
+  ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "19:00",
+    },
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Servizi di psicologia e psicoterapia",
+    itemListElement: servizi.map((s) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.titolo,
+        description: s.descrizione ?? s.testo,
+      },
+    })),
+  },
+  sameAs: [site.instagram],
+  employee: team.map((m) => ({ "@id": `${site.url}/team/#${m.slug}` })),
+};
+
+const persone = team.map((m) => {
+  const c = credenziali[m.slug] ?? {};
+  return {
+    "@type": "Person",
+    "@id": `${site.url}/team/#${m.slug}`,
+    name: m.nome,
+    jobTitle: m.ruolo,
+    description: m.bioBreve,
+    image: abs(m.foto),
+    url: m.sitoWeb,
+    worksFor: { "@id": studioId },
+    knowsAbout: c.knowsAbout,
+    alumniOf: c.universita
+      ? { "@type": "CollegeOrUniversity", name: c.universita }
+      : undefined,
+    memberOf: c.alboRegione
+      ? {
+          "@type": "Organization",
+          name: c.alboRegione,
+          ...(c.alboNumero ? { identifier: c.alboNumero } : {}),
+        }
+      : undefined,
+    sameAs: [m.instagram, m.sitoWeb].filter(Boolean),
+  };
+});
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [studio, ...persone],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
