@@ -1,5 +1,6 @@
 ---
 import { site } from "@/config/site";
+import StudioSchema from "@/components/StudioSchema.astro";
 
 interface Props {
   title: string;
@@ -76,30 +77,8 @@ _segs.forEach((s, i) => {
 <link rel="preload" href="/fonts/nunito-sans.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin />
 
-<!-- JSON-LD: lo studio come organizzazione sanitaria locale -->
-<script
-  type="application/ld+json"
-  set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "Psychologist"],
-    name: site.nome,
-    description: site.descrizione,
-    url: site.url,
-    email: site.email,
-    telephone: site.telefono,
-    image: `${site.url}/foto/edit/team-portrait.jpg`,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Via Guido Zadei, 60",
-      addressLocality: "Brescia",
-      postalCode: "25128",
-      addressRegion: "BS",
-      addressCountry: "IT",
-    },
-    areaServed: ["Brescia", "Provincia di Brescia"],
-    sameAs: [site.instagram],
-  })}
-/>
+<!-- JSON-LD: studio (MedicalBusiness) + professioniste (Person) — vedi StudioSchema.astro -->
+<StudioSchema />
 
 {breadcrumb.length > 1 && (
   <script
