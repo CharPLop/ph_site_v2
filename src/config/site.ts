@@ -473,6 +473,13 @@ export const scuole = {
     "Psiche Holos progetta interventi su misura per le scuole, dalla formazione dei docenti al supporto diretto a studenti e famiglie.",
   obiettivo:
     "Supportare la scuola nella costruzione di un ambiente educativo attento non solo al rendimento, ma anche al benessere psicologico, emotivo e relazionale degli studenti.",
+  // "Come funziona" nella pagina Scuole — da confermare con Ilenia e Valentina
+  passi: [
+    { titolo: "Call di 30 minuti", testo: "Gratuita: ci raccontate i bisogni della scuola e il contesto delle classi." },
+    { titolo: "Proposta su misura", testo: "Obiettivi, attività, tempi e preventivo, costruiti sull'istituto." },
+    { titolo: "Realizzazione", testo: "In classe e con i docenti, coinvolgendo le famiglie quando serve." },
+    { titolo: "Restituzione", testo: "Un incontro finale per condividere cosa è emerso e i possibili passi successivi." },
+  ],
   professioniste: ["ilenia-tagliaferro", "valentina-nicolai"],
   // usato dal banner in home
   pilastri: [

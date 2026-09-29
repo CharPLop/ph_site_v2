@@ -18,8 +18,8 @@ const sede = sedi.find((s) => s.principale) ?? sedi[0];
 const MODELLO_TITOLARITA = "[DA DEFINIRE: titolari autonomi, contitolari o titolare unica]";
 // Per quanto si conservano i messaggi di chi non inizia un percorso (proposta: 12 mesi).
 const CONSERVAZIONE_CONTATTI = "[DA DEFINIRE: proposta 12 mesi]";
-// Fornitore della casella studio@psicheholos.it (serve per la sezione fornitori).
-const PROVIDER_EMAIL = "[DA DEFINIRE: fornitore della casella email dello studio]";
+// Fornitore della casella studio@psicheholos.it (Aruba, come studio@ileniatagliaferro.it).
+const PROVIDER_EMAIL = "Aruba S.p.A.";
 ---
 
 <BaseLayout
@@ -139,7 +139,7 @@ const PROVIDER_EMAIL = "[DA DEFINIRE: fornitore della casella email dello studio
       <ul>
         <li><strong>Cloudflare</strong> — hosting del sito.</li>
         <li><strong>Web3Forms</strong> — inoltro dei messaggi del modulo di contatto alla casella dello studio.</li>
-        <li><strong>{PROVIDER_EMAIL}</strong> — casella email dello studio.</li>
+        <li><strong>{PROVIDER_EMAIL}</strong> — casella email dello studio, con server in Italia.</li>
         <li><strong>Google</strong> — Google Analytics (solo con il tuo consenso) e la mappa di Google Maps nella pagina Contatti.</li>
         <li><strong>WhatsApp (Meta)</strong> — solo se scegli di scriverci su WhatsApp.</li>
       </ul>
@@ -147,7 +147,7 @@ const PROVIDER_EMAIL = "[DA DEFINIRE: fornitore della casella email dello studio
         Alcuni di questi fornitori hanno sede o server fuori dall'Unione Europea, in particolare negli
         Stati Uniti. In questi casi il trasferimento avviene sulla base delle garanzie previste dal
         GDPR, come il Data Privacy Framework UE–USA o le clausole contrattuali tipo della Commissione
-        europea. [DA DEFINIRE: verificare le garanzie di Web3Forms e del fornitore email]
+        europea. [DA DEFINIRE: verificare le garanzie di Web3Forms]
       </p>
 
       <h2>6. Google Maps</h2>
