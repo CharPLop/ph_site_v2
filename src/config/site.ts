@@ -95,6 +95,8 @@ export const site = {
   descrizione:
     "Psiche Holos è uno studio di psicologia e psicoterapia a Brescia: tre professioniste per il benessere della persona in ogni fase della vita, con percorsi individuali, di gruppo, online e per il metodo di studio.",
   url: "https://www.psicheholos.it",
+  // → "studio@psicheholos.it" appena il dominio è attivo: il guard di build blocca la
+  //   pubblicazione indicizzabile finché resta Gmail. Poi va rigenerata l'access key Web3Forms.
   email: "psicheholos@gmail.com",
   telefono: "+39 392 821 5608",
   telefonoDisplay: "392\u00a0821\u00a05608",

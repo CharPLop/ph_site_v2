@@ -27,7 +27,9 @@ const BLOCCANTI = [
 ];
 const DA_COMPLETARE = [
   { re: /da completare/i, perche: "testo provvisorio" },
+  { re: /\[DA DEFINIRE[^\]]*\]/, perche: "decisione ancora da prendere (informativa privacy / note legali)" },
   { re: /data-senza-key/, perche: "form contatti senza access key Web3Forms" },
+  { re: /psicheholos@gmail\.com/, perche: "email Gmail: passare a studio@psicheholos.it (site.email)" },
 ];
 
 async function elenca(dir) {
