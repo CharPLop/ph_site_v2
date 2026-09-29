@@ -39,11 +39,16 @@ const VISI = path.join(PUBLIC, "foto", "viso");
 
 // Ritratto verticale (mezzo busto): quadrato sulla parte alta, dove c'è il viso.
 // Foto orizzontale (primo piano): ritaglio automatico sul soggetto.
-async function avatar(buf) {
+// RITAGLIO_VERTICALE: [lato del quadrato in % della larghezza, partenza dall'alto in % dell'altezza].
+// Si può regolare per singola foto se il viso risulta tagliato o decentrato.
+const RITAGLIO_VERTICALE = { predefinito: [0.6, 0.06], "viso-valentina": [0.72, 0.08] };
+async function avatar(buf, nome) {
   const img = sharp(buf).rotate();
   const { width: w, height: h } = await img.metadata();
+  const [lato, alto] = RITAGLIO_VERTICALE[nome] ?? RITAGLIO_VERTICALE.predefinito;
+  const s = Math.round(w * lato);
   const base = h > w
-    ? img.extract({ left: Math.round((w - Math.round(w * 0.6)) / 2), top: Math.round(h * 0.06), width: Math.round(w * 0.6), height: Math.round(w * 0.6) }).resize(160, 160)
+    ? img.extract({ left: Math.round((w - s) / 2), top: Math.round(h * alto), width: s, height: s }).resize(160, 160)
     : img.resize(160, 160, { fit: "cover", position: sharp.strategy.attention });
   return base.webp({ quality: 78 }).toBuffer();
 }
@@ -55,7 +60,7 @@ for (const f of await fs.readdir(VISI)) {
   lavori.push({
     src: path.join(VISI, f),
     dst: path.join(VISI, "avatar", `${nome}.webp`),
-    fai: avatar,
+    fai: (buf) => avatar(buf, nome),
   });
 }
 // Foto dello studio (carosello e copertine del blog): WebP della stessa misura
