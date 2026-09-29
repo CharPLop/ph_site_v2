@@ -504,12 +504,6 @@ export const scuole = {
 };
 
 // ── Navigazione ─────────────────────────────────────────────
-// "Tre porte" della hero in home: orientano adulto, genitore, scuola.
-export const porte = [
-  { titolo: "Per me", testo: "Ansia, umore, relazioni", href: "/servizi/#psicoterapia" },
-  { titolo: "Per mio figlio", testo: "Scuola, apprendimento, emozioni", href: "/servizi/#supporto-scolastico" },
-  { titolo: "Per la scuola", testo: "Docenti, sportello, laboratori", href: "/scuole/" },
-];
 export const nav = [
   { label: "Chi siamo", href: "/studio/" },
   { label: "Servizi", href: "/servizi/" },

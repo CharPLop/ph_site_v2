@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icona from "@/components/Icona.astro";
 import { site, sedi, team } from "@/config/site";
 const brescia = sedi.find((s) => s.mappaEmbed);
 ---
@@ -25,11 +26,11 @@ const brescia = sedi.find((s) => s.mappaEmbed);
 
       <div class="mt-8 space-y-3 text-sm">
         <a href={`mailto:${site.email}`} class="flex items-center gap-3 link-underline">
-          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-sage)] text-[var(--color-verde)]">✉</span>
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)]"><Icona nome="email" size={18} /></span>
           {site.email}
         </a>
         <a href={site.instagram} target="_blank" rel="noopener" class="flex items-center gap-3 link-underline">
-          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-sage)] text-[var(--color-verde)]">◎</span>
+          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)]"><Icona nome="instagram" size={18} /></span>
           {site.instagramHandle}
         </a>
       </div>
@@ -62,7 +63,7 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         <p class="font-semibold text-[var(--color-verde)]">Studio Psiche Holos</p>
         <p class="text-sm text-[var(--color-ink-soft)]">Via Guido Zadei, 60 — 25123 Brescia (BS)</p>
         <p class="mt-1 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online</p>
-        <p class="mt-1 text-sm text-[var(--color-ink-soft)]">🅿️ Parcheggio disponibile nelle vicinanze</p>
+        <p class="mt-1 text-sm text-[var(--color-ink-soft)]">Parcheggio disponibile nelle vicinanze</p>
       </div>
       {brescia?.mappaEmbed && (
         <div class="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)]">

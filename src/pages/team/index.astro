@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icona from "@/components/Icona.astro";
 import { team } from "@/config/site";
 ---
 
@@ -40,7 +41,7 @@ import { team } from "@/config/site";
               href={m.sitoWeb ?? `/team/${m.slug}/`}
               target={m.sitoWeb ? "_blank" : undefined}
               rel={m.sitoWeb ? "noopener" : undefined}
-              class="link-underline mt-3 inline-block text-sm font-semibold text-[var(--color-verde)]"
+              class="link-underline mt-3 inline-block py-1 text-sm font-semibold text-[var(--color-verde)]"
             >
               {m.sitoWeb ? "Scopri di più sul suo sito →" : "Approfondisci →"}
             </a>
@@ -48,13 +49,13 @@ import { team } from "@/config/site";
 
           <div class="mt-5 flex flex-wrap gap-2 text-sm">
             <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              📞 {m.telefonoDisplay}
+              <Icona nome="telefono" class="mr-1.5 inline-block align-[-3px]" />{m.telefonoDisplay}
             </a>
             <a href={m.whatsapp} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              💬 WhatsApp
+              <Icona nome="whatsapp" class="mr-1.5 inline-block align-[-3px]" />WhatsApp
             </a>
             <a href={m.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              📷 Instagram
+              <Icona nome="instagram" class="mr-1.5 inline-block align-[-3px]" />Instagram
             </a>
           </div>
         </div>

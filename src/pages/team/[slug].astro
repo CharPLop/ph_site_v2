@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icona from "@/components/Icona.astro";
 import { team } from "@/config/site";
 
 export function getStaticPaths() {
@@ -38,9 +39,9 @@ const { membro } = Astro.props;
         <p class="mt-2 text-base font-semibold text-[var(--color-verde)]">{membro.ruolo}</p>
 
         <div class="mt-5 flex flex-wrap gap-2 text-sm">
-          <a href={`tel:+39${membro.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">📞 {membro.telefonoDisplay}</a>
-          <a href={membro.whatsapp} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">💬 WhatsApp</a>
-          <a href={membro.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">📷 Instagram</a>
+          <a href={`tel:+39${membro.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]"><Icona nome="telefono" class="mr-1.5 inline-block align-[-3px]" />{membro.telefonoDisplay}</a>
+          <a href={membro.whatsapp} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]"><Icona nome="whatsapp" class="mr-1.5 inline-block align-[-3px]" />WhatsApp</a>
+          <a href={membro.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]"><Icona nome="instagram" class="mr-1.5 inline-block align-[-3px]" />Instagram</a>
         </div>
 
         {membro.profilo ? (

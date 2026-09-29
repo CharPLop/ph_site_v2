@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceIcon from "@/components/ServiceIcon.astro";
 import { chiSiamo, metodologie, galleria } from "@/config/site";
 ---
 
@@ -19,7 +20,7 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
   <section class="container-ph mt-12 grid gap-5 md:grid-cols-3">
     {chiSiamo.valori.map((v) => (
       <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
-        <span class="text-3xl" aria-hidden="true">{v.icona}</span>
+        <ServiceIcon slug={v.titolo} />
         <h2 class="mt-3 text-xl">{v.titolo}</h2>
         <p class="mt-2 text-[0.95rem] text-[var(--color-ink-soft)]">{v.testo}</p>
       </div>
@@ -33,7 +34,7 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
     <div class="mt-8 grid gap-5 sm:grid-cols-2">
       {metodologie.map((m) => (
         <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6">
-          <span class="text-2xl" aria-hidden="true">{m.icona}</span>
+          <ServiceIcon slug={m.titolo} />
           <h3 class="mt-2 text-lg">{m.titolo}</h3>
           <p class="mt-1 text-[0.95rem] text-[var(--color-ink-soft)]">{m.testo}</p>
         </div>
@@ -76,9 +77,11 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
 
-      <div class="absolute inset-x-0 bottom-3 flex justify-center gap-2">
+      <div class="absolute inset-x-0 bottom-2 flex justify-center">
         {galleria.map((_, i) => (
-          <button type="button" class="ph-dot h-2.5 w-2.5 rounded-full bg-white/50 transition hover:bg-white" data-index={i} aria-label={`Vai all'immagine ${i + 1}`}></button>
+          <button type="button" class="ph-dot group grid h-6 w-6 place-items-center" data-index={i} aria-label={`Vai all'immagine ${i + 1}`}>
+            <span class="ph-dot-pallino h-2.5 w-2.5 rounded-full bg-white/50 transition group-hover:bg-white"></span>
+          </button>
         ))}
       </div>
     </div>
@@ -101,7 +104,12 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
           s.style.opacity = active ? "1" : "0";
           s.setAttribute("aria-hidden", active ? "false" : "true");
         });
-        dots.forEach((d, i) => d.classList.toggle("!bg-white", i === current));
+        dots.forEach((d, i) => {
+          const attivo = i === current;
+          d.querySelector(".ph-dot-pallino")?.classList.toggle("!bg-white", attivo);
+          if (attivo) d.setAttribute("aria-current", "true");
+          else d.removeAttribute("aria-current");
+        });
       };
       const next = () => show(current + 1);
       const prev = () => show(current - 1);
