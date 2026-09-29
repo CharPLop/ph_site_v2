@@ -34,6 +34,8 @@ export interface MembroTeam {
   bio: string;
   bioBreve: string;
   foto?: string;
+  /** Versione 160×160 per i tondi piccoli (generata da scripts/genera-derivate.mjs) */
+  avatar?: string;
   telefonoDisplay: string;
   whatsapp: string;
   instagram: string;
@@ -95,13 +97,14 @@ export const site = {
   url: "https://www.psicheholos.it",
   email: "psicheholos@gmail.com",
   telefono: "+39 392 821 5608",
-  telefonoDisplay: "392 821 5608",
+  telefonoDisplay: "392\u00a0821\u00a05608",
   instagram: "https://www.instagram.com/psicheholos/",
   instagramHandle: "@psicheholos",
   whatsapp: wa("3928215608", "Buongiorno, vorrei prenotare un primo appuntamento presso Psiche Holos"),
   locale: "it_IT",
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
+  fotoGruppoWebp: "/foto/edit/team-portrait.webp",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
   // Access key Web3Forms del form contatti. Vuota = il form si vede ma all'invio
   // mostra subito il box con i canali alternativi (nessuna chiamata a Web3Forms).
@@ -186,7 +189,8 @@ export const team: MembroTeam[] = [
     bio:
       "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
     foto: "/foto/viso/viso-ilenia.jpg",
-    telefonoDisplay: "392 821 5608",
+    avatar: "/foto/viso/avatar/viso-ilenia.webp",
+    telefonoDisplay: "392\u00a0821\u00a05608",
     whatsapp: wa("3928215608", "Buongiorno Dott.ssa Tagliaferro"),
     instagram: ig("psicologa_ileniatagliaferro"),
     instagramHandle: "@psicologa_ileniatagliaferro",
@@ -205,7 +209,8 @@ export const team: MembroTeam[] = [
     bio:
       "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
     foto: "/foto/viso/viso-anna.jpg",
-    telefonoDisplay: "328 357 0032",
+    avatar: "/foto/viso/avatar/viso-anna.webp",
+    telefonoDisplay: "328\u00a0357\u00a00032",
     whatsapp: wa("3283570032", "Buongiorno Dott.ssa Marini"),
     instagram: ig("annamarini_psico"),
     instagramHandle: "@annamarini_psico",
@@ -279,7 +284,8 @@ export const team: MembroTeam[] = [
     bio:
       "Sono la dott.ssa Nicolai Valentina. Ho conseguito una laurea magistrale in psicologia clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni in Disturbi Specifici dell'Apprendimento, svolgo percorsi che hanno lo scopo di condurre verso un metodo di studio più efficace e consapevole, sia per studenti con certificazioni, sia per coloro che hanno un bisogno educativo speciale, disegnando insieme ad ognuno di essi strategie e modalità personalizzate e funzionali. Essenziale, nel mio lavoro con gli studenti, è comprendere quali siano in primis i punti di forza: ognuno di loro possiede risorse fondamentali e mi piace pensare che questo sia il punto di partenza per raggiungere gli obiettivi prefissati. Creo percorsi volti al rinforzo e potenziamento degli apprendimenti, con lo scopo di rafforzare lettura, scrittura e calcolo, oltre alla creazione e costruzione di strumenti compensativi personalizzati. Fondamentale è, per la crescita e il benessere psicologico di ogni studente, che le figure che ruotano attorno percorrano la stessa via e creino una rete ben salda. Per questa ragione, svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti.",
     foto: "/foto/viso/viso-valentina.jpg",
-    telefonoDisplay: "338 608 6727",
+    avatar: "/foto/viso/avatar/viso-valentina.webp",
+    telefonoDisplay: "338\u00a0608\u00a06727",
     whatsapp: wa("3386086727", "Buongiorno Dott.ssa Nicolai"),
     instagram: ig("valentina.nicolai.psy"),
     instagramHandle: "@valentina.nicolai.psy",
@@ -439,7 +445,7 @@ export const metodologie: Metodologia[] = [
   { icona: "🌊", titolo: "Training Autogeno", testo: "Rilassamento profondo per l'autoregolazione e la gestione dell'ansia." },
 ];
 
-// ── FAQ (10 reali) ──────────────────────────────────────────
+// ── FAQ ──────────────────────────────────────────
 export const faq: FaqItem[] = [
   { domanda: "Come funziona il primo appuntamento?", risposta: "Il primo colloquio è un momento di conoscenza reciproca. Non serve preparare nulla di specifico: si racconta il motivo per cui si è chiesto aiuto, con i propri tempi. Insieme si valuta il percorso più adatto." },
   { domanda: "Quanto dura un percorso di psicoterapia?", risposta: "La durata varia molto in base alla persona e agli obiettivi. Ne parliamo insieme fin dal primo incontro." },
@@ -450,6 +456,9 @@ export const faq: FaqItem[] = [
   { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. Nel primo colloquio valutiamo insieme se è la modalità adatta." },
   { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento orientativo e di conoscenza, a cui seguirà la presa in carico più adeguata al bisogno." },
   { domanda: "Lavorate con bambini e adolescenti?", risposta: "Sì. Nello studio si lavora con infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai si occupa in particolare di DSA e BES." },
+  { domanda: "Per un percorso con un minore serve il consenso di entrambi i genitori?", risposta: "Sì. Per un percorso psicologico con un bambino o un ragazzo serve il consenso di entrambi i genitori, o di chi esercita la responsabilità genitoriale, anche quando i genitori sono separati. Se ne parla con calma nel primo incontro." },
+  { domanda: "Il primo incontro va fatto insieme a mio figlio?", risposta: "Di solito no: il primo colloquio è con i genitori, per raccontare cosa vi preoccupa e capire insieme come procedere. Con gli adolescenti si valuta di volta in volta." },
+  { domanda: "Cosa resta riservato di ciò che racconta mio figlio?", risposta: "Lo spazio personale del bambino o del ragazzo è la base della fiducia, e va rispettato. I genitori vengono aggiornati sull'andamento del percorso; le situazioni di rischio vengono sempre condivise con la famiglia." },
   { domanda: "Vi occupate solo di DSA o anche di altre difficoltà?", risposta: "Non solo di DSA. Ci occupiamo anche di BES, metodo di studio, difficoltà attentive, organizzazione, strategie di apprendimento e benessere scolastico più in generale." },
   { domanda: "È necessario avere una certificazione o una diagnosi per chiedere supporto?", risposta: "No, non è necessario. Si può richiedere un supporto anche in assenza di una certificazione o di una diagnosi specifica. A volte possono emergere difficoltà nello studio, nell'organizzazione, nell'attenzione o nella gestione scolastica che meritano ascolto e approfondimento, anche senza un inquadramento diagnostico." },
   { domanda: "Quello che racconto resta riservato?", risposta: "Sì. Le professioniste dello studio sono tenute al segreto professionale: ciò che emerge nei colloqui resta riservato. Lo studio è uno spazio sicuro, dove parlare liberamente e senza giudizio." },

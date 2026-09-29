@@ -1,10 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection, render } from "astro:content";
-import { site } from "@/config/site";
+import { site, team } from "@/config/site";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.bozza);
+  // In sviluppo si vedono anche le bozze, nella build mai.
+  const posts = await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.bozza);
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },
@@ -13,6 +14,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const autrice = team.find((m) => m.slug === post.data.autrice);
+const nomeAutore = autrice?.nome ?? post.data.autore;
+const linkAutrice = autrice ? (autrice.sitoWeb ?? `/team/${autrice.slug}/`) : undefined;
 
 const fmtData = (d: Date): string =>
   new Intl.DateTimeFormat("it-IT", { day: "numeric", month: "long", year: "numeric" }).format(d);
@@ -23,8 +27,18 @@ const articleLd = {
   headline: post.data.titolo,
   description: post.data.descrizione,
   datePublished: post.data.data.toISOString(),
+  dateModified: (post.data.aggiornato ?? post.data.data).toISOString(),
   inLanguage: "it-IT",
-  author: { "@type": "Organization", name: post.data.autore },
+  mainEntityOfPage: `${site.url}/blog/${post.id}/`,
+  author: autrice
+    ? {
+        "@type": "Person",
+        "@id": `${site.url}/team/#${autrice.slug}`,
+        name: autrice.nome,
+        jobTitle: autrice.ruolo,
+        url: autrice.sitoWeb ?? `${site.url}/team/${autrice.slug}/`,
+      }
+    : { "@type": "Organization", name: post.data.autore },
   publisher: { "@type": "Organization", name: site.nome, url: site.url },
   ...(post.data.copertina
     ? { image: new URL(post.data.copertina, site.url).href }
@@ -44,14 +58,25 @@ const articleLd = {
       ← Tutti gli articoli
     </a>
 
-    <time
-      datetime={post.data.data.toISOString()}
-      class="mt-8 block text-xs font-bold uppercase tracking-wider text-[var(--color-verde)]"
-    >
-      {fmtData(post.data.data)}
-    </time>
+    <p class="mt-8 text-xs font-bold uppercase tracking-wider text-[var(--color-verde-dark)]">
+      {post.data.bozza && <span class="mr-2 rounded bg-[#fbe3e1] px-1.5 py-0.5 text-[#7a2320]">Bozza — non pubblicata</span>}
+      <time datetime={post.data.data.toISOString()}>{fmtData(post.data.data)}</time>
+      {post.data.aggiornato && (
+        <> · aggiornato il <time datetime={post.data.aggiornato.toISOString()}>{fmtData(post.data.aggiornato)}</time></>
+      )}
+    </p>
     <h1 class="mt-2 text-[clamp(2rem,4.5vw,3.2rem)]">{post.data.titolo}</h1>
-    <p class="mt-3 text-sm text-[var(--color-ink-soft)]">di {post.data.autore}</p>
+    {autrice ? (
+      <a href={linkAutrice} target={autrice.sitoWeb ? "_blank" : undefined} rel={autrice.sitoWeb ? "noopener" : undefined} class="group mt-4 flex items-center gap-3">
+        <img src={autrice.avatar ?? autrice.foto} alt="" width="44" height="44" class="h-11 w-11 rounded-full object-cover" />
+        <span class="text-sm">
+          <span class="block font-semibold text-[var(--color-ink)] group-hover:underline">{autrice.nome}</span>
+          <span class="block text-[var(--color-ink-soft)]">{autrice.ruolo}</span>
+        </span>
+      </a>
+    ) : (
+      <p class="mt-3 text-sm text-[var(--color-ink-soft)]">di {nomeAutore}</p>
+    )}
 
     {post.data.copertina && (
       <img

@@ -9,7 +9,7 @@ const isActive = (href: string) =>
   <nav class="container-ph flex h-[68px] items-center justify-between" aria-label="Principale">
     <a href="/" class="flex items-center gap-2.5" aria-label={`${site.nome} — home`}>
       <img src={site.logo} alt={`${site.nome} — logo`} width="61" height="56" class="h-14 w-auto object-contain" />
-      <span class="font-[family-name:var(--font-display)] text-xl leading-none text-[var(--color-ink)]">
+      <span class="whitespace-nowrap font-[family-name:var(--font-display)] text-xl leading-none text-[var(--color-ink)] md:hidden lg:inline">
         Psiche Holos
       </span>
     </a>
@@ -29,7 +29,7 @@ const isActive = (href: string) =>
 
     <ul
       id="nav-menu"
-      class="absolute left-0 right-0 top-full hidden flex-col gap-1 border-b border-[var(--color-line)] bg-[var(--color-cream)] p-4 md:static md:flex md:flex-row md:items-center md:gap-7 md:border-0 md:bg-transparent md:p-0"
+      class="absolute left-0 right-0 top-full hidden flex-col gap-1 border-b border-[var(--color-line)] bg-[var(--color-cream)] p-4 md:static md:flex md:flex-row md:items-center md:gap-5 md:border-0 lg:gap-7 md:bg-transparent md:p-0"
     >
       {nav.map((item) => (
         <li>
@@ -37,7 +37,7 @@ const isActive = (href: string) =>
             href={item.href}
             aria-current={isActive(item.href) ? "page" : undefined}
             class:list={[
-              "link-underline text-[0.95rem] font-semibold text-[var(--color-ink-soft)] hover:text-[var(--color-verde)]",
+              "link-underline whitespace-nowrap text-[0.95rem] font-semibold text-[var(--color-ink-soft)] hover:text-[var(--color-verde)]",
               isActive(item.href) && "!text-[var(--color-verde-dark)]",
             ]}
           >

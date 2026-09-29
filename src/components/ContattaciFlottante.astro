@@ -28,7 +28,7 @@ import { team } from "@/config/site";
             class="flex items-center gap-3 rounded-[var(--radius-sm)] px-2 py-2.5 transition-colors hover:bg-[var(--color-cream-deep)]"
           >
             {m.foto && (
-              <img src={m.foto} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
+              <img src={m.avatar ?? m.foto} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
             )}
             <span class="min-w-0 flex-1">
               <span class="block text-sm font-semibold text-[var(--color-ink)]">{m.nome.replace("Dott.ssa ", "")}</span>

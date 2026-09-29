@@ -15,7 +15,6 @@ const year = new Date().getFullYear();
         <a href={`tel:${site.telefono.replace(/\s/g, "")}`} class="link-underline inline-block py-1">{site.telefonoDisplay}</a>
       </p>
       <div class="mt-5 flex gap-3 text-sm">
-        <a href={site.whatsapp} target="_blank" rel="noopener" class="link-underline inline-block py-1">WhatsApp</a>
         <a href={site.instagram} target="_blank" rel="noopener" class="link-underline inline-block py-1">Instagram</a>
       </div>
     </div>
@@ -26,7 +25,6 @@ const year = new Date().getFullYear();
         {navFooter.map((item) => (
           <li><a href={item.href} class="link-underline">{item.label}</a></li>
         ))}
-        <li><a href="/privacy/" class="link-underline opacity-80">Privacy & Cookie</a></li>
       </ul>
     </div>
 
@@ -49,6 +47,12 @@ const year = new Date().getFullYear();
         © {year} Psiche Holos ·
         <a href="/note-legali/" class="link-underline inline-block py-1">Note legali</a> ·
         <a href="/privacy/" class="link-underline inline-block py-1">Privacy e cookie</a>
+        {site.ga4Id && (
+          <>
+            ·
+            <button type="button" data-preferenze-cookie hidden class="link-underline inline-block py-1">Preferenze cookie</button>
+          </>
+        )}
       </span>
       <span>Via Guido Zadei, 60 · Brescia</span>
     </div>
