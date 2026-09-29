@@ -93,6 +93,9 @@ export const site = {
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
+  // Access key Web3Forms del form contatti. Vuota = il form NON viene mostrato
+  // (restano WhatsApp, email e telefoni), così non esiste mai un form che fallisce.
+  web3formsKey: "",
   // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
   // Mettere a true SOLO dopo aver collegato il dominio reale (oggi il sito è su workers.dev).
   indicizza: false,
@@ -410,7 +413,7 @@ export const faq: FaqItem[] = [
   { domanda: "Se non mi sento subito meglio, la terapia non funziona?", risposta: "Il cambiamento richiede tempo, fiducia e cura. La prima seduta non serve a risolvere tutto — è il primo passo per capirti meglio. Non serve stare meglio subito: il percorso si costruisce insieme, seduta dopo seduta." },
   { domanda: "Mio figlio fa fatica a scuola, è svogliato?", risposta: "Le difficoltà scolastiche non sono un segno di incapacità o svogliatezza. Spesso sono un segnale che qualcosa non sta funzionando come dovrebbe. Un ragazzo che fa fatica può essere stanco, in ansia, confuso, oppure non ha ancora trovato il metodo giusto per lui. La fatica va ascoltata, non eliminata in fretta." },
   { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. La qualità e la riservatezza sono le stesse delle sedute in presenza." },
-  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo in giornata per fissare un primo appuntamento." },
+  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento." },
   { domanda: "Lo studio è accessibile?", risposta: "Lo studio si trova in Via Guido Zadei 60 a Brescia, con possibilità di parcheggio nelle vicinanze. Per eventuali esigenze di accessibilità, contattaci e troveremo la soluzione migliore." },
   { domanda: "Lavorate con bambini e adolescenti?", risposta: "Assolutamente sì. Il nostro team lavora con tutte le fasce d'età: infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai è inoltre specializzata in psicologia scolastica, DSA e BES." },
   { domanda: "Vi occupate solo di DSA o anche di altre difficoltà?", risposta: "Non solo di DSA. Ci occupiamo anche di BES, metodo di studio, difficoltà attentive, organizzazione, strategie di apprendimento e benessere scolastico più in generale." },

@@ -15,7 +15,7 @@ const brescia = sedi.find((s) => s.mappaEmbed);
       <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Il primo passo? Contattaci.</h1>
       <p class="mt-5 max-w-md text-lg text-[var(--color-ink-soft)]">
         Non serve aver chiaro cosa dire. La prima seduta è uno spazio per
-        conoscersi. Scrivici e ti ricontatteremo in giornata.
+        conoscersi. Scrivici e ti ricontatteremo per fissare un primo colloquio.
       </p>
 
       <div class="mt-8 flex flex-wrap gap-3">
@@ -80,14 +80,15 @@ const brescia = sedi.find((s) => s.mappaEmbed);
     </div>
   </section>
 
-  <!-- FORM CONTATTI -->
+  <!-- FORM CONTATTI — visibile solo quando site.web3formsKey è impostata -->
+  {site.web3formsKey && (
   <section class="container-ph mt-16 mb-4 md:mt-20">
     <div class="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7 md:p-9">
       <p class="kicker">Oppure scrivici direttamente</p>
-      <h2 class="mt-3 text-[clamp(1.5rem,3vw,2rem)]">Compila il form, ti ricontatteremo in giornata</h2>
+      <h2 class="mt-3 text-[clamp(1.5rem,3vw,2rem)]">Lasciaci il tuo numero, ti ricontattiamo noi</h2>
 
       <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4">
-        <input type="hidden" name="access_key" value="TUA_ACCESS_KEY_QUI">
+        <input type="hidden" name="access_key" value={site.web3formsKey}>
         <input type="hidden" name="subject" value="Nuovo contatto dal sito Psiche Holos">
         <input type="hidden" name="from_name" value="Sito Psiche Holos">
         <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off">
@@ -118,13 +119,21 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         </div>
 
         <button type="submit" class="btn btn-primary">Invia richiesta</button>
+
+        <div id="formError" role="alert" tabindex="-1" class="hidden rounded-[var(--radius-md)] border border-[#d9a3a0] bg-[#fbeceb] px-5 py-4 text-[#7a2320]">
+          <strong>Il messaggio non è partito.</strong> Riprova tra poco, oppure scrivici su
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="underline">WhatsApp</a>, chiama il
+          <a href={`tel:${site.telefono.replace(/\s/g, "")}`} class="underline">{site.telefonoDisplay}</a> o manda una
+          <a href={`mailto:${site.email}`} class="underline">email</a>.
+        </div>
       </form>
 
-      <div id="formSuccess" class="mt-4 hidden rounded-[var(--radius-md)] bg-[var(--color-sage)] px-5 py-4 text-[var(--color-verde)]">
-        ✓ Messaggio inviato! Ti ricontatteremo presto.
+      <div id="formSuccess" role="status" tabindex="-1" class="mt-4 hidden rounded-[var(--radius-md)] bg-[var(--color-sage)] px-5 py-4 text-[var(--color-verde)]">
+        <strong>Messaggio inviato.</strong> Ti ricontatteremo al numero che hai indicato.
       </div>
     </div>
   </section>
+  )}
 
   <script>
     const phForm = document.getElementById('contactForm');
@@ -132,18 +141,23 @@ const brescia = sedi.find((s) => s.mappaEmbed);
       phForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = phForm.querySelector('button[type="submit"]');
-        if (btn) { btn.disabled = true; btn.textContent = 'Invio…'; }
+        const errBox = document.getElementById('formError');
+        errBox?.classList.add('hidden');
+        if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso…'; }
         try {
           const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(phForm) });
           const data = await res.json();
           if (data.success) {
             phForm.style.display = 'none';
-            document.getElementById('formSuccess')?.classList.remove('hidden');
+            const ok = document.getElementById('formSuccess');
+            ok?.classList.remove('hidden');
+            ok?.focus();
           } else {
             throw new Error('fail');
           }
         } catch {
-          alert("Errore nell'invio. Riprova, oppure scrivici su WhatsApp o via email.");
+          errBox?.classList.remove('hidden');
+          errBox?.focus();
           if (btn) { btn.disabled = false; btn.textContent = 'Invia richiesta'; }
         }
       });
