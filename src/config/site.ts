@@ -108,7 +108,7 @@ export const site = {
 export const chiSiamo = {
   titolo: "Uno spazio per il benessere nella sua totalità",
   paragrafi: [
-    "Psiche Holos nasce dalla volontà di creare uno spazio capace di accogliere il bisogno psicologico nella sua totalità. Ciò che più ci caratterizza è il senso di completezza: offriamo un servizio a 360 gradi.",
+    "Psiche Holos nasce dalla volontà di creare uno spazio capace di accogliere il bisogno psicologico nella sua totalità. Ciò che più ci caratterizza è il senso di completezza: competenze diverse, riunite nello stesso studio.",
     "Grazie alle competenze e alla formazione specifica e variegata di ognuna di noi, possiamo accogliere la persona in ogni fase del ciclo di vita: la presa in carico copre infanzia, adolescenza, età adulta e terza età.",
     "Nei percorsi di psicoterapia, individuali e di gruppo, ci occupiamo di disturbi d'ansia, depressione, supporto alla genitorialità e difficoltà relazionali ed emotive, grazie anche all'utilizzo di diverse metodologie.",
     "Accogliamo inoltre studenti che hanno bisogno di un supporto psicologico e di un percorso verso un metodo di studio più efficace e consapevole, oltre a percorsi di potenziamento degli apprendimenti per rinforzare lettura, scrittura e calcolo.",
@@ -388,7 +388,7 @@ export const servizi: Servizio[] = [
       "Le sedute a distanza, in videochiamata, mantengono la stessa qualità e riservatezza di quelle in studio. Una soluzione comoda per chi vive lontano, viaggia spesso o preferisce un ambiente familiare, senza rinunciare alla continuità del percorso.",
     punti: [
       "In videochiamata",
-      "Stessa qualità e riservatezza",
+      "Stessa riservatezza delle sedute in studio",
       "Comoda e flessibile",
       "Per adolescenti e adulti",
     ],
@@ -406,7 +406,7 @@ export const fasce: Fascia[] = [
 
 // ── Metodologie ─────────────────────────────────────────────
 export const metodologie: Metodologia[] = [
-  { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Approccio basato sull'evidenza scientifica per modificare schemi di pensiero disfunzionali." },
+  { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Strumenti per riconoscere e modificare schemi di pensiero disfunzionali." },
   { icona: "🧘", titolo: "Mindfulness", testo: "Pratiche di consapevolezza per ridurre lo stress e coltivare equilibrio emotivo." },
   { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena." },
   { icona: "🌊", titolo: "Training Autogeno", testo: "Rilassamento profondo per l'autoregolazione e la gestione dell'ansia." },
@@ -416,14 +416,14 @@ export const metodologie: Metodologia[] = [
 export const faq: FaqItem[] = [
   { domanda: "Come funziona il primo appuntamento?", risposta: "Il primo colloquio è un momento di conoscenza reciproca. Non serve preparare nulla di specifico: si racconta il motivo per cui si è chiesto aiuto, con i propri tempi. Insieme si valuta il percorso più adatto." },
   { domanda: "Quanto dura un percorso di psicoterapia?", risposta: "La durata varia molto in base alla persona e agli obiettivi. Ne parliamo insieme fin dal primo incontro." },
-  { domanda: "Devo raccontare tutto alla prima seduta?", risposta: "Assolutamente no. La prima seduta non è un interrogatorio. Racconti ciò che ti senti, con i tuoi tempi. È uno spazio di incontro, conoscenza e ascolto — per conoscerci, capire cosa ti ha portato fin qui e costruire insieme un percorso possibile." },
+  { domanda: "Devo raccontare tutto alla prima seduta?", risposta: "No. La prima seduta non è un interrogatorio. Racconti ciò che ti senti, con i tuoi tempi. È uno spazio di incontro, conoscenza e ascolto — per conoscerci, capire cosa ti ha portato fin qui e costruire insieme un percorso possibile." },
   { domanda: "E se piango durante la seduta?", risposta: "Le emozioni sono benvenute. Piangere non è un fallimento, è un modo naturale di esprimere ciò che si sente. Lo studio è uno spazio sicuro e senza giudizio, dove ogni emozione ha il diritto di essere accolta." },
   { domanda: "Se non mi sento subito meglio, la terapia non funziona?", risposta: "Il cambiamento richiede tempo, fiducia e cura. La prima seduta non serve a risolvere tutto — è il primo passo per capirti meglio. Non serve stare meglio subito: il percorso si costruisce insieme, seduta dopo seduta." },
   { domanda: "Mio figlio fa fatica a scuola, è svogliato?", risposta: "Le difficoltà scolastiche non sono un segno di incapacità o svogliatezza. Spesso sono un segnale che qualcosa non sta funzionando come dovrebbe. Un ragazzo che fa fatica può essere stanco, in ansia, confuso, oppure non ha ancora trovato il metodo giusto per lui. La fatica va ascoltata, non eliminata in fretta." },
-  { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. La qualità e la riservatezza sono le stesse delle sedute in presenza." },
+  { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. Nel primo colloquio valutiamo insieme se è la modalità adatta." },
   { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento." },
   { domanda: "Lo studio è accessibile?", risposta: "Lo studio si trova in Via Guido Zadei 60 a Brescia, con possibilità di parcheggio nelle vicinanze. Per eventuali esigenze di accessibilità, contattaci e troveremo la soluzione migliore." },
-  { domanda: "Lavorate con bambini e adolescenti?", risposta: "Assolutamente sì. Il nostro team lavora con tutte le fasce d'età: infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai è inoltre specializzata in psicologia scolastica, DSA e BES." },
+  { domanda: "Lavorate con bambini e adolescenti?", risposta: "Sì. Nello studio si lavora con infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai si occupa in particolare di DSA e BES." },
   { domanda: "Vi occupate solo di DSA o anche di altre difficoltà?", risposta: "Non solo di DSA. Ci occupiamo anche di BES, metodo di studio, difficoltà attentive, organizzazione, strategie di apprendimento e benessere scolastico più in generale." },
   { domanda: "È necessario avere una certificazione o una diagnosi per chiedere supporto?", risposta: "No, non è necessario. Si può richiedere un supporto anche in assenza di una certificazione o di una diagnosi specifica. A volte possono emergere difficoltà nello studio, nell'organizzazione, nell'attenzione o nella gestione scolastica che meritano ascolto e approfondimento, anche senza un inquadramento diagnostico." },
   { domanda: "Quello che racconto resta riservato?", risposta: "Sì. Le professioniste dello studio sono tenute al segreto professionale: ciò che emerge nei colloqui resta riservato. Lo studio è uno spazio sicuro, dove parlare liberamente e senza giudizio." },
