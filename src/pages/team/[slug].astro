@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { team, site } from "@/config/site";
+import { team } from "@/config/site";
 
 export function getStaticPaths() {
   return team
@@ -9,16 +9,8 @@ export function getStaticPaths() {
 }
 
 const { membro } = Astro.props;
-
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: membro.nome,
-  jobTitle: membro.ruolo,
-  worksFor: { "@type": "Organization", name: site.nome, url: site.url },
-  url: `${site.url}/team/${membro.slug}/`,
-  ...(membro.foto ? { image: `${site.url}${membro.foto}` } : {}),
-};
+// Lo schema Person di ogni professionista è già nel @graph di StudioSchema
+// (incluso in ogni pagina): qui non va ripetuto.
 ---
 
 <BaseLayout
@@ -78,6 +70,4 @@ const personSchema = {
       </div>
     </div>
   </section>
-
-  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 </BaseLayout>

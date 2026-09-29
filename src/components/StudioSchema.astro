@@ -84,14 +84,7 @@ const studio = {
     { "@type": "City", name: "Brescia" },
     { "@type": "AdministrativeArea", name: "Provincia di Brescia" },
   ],
-  openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      opens: "09:00",
-      closes: "19:00",
-    },
-  ],
+  // Niente openingHoursSpecification: lo studio riceve su appuntamento.
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Servizi di psicologia e psicoterapia",
@@ -117,7 +110,7 @@ const persone = team.map((m) => {
     jobTitle: m.ruolo,
     description: m.bioBreve,
     image: abs(m.foto),
-    url: m.sitoWeb,
+    url: m.sitoWeb ?? `${site.url}/team/${m.slug}/`,
     worksFor: { "@id": studioId },
     knowsAbout: c.knowsAbout,
     alumniOf: c.universita
@@ -130,7 +123,7 @@ const persone = team.map((m) => {
           ...(m.albo ? { identifier: m.albo } : {}),
         }
       : undefined,
-    sameAs: [m.instagram, m.sitoWeb].filter(Boolean),
+    sameAs: [m.instagram, m.sitoWeb, ...(m.profili ?? [])].filter(Boolean),
   };
 });
 

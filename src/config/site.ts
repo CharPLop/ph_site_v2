@@ -42,6 +42,8 @@ export interface MembroTeam {
   albo?: string;
   /** Partita IVA individuale (D.Lgs 70/2003 art. 7 → pagina /note-legali/) */
   piva?: string;
+  /** Profili pubblici esterni (directory professionali) → sameAs nello schema */
+  profili?: string[];
   profilo?: ProfiloSezione[];
 }
 
@@ -199,6 +201,10 @@ export const team: MembroTeam[] = [
     scuole: false,
     albo: "7229",
     // piva: "" ← da fornire (Anna)
+    profili: [
+      "https://www.guidapsicologi.it/studio/dottssa-anna-marini",
+      "https://www.miodottore.it/anna-marini-2/psicoterapeuta/brescia",
+    ],
     profilo: [
       {
         titolo: "Chi sono",
@@ -268,6 +274,7 @@ export const team: MembroTeam[] = [
     scuole: true,
     // albo: "" ← da confermare (25086 da GuidaPsicologi)
     // piva: "" ← da fornire (Valentina)
+    profili: ["https://www.guidapsicologi.it/studio/valentina-nicolai"],
     profilo: [
       {
         titolo: "Chi sono",
