@@ -90,7 +90,7 @@ const brescia = sedi.find((s) => s.mappaEmbed);
 
       <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4" data-senza-key={site.web3formsKey ? undefined : "true"}>
         <input type="hidden" name="access_key" value={site.web3formsKey}>
-        <input type="hidden" name="subject" value="Nuovo contatto dal sito Psiche Holos">
+        <input type="hidden" name="subject" value="Nuovo contatto dal sito Psiche Holos" data-oggetto-base="Nuovo contatto dal sito Psiche Holos">
         <input type="hidden" name="from_name" value="Sito Psiche Holos">
         <input type="checkbox" name="botcheck" class="hidden" tabindex="-1">
 
@@ -114,6 +114,15 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         </div>
 
         <div>
+          <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-per">A chi vuoi scrivere?</label>
+          <select id="cf-per" name="destinataria"
+            class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]">
+            <option value="Non so, indirizzatemi voi">Non so, indirizzatemi voi</option>
+            {team.map((m) => <option value={m.nome}>{m.nome}</option>)}
+          </select>
+        </div>
+
+        <div>
           <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-msg">Come possiamo aiutarti? <span class="font-normal">(opzionale)</span></label>
           <textarea id="cf-msg" name="message" rows="4" placeholder="Non serve scrivere molto — anche solo 'vorrei informazioni' va benissimo"
             class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]" aria-describedby="cf-msg-nota"></textarea>
@@ -123,6 +132,10 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         </div>
 
         <button type="submit" class="btn btn-primary">Invia richiesta</button>
+        <p class="text-sm text-[var(--color-ink-soft)]">
+          Useremo i tuoi dati solo per ricontattarti.
+          <a href="/privacy/" class="link-underline font-semibold text-[var(--color-verde-dark)]">Informativa privacy</a>
+        </p>
 
         <div id="formError" role="alert" tabindex="-1" class="hidden rounded-[var(--radius-md)] border border-[#d9a3a0] bg-[#fbeceb] px-5 py-4 text-[#7a2320]">
           <strong>Il messaggio non è partito.</strong> Riprova tra poco, oppure scrivi direttamente a una
@@ -139,6 +152,15 @@ const brescia = sedi.find((s) => s.mappaEmbed);
 
   <script>
     const phForm = document.getElementById('contactForm');
+    // L'oggetto dell'email riporta a chi è rivolta la richiesta
+    const per = document.getElementById('cf-per');
+    const oggetto = phForm?.querySelector('input[name="subject"]');
+    if (per && oggetto) {
+      per.addEventListener('change', () => {
+        const base = oggetto.dataset.oggettoBase;
+        oggetto.value = per.value.startsWith('Non so') ? base : `${base} — per ${per.value}`;
+      });
+    }
     if (phForm) {
       phForm.addEventListener('submit', async (e) => {
         e.preventDefault();
