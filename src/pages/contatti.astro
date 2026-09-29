@@ -10,53 +10,48 @@ const brescia = sedi.find((s) => s.mappaEmbed);
   description="Contatta lo studio Psiche Holos a Brescia, Via Guido Zadei 60: WhatsApp, email, telefono delle professioniste. Su appuntamento, anche online."
   path="/contatti/"
 >
-  <section class="container-ph grid gap-12 pt-16 md:grid-cols-2 md:pt-24">
-    <div>
-      <p class="kicker">Prendi appuntamento</p>
-      <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Il primo passo? Contattaci.</h1>
-      <p class="mt-5 max-w-md text-lg text-[var(--color-ink-soft)]">
-        Non serve aver chiaro cosa dire. La prima seduta è uno spazio per
-        conoscersi. Scrivici e ti ricontatteremo per fissare un primo colloquio.
-      </p>
+  <!-- Contatti per professionista: si sceglie la persona, non il canale -->
+  <section class="container-ph pt-16 md:pt-24">
+    <p class="kicker">Prendi appuntamento</p>
+    <h1 class="mt-3 text-[clamp(2.4rem,5vw,3.6rem)]">Il primo passo? Contattaci.</h1>
+    <p class="mt-5 max-w-2xl text-lg text-[var(--color-ink-soft)]">
+      Non serve aver chiaro cosa dire. Puoi scrivere direttamente alla
+      professionista che preferisci.
+    </p>
 
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-primary">Scrivici su WhatsApp</a>
-        <a href={`mailto:${site.email}`} class="btn btn-ghost">Email</a>
-      </div>
+    <ul id="professioniste" class="mt-10 grid gap-5 md:grid-cols-3">
+      {team.map((m) => (
+        <li class="flex flex-col items-center rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6 text-center">
+          {m.foto && (
+            <img src={m.foto} alt="" width="96" height="96" loading="lazy" class="h-20 w-20 rounded-full object-cover object-center" />
+          )}
+          <h2 class="mt-4 text-xl">{m.nome}</h2>
+          <p class="mt-1 text-sm text-[var(--color-ink-soft)]">{m.ambitoBreve}</p>
+          <div class="mt-5 flex flex-wrap justify-center gap-2 text-sm font-semibold">
+            <a href={m.whatsapp} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] px-4 py-2 text-[var(--color-verde-dark)] transition-colors hover:border-[var(--color-verde)]">
+              <Icona nome="whatsapp" />WhatsApp
+            </a>
+            <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] px-4 py-2 text-[var(--color-verde-dark)] transition-colors hover:border-[var(--color-verde)]">
+              <Icona nome="telefono" />{m.telefonoDisplay}
+            </a>
+          </div>
+        </li>
+      ))}
+    </ul>
 
-      <div class="mt-8 space-y-3 text-sm">
-        <a href={`mailto:${site.email}`} class="flex items-center gap-3 link-underline">
-          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)]"><Icona nome="email" size={18} /></span>
-          {site.email}
-        </a>
-        <a href={site.instagram} target="_blank" rel="noopener" class="flex items-center gap-3 link-underline">
-          <span class="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)]"><Icona nome="instagram" size={18} /></span>
-          {site.instagramHandle}
-        </a>
-      </div>
-
-      <p class="mt-8 text-sm text-[var(--color-ink-soft)]">
-        Non sai a chi rivolgerti? Scrivici con uno dei canali qui sopra: ti rispondiamo noi e ti indirizziamo alla professionista più adatta.
-      </p>
-
-      <div class="mt-8">
-        <p class="kicker">Telefono diretto</p>
-        <ul class="mt-3 space-y-1.5 text-sm">
-          {team.map((m) => (
-            <li>
-              <span class="text-[var(--color-ink-soft)]">{m.nome} — </span>
-              <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="link-underline font-semibold text-[var(--color-verde)]">{m.telefonoDisplay}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <p class="mt-8 text-sm text-[var(--color-ink-soft)]">
-        Hai dubbi prima di scriverci? Leggi le
-        <a href="/faq/" class="link-underline font-semibold text-[var(--color-verde)]">domande frequenti</a>.
+    <div class="mt-6 flex items-start gap-3 rounded-[var(--radius-md)] bg-[var(--color-cream-deep)] p-5 text-[var(--color-ink-soft)]">
+      <span class="mt-0.5 text-[var(--color-verde-dark)]"><Icona nome="email" size={20} /></span>
+      <p>
+        <strong class="text-[var(--color-ink)]">Non sai a chi rivolgerti?</strong>
+        Scrivici a <a href={`mailto:${site.email}`} class="link-underline font-semibold text-[var(--color-verde-dark)]">{site.email}</a>
+        o compila il <a href="#modulo" class="link-underline font-semibold text-[var(--color-verde-dark)]">modulo qui sotto</a>:
+        ti indirizziamo noi alla professionista più adatta.
       </p>
     </div>
+  </section>
 
+  <!-- Dove siamo -->
+  <section class="container-ph mt-16 grid gap-8 md:grid-cols-2">
     <div>
       <h2 class="text-2xl">Dove siamo</h2>
       <div class="mt-5 rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-5">
@@ -65,25 +60,30 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         <p class="mt-1 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online</p>
         <p class="mt-1 text-sm text-[var(--color-ink-soft)]">Parcheggio disponibile nelle vicinanze</p>
       </div>
-      {brescia?.mappaEmbed && (
-        <div class="mt-5 overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)]">
-          <iframe
-            src={brescia.mappaEmbed}
-            title="Mappa — Studio Psiche Holos, Brescia"
-            height="300"
-            class="block w-full"
-            style="border:0"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-      )}
+      <p class="mt-6 text-sm text-[var(--color-ink-soft)]">
+        Hai dubbi prima di scriverci? Leggi le
+        <a href="/faq/" class="link-underline font-semibold text-[var(--color-verde)]">domande frequenti</a>
+        o seguici su <a href={site.instagram} target="_blank" rel="noopener" class="link-underline font-semibold text-[var(--color-verde)]">Instagram</a>.
+      </p>
     </div>
+    {brescia?.mappaEmbed && (
+      <div class="overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] md:mt-12">
+        <iframe
+          src={brescia.mappaEmbed}
+          title="Mappa — Studio Psiche Holos, Brescia"
+          height="300"
+          class="block w-full"
+          style="border:0"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    )}
   </section>
 
   <!-- FORM CONTATTI — senza site.web3formsKey resta visibile, ma l'invio mostra
        subito il box con i canali alternativi (attributo segnalato dal guard di build) -->
-  <section class="container-ph mt-16 mb-4 md:mt-20">
+  <section id="modulo" class="container-ph mt-16 mb-4 scroll-mt-24 md:mt-20">
     <div class="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7 md:p-9">
       <p class="kicker">Oppure scrivici direttamente</p>
       <h2 class="mt-3 text-[clamp(1.5rem,3vw,2rem)]">Lasciaci il tuo numero, ti ricontattiamo noi</h2>
@@ -116,15 +116,17 @@ const brescia = sedi.find((s) => s.mappaEmbed);
         <div>
           <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-msg">Come possiamo aiutarti? <span class="font-normal">(opzionale)</span></label>
           <textarea id="cf-msg" name="message" rows="4" placeholder="Non serve scrivere molto — anche solo 'vorrei informazioni' va benissimo"
-            class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]"></textarea>
+            class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]" aria-describedby="cf-msg-nota"></textarea>
+          <p id="cf-msg-nota" class="mt-2 flex items-start gap-2 rounded-[var(--radius-sm)] bg-[var(--color-cream-deep)] px-3 py-2 text-sm text-[var(--color-ink-soft)]">
+            Non serve descrivere la tua situazione qui: ne parliamo a voce, in modo riservato.
+          </p>
         </div>
 
         <button type="submit" class="btn btn-primary">Invia richiesta</button>
 
         <div id="formError" role="alert" tabindex="-1" class="hidden rounded-[var(--radius-md)] border border-[#d9a3a0] bg-[#fbeceb] px-5 py-4 text-[#7a2320]">
-          <strong>Il messaggio non è partito.</strong> Riprova tra poco, oppure scrivici su
-          <a href={site.whatsapp} target="_blank" rel="noopener" class="underline">WhatsApp</a>, chiama il
-          <a href={`tel:${site.telefono.replace(/\s/g, "")}`} class="underline">{site.telefonoDisplay}</a> o manda una
+          <strong>Il messaggio non è partito.</strong> Riprova tra poco, oppure scrivi direttamente a una
+          <a href="#professioniste" class="underline">delle professioniste</a> su WhatsApp o manda una
           <a href={`mailto:${site.email}`} class="underline">email</a>.
         </div>
       </form>
