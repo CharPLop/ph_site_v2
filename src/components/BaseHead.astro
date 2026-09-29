@@ -1,4 +1,6 @@
 ---
+import { existsSync } from "node:fs";
+import nodePath from "node:path";
 import { site } from "@/config/site";
 import StudioSchema from "@/components/StudioSchema.astro";
 
@@ -25,7 +27,12 @@ const {
 const fullTitle = title.includes(site.nome) ? title : `${title} | ${site.nome}`;
 
 const canonical = new URL(path, Astro.site ?? site.url).href;
-const ogImage = new URL(image, Astro.site ?? site.url).href;
+// Anteprima per i link condivisi: quella generata da scripts/genera-og.mjs per questa
+// pagina (public/og/<nome>.jpg), altrimenti l'immagine passata o og-card.jpg.
+const nomeOg = path.replace(/^\/|\/$/g, "").replace(/\//g, "-") || "home";
+const ogGenerata = `/og/${nomeOg}.jpg`;
+const ogFile = existsSync(nodePath.join(process.cwd(), "public", ogGenerata)) ? ogGenerata : image;
+const ogImage = new URL(ogFile, Astro.site ?? site.url).href;
 
 // Breadcrumb (SEO) — costruito dal path
 const _base = Astro.site ?? site.url;

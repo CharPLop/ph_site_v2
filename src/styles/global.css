@@ -38,12 +38,13 @@
   --color-verde-dark: #3a5233; /* bottoni, voce attiva, testo su salvia (8,6:1 col bianco) */
   --color-sage: #c5d4bf; /* salvia: solo dettagli, mai sotto testo lungo */
   --color-cream: #f8f6f0; /* carta calda: sfondo pagina (era #f7f4ec) */
+  --color-argilla: #8f5a35; /* accento caldo, SOLO dettagli: kicker, numeri, virgolette (5,3:1 su carta, 4,9:1 su sabbia) */
 
   /* ── Neutri ── */
   --color-ink: #25301f; /* testo principale (13,1:1 su carta) */
   --color-ink-soft: #465041; /* testo secondario (8,0:1 su carta; era #4f5a47) */
   --color-line: #e1e3da; /* bordi (era #e3ddcf) */
-  --color-cream-deep: #f0f1eb; /* sezioni alternate (era #efe9da) */
+  --color-cream-deep: #f3ecdf; /* sabbia: sezioni alternate e riquadri (palette B; era #f0f1eb) */
   --color-white-warm: #ffffff; /* card (era #fffdf8) */
 
   /* ── Tipografia ── */
@@ -117,7 +118,7 @@ h1, h2, h3, h4 {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-verde);
+  color: var(--color-argilla);
 }
 
 /* Link sottolineato organico */

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && node scripts/controlla-segnaposto.mjs",
+    "build": "node scripts/genera-og.mjs && astro build && node scripts/controlla-segnaposto.mjs",
     "preview": "astro preview",
     "deploy": "npm run build && wrangler deploy",
     "immagini": "node scripts/ottimizza-immagini.mjs",
@@ -20,10 +20,14 @@
   },
   "devDependencies": {
     "@astrojs/react": "^4.4.2",
+    "@fontsource/nunito-sans": "^5.3.0",
+    "@fontsource/playfair-display": "^5.3.0",
     "@keystatic/astro": "^5.2.0",
     "@keystatic/core": "^0.6.9",
+    "@resvg/resvg-js": "^2.6.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "satori": "^0.33.5",
     "sharp": "^0.35.5",
     "wrangler": "^4.104.0"
   }

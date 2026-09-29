@@ -79,6 +79,11 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
 
+      <button type="button" class="ph-pausa absolute bottom-2 left-3 z-10 grid h-8 w-8 place-items-center rounded-full bg-[color-mix(in_srgb,var(--color-cream)_85%,transparent)] text-[var(--color-verde-dark)] transition hover:bg-[var(--color-cream)]" aria-label="Metti in pausa lo scorrimento" aria-pressed="false">
+        <svg class="ph-ico-pausa" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>
+        <svg class="ph-ico-play hidden" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+      </button>
+
       <div class="absolute inset-x-0 bottom-2 flex justify-center">
         {galleria.map((_, i) => (
           <button type="button" class="ph-dot group grid h-6 w-6 place-items-center" data-index={i} aria-label={`Vai all'immagine ${i + 1}`}>
@@ -98,6 +103,9 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
       let current = 0;
       let timer = null;
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Pausa scelta dall'utente (o già attiva se il sistema chiede di ridurre il movimento)
+      let inPausa = reduce;
+      const pausa = root.querySelector(".ph-pausa");
 
       const show = (n) => {
         current = (n + slides.length) % slides.length;
@@ -115,12 +123,26 @@ import { chiSiamo, metodologie, galleria } from "@/config/site";
       };
       const next = () => show(current + 1);
       const prev = () => show(current - 1);
-      const start = () => { if (!reduce && !timer) timer = setInterval(next, interval); };
+      const start = () => { if (!inPausa && !timer) timer = setInterval(next, interval); };
       const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
 
       root.querySelector(".ph-next")?.addEventListener("click", () => { next(); stop(); start(); });
       root.querySelector(".ph-prev")?.addEventListener("click", () => { prev(); stop(); start(); });
       dots.forEach((d) => d.addEventListener("click", () => { show(Number(d.dataset.index)); stop(); start(); }));
+      const aggiornaPausa = () => {
+        if (!pausa) return;
+        pausa.setAttribute("aria-pressed", String(inPausa));
+        pausa.setAttribute("aria-label", inPausa ? "Riprendi lo scorrimento" : "Metti in pausa lo scorrimento");
+        pausa.querySelector(".ph-ico-pausa")?.classList.toggle("hidden", inPausa);
+        pausa.querySelector(".ph-ico-play")?.classList.toggle("hidden", !inPausa);
+      };
+      pausa?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        inPausa = !inPausa;
+        aggiornaPausa();
+        if (inPausa) stop(); else { next(); start(); }
+      });
+      aggiornaPausa();
       root.addEventListener("mouseenter", stop);
       root.addEventListener("mouseleave", start);
       root.addEventListener("focusin", stop);
