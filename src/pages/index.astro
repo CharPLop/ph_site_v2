@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import ServiceIcon from "@/components/ServiceIcon.astro";
+import Icona from "@/components/Icona.astro";
 import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 ---
 
@@ -139,10 +140,21 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
           Non serve aver chiaro cosa dire. La prima seduta è uno spazio per
           conoscersi. Scrivici e ti ricontatteremo per fissare un primo colloquio.
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
-          <a href={`mailto:${site.email}`} class="btn btn-ghost">{site.email}</a>
-        </div>
+        <ul class="mt-7 max-w-md space-y-2">
+          {team.map((m) => (
+            <li>
+              <a href={m.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--color-line)] bg-[var(--color-white-warm)] px-3 py-2 transition-colors hover:border-[var(--color-verde)]">
+                {m.foto && (
+                  <img src={m.foto} alt="" width="36" height="36" loading="lazy" class="h-8 w-8 shrink-0 rounded-full object-cover object-center" />
+                )}
+                <span class="flex-1 text-sm font-semibold">{m.nome.replace("Dott.ssa ", "")}</span>
+                <span class="text-[var(--color-verde-dark)]" aria-hidden="true"><Icona nome="whatsapp" size={18} /></span>
+                <span class="sr-only">su WhatsApp</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href="/contatti/" class="btn btn-ghost mt-5">Tutti i contatti</a>
       </div>
       <div class="self-center">
         <p class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-verde)]">Dove siamo</p>
