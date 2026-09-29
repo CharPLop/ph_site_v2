@@ -12,7 +12,7 @@ const servicesLd = {
     item: {
       "@type": "Service",
       name: s.titolo,
-      description: s.descrizione ?? s.testo,
+      description: s.paragrafi ? s.paragrafi.join(" ") : (s.descrizione ?? s.testo),
       provider: { "@type": "MedicalBusiness", name: site.nome, url: site.url },
       areaServed: ["Brescia", "Provincia di Brescia"],
     },
@@ -43,7 +43,14 @@ const servicesLd = {
         <ServiceIcon slug={s.slug} />
         <div class="mt-3 md:mt-0">
           <h2 class="text-xl">{s.titolo}</h2>
-          <p class="mt-2 text-[var(--color-ink-soft)]">{s.descrizione ?? s.testo}</p>
+          {s.paragrafi ? (
+            <div class="mt-2 space-y-3 text-[var(--color-ink-soft)]">
+              {s.paragrafi.map((p) => <p>{p}</p>)}
+            </div>
+          ) : (
+            <p class="mt-2 text-[var(--color-ink-soft)]">{s.descrizione ?? s.testo}</p>
+          )}
+          {s.puntiTitolo && <p class="mt-5 font-semibold text-[var(--color-ink)]">{s.puntiTitolo}</p>}
           {s.punti && (
             <ul class="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2">
               {s.punti.map((p) => (
@@ -53,6 +60,7 @@ const servicesLd = {
               ))}
             </ul>
           )}
+          {s.chiusura && <p class="mt-5 text-[var(--color-ink-soft)]">{s.chiusura}</p>}
         </div>
       </article>
     ))}

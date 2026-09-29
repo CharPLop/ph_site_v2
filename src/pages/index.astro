@@ -21,8 +21,8 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
         </h1>
         <p class="reveal mt-6 max-w-xl text-lg text-[var(--color-ink-soft)]" style="animation-delay:.2s">
           Uno spazio di ascolto, accoglienza e cura per la persona in ogni fase
-          della vita: percorsi individuali, di gruppo, online e supporto
-          scolastico.
+          della vita: percorsi individuali, di gruppo, online e per il metodo di
+          studio.
         </p>
         <div class="reveal mt-8 flex flex-wrap gap-3" style="animation-delay:.28s">
           <a href="/contatti/" class="btn btn-primary">Prenota un colloquio</a>
@@ -39,13 +39,20 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
           <ul class="mt-6 space-y-3 text-[0.95rem]">
             {team.map((m) => (
               <li class="flex items-center gap-3 border-t border-[var(--color-line)] pt-3 first:border-0 first:pt-0">
-                {m.foto && (
-                  <img src={m.foto} alt={m.nome} width="72" height="72" loading="lazy" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
-                )}
-                <span>
-                  <span class="block font-semibold leading-tight">{m.nome.replace("Dott.ssa ", "")}</span>
-                  <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruolo}</span>
-                </span>
+                <a
+                  href={m.sitoWeb ?? `/team/${m.slug}/`}
+                  target={m.sitoWeb ? "_blank" : undefined}
+                  rel={m.sitoWeb ? "noopener" : undefined}
+                  class="group flex flex-1 items-center gap-3"
+                >
+                  {m.foto && (
+                    <img src={m.foto} alt="" width="72" height="72" loading="lazy" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
+                  )}
+                  <span>
+                    <span class="block font-semibold leading-tight group-hover:text-[var(--color-verde)] group-hover:underline">{m.nome.replace("Dott.ssa ", "")}</span>
+                    <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruolo}</span>
+                  </span>
+                </a>
               </li>
             ))}
           </ul>
@@ -158,7 +165,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
       </div>
       <div class="self-center">
         <p class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-verde)]">Dove siamo</p>
-        <p class="mt-2 text-[var(--color-ink-soft)]">Via Guido Zadei, 60<br />25123 Brescia (BS)</p>
+        <p class="mt-2 text-[var(--color-ink-soft)]">Via Guido Zadei, 60<br />Brescia (BS)</p>
         <p class="mt-2 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online · parcheggio nelle vicinanze</p>
       </div>
     </div>

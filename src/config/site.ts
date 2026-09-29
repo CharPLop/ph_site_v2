@@ -55,7 +55,13 @@ export interface Servizio {
   titolo: string;
   testo: string;
   descrizione?: string;
+  /** Testo lungo in più paragrafi (sostituisce descrizione nella pagina Servizi) */
+  paragrafi?: string[];
+  /** Titolo sopra l'elenco dei punti (es. "Di cosa ci occupiamo:") */
+  puntiTitolo?: string;
   punti?: string[];
+  /** Paragrafo dopo l'elenco dei punti */
+  chiusura?: string;
 }
 
 export interface Fascia {
@@ -85,7 +91,7 @@ export const site = {
   tagline: "Studio di Psicologia e Psicoterapia",
   sottotitolo: "Il benessere psicologico nella sua totalità",
   descrizione:
-    "Psiche Holos è uno studio di psicologia e psicoterapia a Brescia: tre professioniste per il benessere della persona in ogni fase della vita, con percorsi individuali, di gruppo, online e supporto scolastico.",
+    "Psiche Holos è uno studio di psicologia e psicoterapia a Brescia: tre professioniste per il benessere della persona in ogni fase della vita, con percorsi individuali, di gruppo, online e per il metodo di studio.",
   url: "https://www.psicheholos.it",
   email: "psicheholos@gmail.com",
   telefono: "+39 392 821 5608",
@@ -117,7 +123,7 @@ export const chiSiamo = {
     "Il benessere psicologico di ogni persona è l'obiettivo primario del nostro lavoro.",
   ],
   valori: [
-    { icona: "🌿", titolo: "Ascolto e accoglienza", testo: "Uno spazio sicuro dove raccontarsi per come si è oggi, senza giudizio." },
+    { icona: "🌿", titolo: "Ascolto e accoglienza", testo: "Uno spazio sicuro dove raccontarsi senza giudizio." },
     { icona: "🤝", titolo: "Approccio integrato", testo: "Diverse metodologie nel rispetto dell'unicità di ogni persona." },
     { icona: "🌱", titolo: "Crescita e cura", testo: "Il cambiamento richiede tempo, fiducia e relazione." },
   ],
@@ -269,7 +275,7 @@ export const team: MembroTeam[] = [
     ruolo: "Psicologa Scolastica",
     ambitoBreve: "DSA, BES, metodo di studio",
     bioBreve:
-      "Psicologa scolastica specializzata in DSA e BES. Costruisce con ogni studente percorsi personalizzati per un metodo di studio efficace e per il potenziamento degli apprendimenti.",
+      "Si occupa di apprendimento, metodo di studio e supporto a bambini e ragazzi con DSA e BES.",
     bio:
       "Sono la dott.ssa Nicolai Valentina. Ho conseguito una laurea magistrale in psicologia clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni in Disturbi Specifici dell'Apprendimento, svolgo percorsi che hanno lo scopo di condurre verso un metodo di studio più efficace e consapevole, sia per studenti con certificazioni, sia per coloro che hanno un bisogno educativo speciale, disegnando insieme ad ognuno di essi strategie e modalità personalizzate e funzionali. Essenziale, nel mio lavoro con gli studenti, è comprendere quali siano in primis i punti di forza: ognuno di loro possiede risorse fondamentali e mi piace pensare che questo sia il punto di partenza per raggiungere gli obiettivi prefissati. Creo percorsi volti al rinforzo e potenziamento degli apprendimenti, con lo scopo di rafforzare lettura, scrittura e calcolo, oltre alla creazione e costruzione di strumenti compensativi personalizzati. Fondamentale è, per la crescita e il benessere psicologico di ogni studente, che le figure che ruotano attorno percorrano la stessa via e creino una rete ben salda. Per questa ragione, svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti.",
     foto: "/foto/viso/viso-valentina.jpg",
@@ -285,27 +291,34 @@ export const team: MembroTeam[] = [
       {
         titolo: "Chi sono",
         blocchi: [
-          { tipo: "p", testo: "Sono Valentina Nicolai, psicologa. Ho conseguito la laurea magistrale in Psicologia Clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni nei Disturbi Specifici dell'Apprendimento (DSA), accompagno gli studenti verso un metodo di studio più efficace e consapevole." },
-          { tipo: "p", testo: "Lavoro sia con studenti con certificazione, sia con chi ha un bisogno educativo speciale (BES), costruendo insieme a ciascuno strategie e modalità personalizzate e funzionali." },
-        ],
-      },
-      {
-        titolo: "Di cosa mi occupo",
-        blocchi: [
-          { tipo: "p", testo: "Mi occupo principalmente di:" },
-          { tipo: "ul", voci: [
-            "Percorsi per un metodo di studio più efficace e consapevole",
-            "Rinforzo e potenziamento degli apprendimenti: lettura, scrittura e calcolo",
-            "Creazione di strumenti compensativi personalizzati",
-            "Supporto a studenti con DSA e con bisogni educativi speciali (BES)",
-          ] },
+          { tipo: "p", testo: "Sono la Dott.ssa Valentina Nicolai, psicologa scolastica, e mi occupo di apprendimento, metodo di studio e supporto a bambini e ragazzi con DSA e BES." },
+          { tipo: "p", testo: "Ho conseguito la laurea magistrale in Psicologia Clinica presso l’Università degli Studi di Bergamo e ho approfondito la mia formazione nell’ambito dei Disturbi Specifici dell’Apprendimento." },
+          { tipo: "p", testo: "Nel mio lavoro accompagno gli studenti nella scoperta delle proprie risorse e nello sviluppo di strategie di apprendimento personalizzate, affinché possano affrontare lo studio con maggiore consapevolezza, autonomia e fiducia nelle proprie capacità." },
+          { tipo: "p", testo: "Credo che ogni studente abbia un modo unico di apprendere e che le difficoltà scolastiche non definiscano il suo potenziale. Per questo, ogni percorso nasce dall’ascolto dei bisogni individuali e dalla valorizzazione dei punti di forza, per costruire insieme modalità di studio più efficaci e sostenibili." },
         ],
       },
       {
         titolo: "Come lavoro",
         blocchi: [
-          { tipo: "p", testo: "Nel lavoro con gli studenti, per me è essenziale partire dai punti di forza: ognuno possiede risorse fondamentali, e mi piace pensare che siano proprio queste il punto di partenza per raggiungere gli obiettivi." },
-          { tipo: "p", testo: "Per la crescita e il benessere di ogni studente è fondamentale che le figure che gli ruotano attorno seguano la stessa direzione e costruiscano una rete solida. Per questo svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti." },
+          { tipo: "p", testo: "Ogni studente ha caratteristiche, risorse e bisogni differenti. Per questo, non esiste un unico metodo di studio valido per tutti." },
+          { tipo: "p", testo: "Il mio lavoro parte dall’ascolto e dalla comprensione delle difficoltà dello studente, per individuare insieme strategie che siano realmente adatte al suo modo di apprendere." },
+          { tipo: "p", testo: "Attraverso attività mirate, accompagno bambini e ragazzi nell’organizzazione dello studio, nell’utilizzo di strategie efficaci e nella costruzione di un rapporto più sereno e fiducioso con l’apprendimento." },
+          { tipo: "p", testo: "Quando necessario, il percorso si apre anche al confronto con genitori, insegnanti e altri professionisti, perché una rete educativa condivisa può rappresentare una risorsa importante per la crescita e il benessere dello studente." },
+        ],
+      },
+      {
+        titolo: "Quando può essere utile un percorso di metodo di studio?",
+        blocchi: [
+          { tipo: "p", testo: "Un percorso può essere utile quando un bambino o un ragazzo:" },
+          { tipo: "ul", voci: [
+            "Fatica a organizzare il materiale e pianificare lo studio.",
+            "Impiega molto tempo per svolgere i compiti e prepararsi alle verifiche.",
+            "Non sa come affrontare lo studio in modo efficace.",
+            "Fatica a comprendere, ricordare o rielaborare le informazioni.",
+            "Vive la scuola con frustrazione, demotivazione o scarsa fiducia nelle proprie capacità.",
+            "Ha bisogno di strategie personalizzate in presenza di DSA o BES.",
+          ] },
+          { tipo: "p", testo: "Non è necessario aspettare che le difficoltà diventino insostenibili per chiedere un confronto. Anche un primo colloquio può aiutare a comprendere i bisogni dello studente e valutare insieme il percorso più adatto." },
         ],
       },
     ],
@@ -329,18 +342,27 @@ export const servizi: Servizio[] = [
     ],
   },
   {
-    slug: "supporto-scolastico",
+    slug: "metodo-di-studio",
     icona: "📚",
-    titolo: "Supporto scolastico",
-    testo: "Organizzazione e funzioni esecutive, metodo di studio e potenziamento degli apprendimenti.",
-    descrizione:
-      "Percorsi per studenti che vogliono ritrovare metodo, organizzazione e fiducia nello studio. Si lavora su funzioni esecutive, strategie di apprendimento e potenziamento di lettura, scrittura e calcolo, anche in presenza di DSA o bisogni educativi speciali (BES).",
-    punti: [
-      "Per bambini e ragazzi",
-      "Metodo di studio e organizzazione",
-      "Potenziamento degli apprendimenti",
-      "Supporto per DSA e BES",
+    titolo: "Metodo di studio e potenziamento degli apprendimenti",
+    testo: "Percorsi personalizzati per un metodo di studio efficace e consapevole.",
+    paragrafi: [
+      "Studiare non significa soltanto dedicare tempo ai libri, ma trovare il modo di apprendere che meglio si adatta alle proprie caratteristiche e ai propri bisogni.",
+      "Quando studiare diventa faticoso, i compiti richiedono molto tempo o mancano motivazione e fiducia nelle proprie capacità, può essere utile intraprendere un percorso personalizzato.",
+      "Attraverso un lavoro mirato, accompagno bambini e ragazzi nello sviluppo di un metodo di studio efficace e consapevole, potenziando le abilità di apprendimento e promuovendo una progressiva autonomia.",
+      "Ogni percorso parte dalle caratteristiche dello studente, dai suoi punti di forza e dalle sue difficoltà, per individuare strategie concrete e strumenti realmente funzionali.",
     ],
+    puntiTitolo: "Di cosa ci occupiamo:",
+    punti: [
+      "Metodo di studio e strategie di apprendimento",
+      "Organizzazione, pianificazione e gestione dei compiti",
+      "Potenziamento di lettura, scrittura e calcolo",
+      "Sviluppo delle funzioni esecutive e della metacognizione",
+      "Creazione e utilizzo di strumenti compensativi personalizzati",
+      "Supporto a studenti con DSA e BES",
+    ],
+    chiusura:
+      "I percorsi sono rivolti a bambini e ragazzi della scuola primaria e secondaria e prevedono, quando necessario, un confronto con la famiglia e la scuola, per costruire una rete di supporto coerente con i bisogni dello studente.",
   },
   {
     slug: "sostegno-genitorialita",
@@ -348,11 +370,12 @@ export const servizi: Servizio[] = [
     titolo: "Sostegno alla genitorialità",
     testo: "Accompagnamento nelle sfide educative e relazionali.",
     descrizione:
-      "Uno spazio di confronto per i genitori che attraversano sfide educative e relazionali, o momenti di cambiamento come la nascita, la crescita o le difficoltà a scuola. Insieme si cercano strategie e uno sguardo nuovo sulla relazione con i figli.",
+      "Uno spazio di confronto per i genitori che attraversano sfide educative e relazionali, o momenti di cambiamento come la nascita, la crescita o le difficoltà a scuola. Insieme si cercano strategie e uno sguardo nuovo sulla relazione con i figli. Accompagniamo anche i genitori nella fase della separazione, per tutelare il benessere psicologico dei figli e trovare insieme un'organizzazione più serena della quotidianità.",
     punti: [
       "Per genitori e famiglie",
       "Sfide educative e relazionali",
       "Accompagnamento nei cambiamenti",
+      "Accompagnamento nella separazione",
       "Singoli incontri o percorsi",
     ],
   },
@@ -366,7 +389,7 @@ export const servizi: Servizio[] = [
     punti: [
       "Per operatori, insegnanti e genitori",
       "Formazione su misura",
-      "Supervisione di casi e gruppi",
+      "Supervisione di casi, individuale e di gruppo",
       "Anche per gli istituti scolastici",
     ],
   },
@@ -395,7 +418,6 @@ export const servizi: Servizio[] = [
       "In videochiamata",
       "Stessa riservatezza delle sedute in studio",
       "Comoda e flessibile",
-      "Per adolescenti e adulti",
     ],
   },
 ];
@@ -413,7 +435,7 @@ export const fasce: Fascia[] = [
 export const metodologie: Metodologia[] = [
   { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Strumenti per riconoscere e modificare schemi di pensiero disfunzionali." },
   { icona: "🧘", titolo: "Mindfulness", testo: "Pratiche di consapevolezza per ridurre lo stress e coltivare equilibrio emotivo." },
-  { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena." },
+  { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena del proprio mondo interiore." },
   { icona: "🌊", titolo: "Training Autogeno", testo: "Rilassamento profondo per l'autoregolazione e la gestione dell'ansia." },
 ];
 
@@ -426,13 +448,11 @@ export const faq: FaqItem[] = [
   { domanda: "Se non mi sento subito meglio, la terapia non funziona?", risposta: "Il cambiamento richiede tempo, fiducia e cura. La prima seduta non serve a risolvere tutto — è il primo passo per capirti meglio. Non serve stare meglio subito: il percorso si costruisce insieme, seduta dopo seduta." },
   { domanda: "Mio figlio fa fatica a scuola, è svogliato?", risposta: "Le difficoltà scolastiche non sono un segno di incapacità o svogliatezza. Spesso sono un segnale che qualcosa non sta funzionando come dovrebbe. Un ragazzo che fa fatica può essere stanco, in ansia, confuso, oppure non ha ancora trovato il metodo giusto per lui. La fatica va ascoltata, non eliminata in fretta." },
   { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. Nel primo colloquio valutiamo insieme se è la modalità adatta." },
-  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento." },
-  { domanda: "Lo studio è accessibile?", risposta: "Lo studio si trova in Via Guido Zadei 60 a Brescia, con possibilità di parcheggio nelle vicinanze. Per eventuali esigenze di accessibilità, contattaci e troveremo la soluzione migliore." },
+  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento orientativo e di conoscenza, a cui seguirà la presa in carico più adeguata al bisogno." },
   { domanda: "Lavorate con bambini e adolescenti?", risposta: "Sì. Nello studio si lavora con infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai si occupa in particolare di DSA e BES." },
   { domanda: "Vi occupate solo di DSA o anche di altre difficoltà?", risposta: "Non solo di DSA. Ci occupiamo anche di BES, metodo di studio, difficoltà attentive, organizzazione, strategie di apprendimento e benessere scolastico più in generale." },
   { domanda: "È necessario avere una certificazione o una diagnosi per chiedere supporto?", risposta: "No, non è necessario. Si può richiedere un supporto anche in assenza di una certificazione o di una diagnosi specifica. A volte possono emergere difficoltà nello studio, nell'organizzazione, nell'attenzione o nella gestione scolastica che meritano ascolto e approfondimento, anche senza un inquadramento diagnostico." },
   { domanda: "Quello che racconto resta riservato?", risposta: "Sì. Le professioniste dello studio sono tenute al segreto professionale: ciò che emerge nei colloqui resta riservato. Lo studio è uno spazio sicuro, dove parlare liberamente e senza giudizio." },
-  { domanda: "La psicoterapia è detraibile? C'è il Bonus psicologo?", risposta: "Le sedute di psicoterapia rientrano tra le spese sanitarie detraibili al 19% nella dichiarazione dei redditi: è sufficiente conservare la ricevuta o la fattura. Esiste inoltre il Bonus psicologo, un contributo statale a sostegno delle spese di psicoterapia. Importi, requisiti e finestre di domanda cambiano nel tempo: verifica le condizioni aggiornate o chiedici informazioni." },
 ];
 
 // ── Progetto Scuole (Ilenia + Valentina) ────────────────────
