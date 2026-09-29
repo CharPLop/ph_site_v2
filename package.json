@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/controlla-segnaposto.mjs",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy",
+    "immagini": "node scripts/ottimizza-immagini.mjs",
     "astro": "astro"
   },
   "dependencies": {
