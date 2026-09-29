@@ -27,6 +27,7 @@ const BLOCCANTI = [
 ];
 const DA_COMPLETARE = [
   { re: /da completare/i, perche: "testo provvisorio" },
+  { re: /data-senza-key/, perche: "form contatti senza access key Web3Forms" },
 ];
 
 async function elenca(dir) {

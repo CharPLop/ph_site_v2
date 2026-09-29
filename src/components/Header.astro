@@ -35,9 +35,10 @@ const isActive = (href: string) =>
         <li>
           <a
             href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
             class:list={[
               "link-underline text-[0.95rem] font-semibold text-[var(--color-ink-soft)] hover:text-[var(--color-verde)]",
-              isActive(item.href) && "!text-[var(--color-verde)]",
+              isActive(item.href) && "!text-[var(--color-verde-dark)]",
             ]}
           >
             {item.label}

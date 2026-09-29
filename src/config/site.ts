@@ -95,8 +95,9 @@ export const site = {
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
-  // Access key Web3Forms del form contatti. Vuota = il form NON viene mostrato
-  // (restano WhatsApp, email e telefoni), così non esiste mai un form che fallisce.
+  // Access key Web3Forms del form contatti. Vuota = il form si vede ma all'invio
+  // mostra subito il box con i canali alternativi (nessuna chiamata a Web3Forms).
+  // Il guard di build la segnala e la blocca quando il sito diventa indicizzabile.
   web3formsKey: "",
   // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
   // Mettere a true SOLO dopo aver collegato il dominio reale (oggi il sito è su workers.dev).
@@ -510,5 +511,13 @@ export const nav = [
   { label: "Scuole", href: "/scuole/" },
   { label: "FAQ", href: "/faq/" },
   { label: "Blog", href: "/blog/" },
+  { label: "Contatti", href: "/contatti/" },
+];
+
+// Footer: come il menu principale + Novità (nell'header solo quando le novità
+// saranno aggiornate con regolarità).
+export const navFooter = [
+  ...nav.filter((v) => v.href !== "/contatti/"),
+  { label: "Novità", href: "/novita/" },
   { label: "Contatti", href: "/contatti/" },
 ];

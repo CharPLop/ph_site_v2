@@ -1,5 +1,5 @@
 ---
-import { site, sedi, nav } from "@/config/site";
+import { site, sedi, navFooter } from "@/config/site";
 const year = new Date().getFullYear();
 ---
 
@@ -11,19 +11,19 @@ const year = new Date().getFullYear();
         Studio di Psicologia e Psicoterapia · Brescia
       </p>
       <p class="mt-5 text-sm">
-        <a href={`mailto:${site.email}`} class="link-underline">{site.email}</a><br />
-        <a href={`tel:${site.telefono}`} class="link-underline">{site.telefonoDisplay}</a>
+        <a href={`mailto:${site.email}`} class="link-underline inline-block py-1">{site.email}</a><br />
+        <a href={`tel:${site.telefono.replace(/\s/g, "")}`} class="link-underline inline-block py-1">{site.telefonoDisplay}</a>
       </p>
       <div class="mt-5 flex gap-3 text-sm">
-        <a href={site.whatsapp} target="_blank" rel="noopener" class="link-underline">WhatsApp</a>
-        <a href={site.instagram} target="_blank" rel="noopener" class="link-underline">Instagram</a>
+        <a href={site.whatsapp} target="_blank" rel="noopener" class="link-underline inline-block py-1">WhatsApp</a>
+        <a href={site.instagram} target="_blank" rel="noopener" class="link-underline inline-block py-1">Instagram</a>
       </div>
     </div>
 
     <div>
       <p class="kicker !text-[var(--color-sage)]">Pagine</p>
       <ul class="mt-4 space-y-2 text-sm">
-        {nav.map((item) => (
+        {navFooter.map((item) => (
           <li><a href={item.href} class="link-underline">{item.label}</a></li>
         ))}
         <li><a href="/privacy/" class="link-underline opacity-80">Privacy & Cookie</a></li>
@@ -47,8 +47,8 @@ const year = new Date().getFullYear();
     <div class="container-ph flex flex-col gap-2 py-5 text-xs text-[color-mix(in_srgb,var(--color-cream)_60%,transparent)] md:flex-row md:items-center md:justify-between">
       <span>
         © {year} Psiche Holos ·
-        <a href="/note-legali/" class="link-underline">Note legali</a> ·
-        <a href="/privacy/" class="link-underline">Privacy e cookie</a>
+        <a href="/note-legali/" class="link-underline inline-block py-1">Note legali</a> ·
+        <a href="/privacy/" class="link-underline inline-block py-1">Privacy e cookie</a>
       </span>
       <span>Via Guido Zadei, 60 · 25123 Brescia</span>
     </div>
