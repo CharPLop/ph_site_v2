@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
-/* ── Font self-hosted (Playfair Display + Nunito Sans, variabili, subset latino) ── */
+/* ── Font self-hosted (Source Serif 4 + Nunito Sans, variabili, subset latino) ──
+   Source Serif 4: Adobe, licenza OFL-1.1 (file da @fontsource-variable/source-serif-4) */
 @font-face {
-  font-family: "Playfair Display";
-  src: url("/fonts/playfair-display.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Playfair Display";
-  src: url("/fonts/playfair-display-italic.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-italic.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: italic;
   font-display: swap;
 }
@@ -25,25 +26,29 @@
 
 /* ═══════════════════════════════════════════════════════════
    PSICHE HOLOS — Design System
-   Direzione: organica · editoriale · calda · sanitaria-rassicurante
+   Palette A+ (29/09/2026): verde del logo invariato; neutri "carta e
+   inchiostro" allineati a ileniatagliaferro.it; testo secondario ≥ 7:1.
+   I nomi dei token restano quelli storici (cream, white-warm…) per non
+   toccare le pagine: cambiano solo i valori.
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
   /* ── Palette brand Psiche Holos ── */
-  --color-verde: #4a6741; /* primario   */
-  --color-verde-2: #6b8e5b; /* secondario */
-  --color-sage: #c5d4bf; /* salvia     */
-  --color-cream: #f7f4ec; /* crema (bg) */
+  --color-verde: #4a6741; /* verde del logo: titoli, link, accenti (6,0:1 su carta) */
+  --color-verde-2: #6b8e5b; /* solo decorativo: NON per testo (3,5:1) */
+  --color-verde-dark: #3a5233; /* bottoni, voce attiva, testo su salvia (8,6:1 col bianco) */
+  --color-sage: #c5d4bf; /* salvia: solo dettagli, mai sotto testo lungo */
+  --color-cream: #f8f6f0; /* carta calda: sfondo pagina (era #f7f4ec) */
 
-  /* ── Neutri derivati (coerenti col verde) ── */
-  --color-ink: #25301f; /* testo principale (verde-carbone) */
-  --color-ink-soft: #4f5a47; /* testo secondario */
-  --color-line: #e3ddcf; /* bordi su crema */
-  --color-cream-deep: #efe9da; /* superfici alternate */
-  --color-white-warm: #fffdf8;
+  /* ── Neutri ── */
+  --color-ink: #25301f; /* testo principale (13,1:1 su carta) */
+  --color-ink-soft: #465041; /* testo secondario (8,0:1 su carta; era #4f5a47) */
+  --color-line: #e1e3da; /* bordi (era #e3ddcf) */
+  --color-cream-deep: #f0f1eb; /* sezioni alternate (era #efe9da) */
+  --color-white-warm: #ffffff; /* card (era #fffdf8) */
 
   /* ── Tipografia ── */
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
   --font-body: "Nunito Sans", system-ui, -apple-system, sans-serif;
 
   /* ── Raggi & ombre ── */
@@ -76,7 +81,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.01em;
   color: var(--color-ink);
@@ -90,7 +95,7 @@ h1, h2, h3, h4 {
 
 /* Focus accessibile */
 :focus-visible {
-  outline: 2px solid var(--color-verde);
+  outline: 2px solid var(--color-verde-dark);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -142,8 +147,8 @@ h1, h2, h3, h4 {
   cursor: pointer;
 }
 .btn-primary {
-  background-color: var(--color-verde);
-  color: var(--color-cream);
+  background-color: var(--color-verde-dark);
+  color: #ffffff;
   box-shadow: var(--shadow-soft);
 }
 .btn-primary:hover {
