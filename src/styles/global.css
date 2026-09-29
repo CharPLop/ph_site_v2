@@ -1,18 +1,17 @@
 @import "tailwindcss";
 
-/* ── Font self-hosted (Source Serif 4 + Nunito Sans, variabili, subset latino) ──
-   Source Serif 4: Adobe, licenza OFL-1.1 (file da @fontsource-variable/source-serif-4) */
+/* ── Font self-hosted (Playfair Display + Nunito Sans, variabili, subset latino) ── */
 @font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4.woff2") format("woff2");
-  font-weight: 200 900;
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair-display.woff2") format("woff2");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Source Serif 4";
-  src: url("/fonts/source-serif-4-italic.woff2") format("woff2");
-  font-weight: 200 900;
+  font-family: "Playfair Display";
+  src: url("/fonts/playfair-display-italic.woff2") format("woff2");
+  font-weight: 400 700;
   font-style: italic;
   font-display: swap;
 }
@@ -48,15 +47,15 @@
   --color-white-warm: #ffffff; /* card (era #fffdf8) */
 
   /* ── Tipografia ── */
-  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Nunito Sans", system-ui, -apple-system, sans-serif;
 
-  /* ── Raggi & ombre ── */
+  /* ── Raggi & ombre (forma B: pillole per i bottoni, niente ombre) ── */
   --radius-sm: 0.5rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.75rem;
-  --shadow-soft: 0 18px 40px -24px rgba(37, 48, 31, 0.35);
-  --shadow-card: 0 24px 60px -32px rgba(37, 48, 31, 0.45);
+  --radius-md: 0.75rem; /* card (era 1rem) */
+  --radius-lg: 1rem; /* riquadri grandi e foto (era 1.75rem) */
+  --shadow-soft: none; /* ombre disattivate: la separazione la fanno i bordi */
+  --shadow-card: none;
 
   /* ── Container ── */
   --breakpoint-3xl: 90rem;
@@ -81,7 +80,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.12;
   letter-spacing: -0.01em;
   color: var(--color-ink);
@@ -143,17 +142,15 @@ h1, h2, h3, h4 {
   letter-spacing: 0.01em;
   padding: 0.85rem 1.6rem;
   border-radius: 999px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 }
 .btn-primary {
   background-color: var(--color-verde-dark);
   color: #ffffff;
-  box-shadow: var(--shadow-soft);
 }
 .btn-primary:hover {
   background-color: var(--color-ink);
-  transform: translateY(-2px);
 }
 .btn-ghost {
   background-color: transparent;
