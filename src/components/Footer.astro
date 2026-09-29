@@ -1,5 +1,6 @@
 ---
 import { site, sedi, navFooter } from "@/config/site";
+import Icona from "@/components/Icona.astro";
 const year = new Date().getFullYear();
 ---
 
@@ -15,7 +16,15 @@ const year = new Date().getFullYear();
         <a href={`tel:${site.telefono.replace(/\s/g, "")}`} class="link-underline inline-block py-1">{site.telefonoDisplay}</a>
       </p>
       <div class="mt-5 flex gap-3 text-sm">
-        <a href={site.instagram} target="_blank" rel="noopener" class="link-underline inline-block py-1">Instagram</a>
+        <a
+          href={site.instagram}
+          target="_blank"
+          rel="noopener"
+          aria-label="Instagram di Psiche Holos"
+          class="grid h-10 w-10 place-items-center rounded-full border border-[color-mix(in_srgb,var(--color-cream)_35%,transparent)] transition-colors hover:border-[var(--color-cream)] hover:bg-[color-mix(in_srgb,var(--color-cream)_10%,transparent)]"
+        >
+          <Icona nome="instagram" size={20} />
+        </a>
       </div>
     </div>
 
