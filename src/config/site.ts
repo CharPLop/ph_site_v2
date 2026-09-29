@@ -38,6 +38,10 @@ export interface MembroTeam {
   instagramHandle: string;
   sitoWeb?: string;
   scuole: boolean;
+  /** Numero di iscrizione all'Albo degli Psicologi della Lombardia */
+  albo?: string;
+  /** Partita IVA individuale (D.Lgs 70/2003 art. 7 → pagina /note-legali/) */
+  piva?: string;
   profilo?: ProfiloSezione[];
 }
 
@@ -148,10 +152,10 @@ export const sedi: Sede[] = [
     citta: "Brescia",
     titolo: "Studio Psiche Holos",
     indirizzo: "Via Guido Zadei, 60",
-    cap: "25128 Brescia (BS)",
+    cap: "25123 Brescia (BS)",
     orari: "Su appuntamento · anche online",
     mappaEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2789.8!2d10.2175!3d45.534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781538e7e8fba39%3A0xc7c9f0c3e8e3d4a!2sVia+Guido+Zadei%2C+60%2C+25128+Brescia+BS!5e0!3m2!1sit!2sit!4v1",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2789.8!2d10.2175!3d45.534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781538e7e8fba39%3A0xc7c9f0c3e8e3d4a!2sVia+Guido+Zadei%2C+60%2C+25123+Brescia+BS!5e0!3m2!1sit!2sit!4v1",
     principale: true,
   },
 ];
@@ -173,6 +177,8 @@ export const team: MembroTeam[] = [
     instagramHandle: "@psicologa_ileniatagliaferro",
     sitoWeb: "https://ileniatagliaferro.it",
     scuole: true,
+    albo: "26441",
+    piva: "04642290987",
   },
   {
     slug: "anna-marini",
@@ -188,6 +194,8 @@ export const team: MembroTeam[] = [
     instagram: ig("annamarini_psico"),
     instagramHandle: "@annamarini_psico",
     scuole: false,
+    albo: "7229",
+    // piva: "" ← da fornire (Anna)
     profilo: [
       {
         titolo: "Chi sono",
@@ -255,6 +263,8 @@ export const team: MembroTeam[] = [
     instagram: ig("valentina.nicolai.psy"),
     instagramHandle: "@valentina.nicolai.psy",
     scuole: true,
+    // albo: "" ← da confermare (25086 da GuidaPsicologi)
+    // piva: "" ← da fornire (Valentina)
     profilo: [
       {
         titolo: "Chi sono",

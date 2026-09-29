@@ -17,6 +17,8 @@ export default defineConfig({
     sitemap({
       changefreq: 'monthly',
       priority: 0.7,
+      // pagine in noindex: fuori dalla sitemap
+      filter: (page) => !/\/(privacy|note-legali)\/$/.test(page),
     }),
   ],
   vite: {

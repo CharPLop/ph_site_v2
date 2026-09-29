@@ -1,0 +1,53 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { team, sedi } from "@/config/site";
+
+// Dati identificativi dei prestatori (D.Lgs 70/2003 art. 7).
+// Fonte unica: src/config/site.ts (campi albo e piva di ogni professionista).
+// ATTENZIONE: non pubblicare finché mancano P.IVA/Albo di qualche professionista.
+const sede = sedi.find((s) => s.principale) ?? sedi[0];
+---
+
+<BaseLayout
+  title="Note legali"
+  description="Dati identificativi delle professioniste che ricevono presso lo studio Psiche Holos a Brescia."
+  path="/note-legali/"
+  noindex
+>
+  <section class="container-ph max-w-3xl pt-16 md:pt-24">
+    <h1 class="text-[clamp(2.2rem,4.5vw,3.2rem)]">Note legali</h1>
+    <p class="mt-5 text-[var(--color-ink-soft)]">
+      Psiche Holos è uno studio condiviso: ogni professionista esercita in modo
+      autonomo, con propria partita IVA, ed è iscritta all'Ordine degli
+      Psicologi della Lombardia.
+    </p>
+
+    <div class="mt-8 divide-y divide-[var(--color-line)] rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)]">
+      {team.map((m) => (
+        <div class="grid gap-1 p-5 md:grid-cols-[14rem_1fr] md:gap-6">
+          <p class="font-semibold text-[var(--color-ink)]">{m.nome}</p>
+          <div class="text-[0.95rem] text-[var(--color-ink-soft)]">
+            <p>{m.ruolo}</p>
+            {m.albo && <p>Albo degli Psicologi della Lombardia n. {m.albo}</p>}
+            {m.piva && <p>P.IVA {m.piva}</p>}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-8 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
+      <p>
+        <span class="font-semibold text-[var(--color-ink)]">Sede:</span>
+        {sede.indirizzo} · {sede.cap}
+      </p>
+      <p>
+        <span class="font-semibold text-[var(--color-ink)]">Ordine professionale:</span>
+        Ordine degli Psicologi della Lombardia
+      </p>
+      <p>
+        Per il trattamento dei dati personali consulta
+        <a href="/privacy/" class="link-underline font-semibold text-[var(--color-verde)]">l'informativa privacy</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

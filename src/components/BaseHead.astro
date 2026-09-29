@@ -32,6 +32,7 @@ const _base = Astro.site ?? site.url;
 const _labels: Record<string, string> = {
   studio: "Chi siamo", servizi: "Servizi", team: "Team", scuole: "Scuole",
   faq: "Domande frequenti", blog: "Blog", contatti: "Contatti", privacy: "Privacy",
+  "note-legali": "Note legali",
 };
 const _segs = path.split("/").filter(Boolean);
 const breadcrumb = [{ name: "Home", url: new URL("/", _base).href }];

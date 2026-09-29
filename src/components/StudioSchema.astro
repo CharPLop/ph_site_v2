@@ -18,7 +18,6 @@ interface Credenziali {
 const credenziali: Record<string, Credenziali> = {
   "ilenia-tagliaferro": {
     alboRegione: "Ordine degli Psicologi della Lombardia",
-    alboNumero: "26441",
     knowsAbout: [
       "Psicoterapia Cognitivo-Comportamentale (CBT)",
       "Psicologia clinica",
@@ -29,7 +28,6 @@ const credenziali: Record<string, Credenziali> = {
   },
   "anna-marini": {
     alboRegione: "Ordine degli Psicologi della Lombardia",
-    alboNumero: "7229",
     universita: "Università degli Studi di Padova",
     knowsAbout: [
       "Psicoterapia a orientamento psicodinamico",
@@ -77,7 +75,7 @@ const studio = {
     "@type": "PostalAddress",
     streetAddress: "Via Guido Zadei, 60",
     addressLocality: "Brescia",
-    postalCode: "25128",
+    postalCode: "25123",
     addressRegion: "BS",
     addressCountry: "IT",
   },
@@ -129,7 +127,7 @@ const persone = team.map((m) => {
       ? {
           "@type": "Organization",
           name: c.alboRegione,
-          ...(c.alboNumero ? { identifier: c.alboNumero } : {}),
+          ...(m.albo ? { identifier: m.albo } : {}),
         }
       : undefined,
     sameAs: [m.instagram, m.sitoWeb].filter(Boolean),
