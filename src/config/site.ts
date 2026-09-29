@@ -89,6 +89,9 @@ export const site = {
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
+  // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
+  // Mettere a true SOLO dopo aver collegato il dominio reale (oggi il sito è su workers.dev).
+  indicizza: false,
 };
 
 // ── Chi siamo ───────────────────────────────────────────────
@@ -158,11 +161,11 @@ export const team: MembroTeam[] = [
   {
     slug: "ilenia-tagliaferro",
     nome: "Dott.ssa Ilenia Tagliaferro",
-    ruolo: "Psicologa Clinica · Psicoterapeuta CBT",
+    ruolo: "Psicologa Clinica · Specializzanda in Psicoterapia Cognitivo-Comportamentale",
     bioBreve:
-      "Psicologa clinica e psicoterapeuta cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
     bio:
-      "Psicologa clinica e psicoterapeuta cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
     foto: "/foto/viso/viso-ilenia.jpg",
     telefonoDisplay: "392 821 5608",
     whatsapp: wa("3928215608", "Buongiorno Dott.ssa Tagliaferro"),
