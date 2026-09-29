@@ -15,7 +15,7 @@ const bodies: Record<string, string> = {
   "formazione-supervisione":
     '<path d="M12 5 2.5 9 12 13l9.5-4z"/><path d="M6.5 11v4.2c0 1.4 2.6 2.4 5.5 2.4s5.5-1 5.5-2.4V11"/><path d="M21.5 9v4.5"/>',
   "mindfulness-training-autogeno":
-    '<path d="M5 19C5 11 10.5 5.5 19 5c.6 8.5-4.5 14-14 14z"/><path d="M8.5 15.5C11 12 14.5 9.5 18 8.5"/>',
+    '<path d="M3 8.5c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 12.5c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/><path d="M3 16.5c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/>',
   "terapia-online":
     '<rect x="2.5" y="4.5" width="19" height="12" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/><path d="M10.3 8.2v4.6l4-2.3z"/>',
 
@@ -52,7 +52,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" view
 ---
 
 <span
-  class={`inline-grid h-12 w-12 place-items-center rounded-[14px] bg-[var(--color-sage)] text-[var(--color-verde)] ${cls}`}
+  class={`inline-grid h-12 w-12 place-items-center rounded-[10px] bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)] ${cls}`}
   aria-hidden="true"
 >
   <Fragment set:html={svg} />
