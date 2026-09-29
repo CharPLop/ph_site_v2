@@ -14,8 +14,10 @@
 //     il file viene riscritto SOLO se il risultato è più leggero;
 //  4. non usate: spostate in _originali/non-usate/<percorso> (non cancellate).
 //
-//  Idempotente: un'immagine con il backup già presente in _originali/ viene
-//  saltata; anche le foto già leggere (≤ 1600 px e ≤ 400 KB) non vengono toccate.
+//  Idempotente: le foto già leggere (≤ 1600 px e ≤ 400 KB) e i loghi già alla
+//  misura giusta vengono saltati; un backup già presente non viene sovrascritto.
+//  I file vengono letti in memoria prima di essere elaborati, così su Windows
+//  non restano bloccati da sharp durante la riscrittura.
 //  _originali/ è in .gitignore.
 // ═══════════════════════════════════════════════════════════
 import { promises as fs } from "node:fs";
@@ -25,6 +27,7 @@ import { fileURLToPath } from "node:url";
 let sharp;
 try {
   sharp = (await import("sharp")).default;
+  sharp.cache(false); // su Windows la cache di libvips tiene aperti i file
 } catch {
   console.error("sharp non trovato. Installa con:  npm i -D sharp");
   process.exit(1);
@@ -102,26 +105,25 @@ for (const f of immagini.sort()) {
   }
 
   totPrima += stat.size;
-  const meta = await sharp(f).metadata();
+  const input = await fs.readFile(f); // in memoria: il file su disco resta libero
+  const meta = await sharp(input).metadata();
   const w = meta.width ?? 0;
   const h = meta.height ?? 0;
   const isLogo = r in LOGHI;
 
   let pipeline;
   let motivo = "";
-  if (await esiste(path.join(BACKUP, r))) {
-    motivo = "già fatta: backup presente";
-  } else if (isLogo) {
+  if (isLogo) {
     const target = LOGHI[r];
     if (w <= target) { motivo = "logo già piccolo"; }
     else {
-      pipeline = sharp(f).resize({ width: target }).png({ compressionLevel: 9, palette: true, quality: 90 });
+      pipeline = sharp(input).resize({ width: target }).png({ compressionLevel: 9, palette: true, quality: 90 });
     }
   } else {
     const lato = Math.max(w, h);
     if (lato <= FOTO_MAX_LATO && stat.size <= SOGLIA_KB * 1024) { motivo = "già ottimizzata"; }
     else {
-      pipeline = sharp(f)
+      pipeline = sharp(input)
         .rotate()
         .resize({ width: FOTO_MAX_LATO, height: FOTO_MAX_LATO, fit: "inside", withoutEnlargement: true })
         .jpeg({ quality: FOTO_QUALITA, mozjpeg: true, progressive: true });
