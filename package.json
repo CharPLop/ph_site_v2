@@ -19,6 +19,11 @@
     "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
+    "@astrojs/react": "^4.4.2",
+    "@keystatic/astro": "^5.2.0",
+    "@keystatic/core": "^0.6.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "sharp": "^0.35.5",
     "wrangler": "^4.104.0"
   }

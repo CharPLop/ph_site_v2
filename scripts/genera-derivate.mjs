@@ -8,6 +8,8 @@
 //  • public/foto/viso/avatar/<nome>.webp — 160×160, ritaglio sul soggetto:
 //    usato per i tondi da 32–80 px (card team in home, contatti, pulsante Prenota);
 //  • public/foto/edit/team-portrait.webp — stessa foto del gruppo in WebP;
+//  • public/foto/{anna,ilenia,valentina,corridoio}/*.webp — foto dello studio in WebP
+//    (le usa il componente Foto.astro: carosello di /studio/ e copertine del blog);
 //  • favicon dal logo Psiche Holos: favicon.ico (16+32+48), favicon-16.png, favicon-32.png
 //    con il centro del logo (la scritta), apple-touch-icon.png (180) con il logo intero,
 //    tutti su un tondo crema. Sorgente: _originali/loghi/logo-psiche-holos.png se c'è
@@ -55,6 +57,20 @@ for (const f of await fs.readdir(VISI)) {
     dst: path.join(VISI, "avatar", `${nome}.webp`),
     fai: avatar,
   });
+}
+// Foto dello studio (carosello e copertine del blog): WebP della stessa misura
+for (const cartella of ["anna", "ilenia", "valentina", "corridoio"]) {
+  const dir = path.join(PUBLIC, "foto", cartella);
+  let voci = [];
+  try { voci = await fs.readdir(dir); } catch { continue; }
+  for (const f of voci) {
+    if (!/\.jpe?g$/i.test(f)) continue;
+    lavori.push({
+      src: path.join(dir, f),
+      dst: path.join(dir, f.replace(/\.jpe?g$/i, ".webp")),
+      fai: (buf) => sharp(buf).rotate().webp({ quality: 74 }).toBuffer(),
+    });
+  }
 }
 lavori.push({
   src: path.join(PUBLIC, "foto", "edit", "team-portrait.jpg"),

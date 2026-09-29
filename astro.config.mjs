@@ -2,6 +2,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import react from '@astrojs/react';
+import keystatic from '@keystatic/astro';
+
+// Keystatic (pannello per blog e novità) solo in sviluppo: `npm run dev` → /keystatic.
+// La build di produzione resta statica e non lo include.
+const sviluppo = process.argv.includes('dev');
 
 // ───────────────────────────────────────────────────────────
 //  IMPORTANTE — quando compri il dominio:
@@ -12,8 +18,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://www.psicheholos.it', // ← PLACEHOLDER: aggiorna col dominio reale
   base: '/',
-  trailingSlash: 'always',
+  // In sviluppo 'ignore': le API di Keystatic non usano lo slash finale
+  trailingSlash: sviluppo ? 'ignore' : 'always',
   integrations: [
+    ...(sviluppo ? [react(), keystatic()] : []),
     sitemap({
       changefreq: 'monthly',
       priority: 0.7,

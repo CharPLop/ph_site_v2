@@ -46,12 +46,16 @@ _segs.forEach((s, i) => {
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f8f6f0" />
 <meta name="generator" content={Astro.generator} />
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 {(noindex || !site.indicizza) && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Senza JavaScript il menu mobile resta aperto sotto l'header (niente hamburger) -->
+<noscript><style>@media (max-width:767px){#nav-toggle{display:none!important}#nav-menu{display:flex!important;position:static!important;flex-direction:row!important;flex-wrap:wrap;gap:.25rem 1rem;border:0!important;padding:.25rem 0 .75rem!important;background:transparent!important}header nav{height:auto!important;flex-wrap:wrap}}</style></noscript>
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />

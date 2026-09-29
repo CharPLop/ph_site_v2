@@ -6,6 +6,7 @@ autore: "Psiche Holos"
 copertina: "/foto/ilenia/ilenia-studio-01.jpg"
 copertinaAlt: "Angolo accogliente dello studio Psiche Holos"
 tag: ["mindfulness", "benessere"]
+bozza: true # da confermare con le professioniste (e da riscrivere sulla documentazione)
 ---
 
 La parola *mindfulness* viene spesso tradotta come "consapevolezza": indica la capacità di portare attenzione, in modo intenzionale e non giudicante, a ciò che accade nel momento presente. Non è una tecnica per "svuotare la mente" né un modo per eliminare i pensieri, ma un modo diverso di stare in relazione con la propria esperienza.

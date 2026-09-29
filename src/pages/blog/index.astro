@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 
 import { team } from "@/config/site";
+import Foto from "@/components/Foto.astro";
 
 // In sviluppo si vedono anche le bozze (con etichetta), nella build mai.
 const posts = (await getCollection("blog", ({ data }) => import.meta.env.DEV || !data.bozza)).sort(
@@ -38,11 +39,12 @@ const fmtData = (d: Date): string =>
           >
             {post.data.copertina && (
               <div class="aspect-[16/10] overflow-hidden">
-                <img
+                <Foto
                   src={post.data.copertina}
                   alt={post.data.copertinaAlt ?? post.data.titolo}
                   class="h-full w-full object-cover"
-                  loading="lazy"
+                  width={1600}
+                  height={1000}
                 />
               </div>
             )}

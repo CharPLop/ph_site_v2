@@ -7,7 +7,9 @@
 //  BLOCCANTI (build fallisce sempre):
 //    segnaposto tecnici e diciture vietate.
 //  DA COMPLETARE (build fallisce solo se il sito è indicizzabile):
-//    testi ancora provvisori. Finché site.indicizza = false (noindex su
+//    testi ancora provvisori.
+//  LANCIO (solo se indicizzabile): canonical, robots e sitemap sullo stesso
+//    dominio, niente link a workers.dev. Finché site.indicizza = false (noindex su
 //    tutte le pagine) sono solo avvisi, così i fix urgenti si possono
 //    pubblicare; appena si toglie il noindex diventano bloccanti.
 // ═══════════════════════════════════════════════════════════
@@ -64,6 +66,25 @@ for (const f of file) {
   }
   for (const { re, perche } of DA_COMPLETARE) {
     if (re.test(testo)) (indicizzabile ? errori : avvisi).push(`${rel}: "${testo.match(re)[0]}" — ${perche}`);
+  }
+}
+
+// ── Controlli di lancio (solo quando il sito è indicizzabile) ──
+// canonical, sitemap e robots devono puntare tutti allo stesso dominio, e non a workers.dev.
+if (indicizzabile) {
+  const canon = home.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1] ?? "";
+  let host = "";
+  try { host = new URL(canon).host; } catch { errori.push("index.html: canonical mancante o non valido"); }
+  let robots = "";
+  try { robots = await fs.readFile(path.join(DIST, "robots.txt"), "utf8"); } catch { errori.push("robots.txt mancante"); }
+  const sitemapRobots = robots.match(/^Sitemap:\s*(\S+)/im)?.[1] ?? "";
+  if (!sitemapRobots) errori.push("robots.txt: manca la riga Sitemap");
+  else if (host && new URL(sitemapRobots).host !== host) errori.push(`robots.txt: la sitemap punta a ${new URL(sitemapRobots).host}, il canonical a ${host}`);
+  if (/Disallow:\s*\/\s*$/im.test(robots)) errori.push("robots.txt: Disallow: / blocca tutto il sito");
+  try { await fs.access(path.join(DIST, "sitemap-index.xml")); } catch { errori.push("sitemap-index.xml mancante"); }
+  for (const f of file) {
+    const t = await fs.readFile(f, "utf8");
+    if (/workers\.dev/.test(t)) errori.push(`${path.relative(DIST, f).split(path.sep).join("/")}: link a workers.dev`);
   }
 }
 
