@@ -2,9 +2,8 @@
 titolo: "Strumenti compensativi: perché non sono una scorciatoia"
 descrizione: "Mappe, sintesi vocale, formulari: cosa sono gli strumenti compensativi per i DSA, come si scelgono e perché servono all'autonomia, non a studiare di meno."
 data: 2026-09-29
-autrice: "valentina-nicolai"
-copertina: "/foto/valentina/valentina-studio-2.jpg"
-copertinaAlt: "Lo studio della Dott.ssa Valentina Nicolai"
+copertina: "/foto/ilenia/ilenia-libreria.jpg"
+copertinaAlt: "Poltrone e libreria in uno degli spazi dello studio"
 tag: ["DSA", "metodo di studio", "scuola"]
 bozza: true
 ---

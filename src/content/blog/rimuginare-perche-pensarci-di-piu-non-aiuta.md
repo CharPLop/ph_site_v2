@@ -2,9 +2,8 @@
 titolo: "Rimuginare: perché pensarci di più non sempre aiuta"
 descrizione: "Il rimuginio sembra un modo per prepararsi al peggio, ma spesso alimenta la preoccupazione. Come riconoscerlo e cosa propone l'approccio cognitivo-comportamentale."
 data: 2026-09-29
-autrice: "ilenia-tagliaferro"
-copertina: "/foto/ilenia/ilenia-libreria.jpg"
-copertinaAlt: "Spazio luminoso con libreria nello studio Psiche Holos"
+copertina: "/foto/corridoio/corridoio.jpg"
+copertinaAlt: "Il corridoio d'ingresso dello studio Psiche Holos"
 tag: ["ansia", "rimuginio", "cognitivo-comportamentale"]
 bozza: true
 ---

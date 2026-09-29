@@ -2,9 +2,8 @@
 titolo: "Training autogeno: che cos'è e come si impara"
 descrizione: "Una tecnica di rilassamento nata negli anni Trenta, basata su semplici formule e sull'ascolto del corpo: come funziona, come si impara e che cosa aspettarsi."
 data: 2026-09-29
-autrice: "anna-marini"
 copertina: "/foto/anna/anna-studio-1.jpg"
-copertinaAlt: "Lo studio della Dott.ssa Anna Marini"
+copertinaAlt: "Una stanza dello studio con poltrone e tappeto"
 tag: ["training autogeno", "rilassamento", "stress"]
 bozza: true
 ---
