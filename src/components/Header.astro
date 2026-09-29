@@ -46,7 +46,11 @@ const isActive = (href: string) =>
         </li>
       ))}
       <li class="mt-2 md:mt-0">
-        <a href="/contatti/" class="btn btn-primary !py-2.5 !px-5 text-sm">Prenota</a>
+        <a
+          href="/contatti/"
+          aria-current={isActive("/contatti/") ? "page" : undefined}
+          class="btn btn-primary !py-2.5 !px-5 text-sm whitespace-nowrap"
+        >Prenota un colloquio</a>
       </li>
     </ul>
   </nav>

@@ -536,11 +536,10 @@ export const nav = [
   { label: "Scuole", href: "/scuole/" },
   { label: "FAQ", href: "/faq/" },
   { label: "Blog", href: "/blog/" },
-  { label: "Contatti", href: "/contatti/" },
 ];
 
-// Footer: come il menu principale + Novità (nell'header solo quando le novità
-// saranno aggiornate con regolarità).
+// Footer: come il menu principale + Novità e Contatti (nell'header "Contatti"
+// non c'è: lo sostituisce il bottone "Prenota un colloquio", che porta alla stessa pagina).
 export const navFooter = [
   ...nav.filter((v) => v.href !== "/contatti/"),
   { label: "Novità", href: "/novita/" },
