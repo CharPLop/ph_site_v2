@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
+import { site, team, servizi, fasce, scuole, citazione, porte } from "@/config/site";
 ---
 
 <BaseLayout
@@ -10,9 +10,6 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 >
   <!-- ░░░ HERO ░░░ -->
   <section class="relative overflow-hidden">
-    <div class="pointer-events-none absolute -right-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-[var(--color-sage)] opacity-40 blur-3xl"></div>
-    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-[var(--color-verde-2)] opacity-10 blur-3xl"></div>
-
     <div class="container-ph relative grid items-center gap-12 pb-12 pt-16 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
       <div>
         <p class="kicker reveal" style="animation-delay:.05s">Studio di Psicologia e Psicoterapia · Brescia</p>
@@ -25,7 +22,17 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
           della vita: percorsi individuali, di gruppo, online e supporto
           scolastico.
         </p>
-        <div class="reveal mt-8 flex flex-wrap gap-3" style="animation-delay:.28s">
+        <ul class="reveal mt-7 grid gap-3 sm:grid-cols-3" style="animation-delay:.24s" aria-label="A chi ci rivolgiamo">
+          {porte.map((p) => (
+            <li>
+              <a href={p.href} class="flex h-full flex-col rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-4 transition-colors hover:border-[var(--color-verde)]">
+                <span class="font-semibold text-[var(--color-verde-dark)]">{p.titolo}</span>
+                <span class="mt-1 text-sm leading-snug text-[var(--color-ink-soft)]">{p.testo}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="reveal mt-7 flex flex-wrap gap-3" style="animation-delay:.28s">
           <a href="/contatti/" class="btn btn-primary">Prenota un colloquio</a>
           <a href="/servizi/" class="btn btn-ghost">Scopri i servizi</a>
         </div>
@@ -123,7 +130,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
               <span class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-sage)]">0{i + 1}</span>
               <span>
                 <span class="block font-semibold">{p.titolo}</span>
-                <span class="block text-sm text-[color-mix(in_srgb,var(--color-cream)_80%,transparent)]">{p.desc}</span>
+                <span class="block text-sm text-[color-mix(in_srgb,var(--color-cream)_90%,transparent)]">{p.desc}</span>
               </span>
             </li>
           ))}
