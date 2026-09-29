@@ -28,3 +28,6 @@ Thumbs.db
 # editor
 .idea/
 .vscode/
+
+# originali delle immagini (backup di scripts/ottimizza-immagini.mjs)
+_originali/
