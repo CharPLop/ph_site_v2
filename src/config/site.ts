@@ -196,7 +196,7 @@ export const team: MembroTeam[] = [
     ruoloCard: ["Psicologa Clinica", "Specializzanda in Psicoterapia CBT"],
     ambitoBreve: "Ansia, difficoltà emotive e relazionali",
     bioBreve:
-      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia, di difficoltà emotive e relazionali e di EMDR.",
     bio:
       "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
     foto: "/foto/viso/viso-ilenia.jpg",
