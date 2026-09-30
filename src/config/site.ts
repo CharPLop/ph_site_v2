@@ -15,7 +15,7 @@ export interface Sede {
 }
 
 export interface ProfiloBlocco {
-  tipo: "p" | "ul";
+  tipo: "p" | "ul" | "sottotitolo";
   testo?: string;
   voci?: string[];
 }
@@ -220,7 +220,7 @@ export const team: MembroTeam[] = [
     bioBreve:
       "Psicologa e psicoterapeuta a orientamento psicodinamico, iscritta all'Ordine della Lombardia. Si occupa di sostegno e psicoterapia individuale e di gruppo, genitorialità, formazione e supervisione, mindfulness e training autogeno.",
     bio:
-      "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
+      "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Ho conseguito la Specializzazione in Psicoterapia in Psicodramma Classico Moreniano. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
     foto: "/foto/viso/viso-anna.jpg",
     avatar: "/foto/viso/avatar/viso-anna.webp",
     ritratto: "/foto/viso/ritratto/viso-anna.jpg",
@@ -240,8 +240,8 @@ export const team: MembroTeam[] = [
         titolo: "Chi sono",
         blocchi: [
           { tipo: "p", testo: "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229)." },
-          { tipo: "p", testo: "Mi sono laureata presso l'Università degli Studi di Padova nel 2001 in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati." },
-          { tipo: "p", testo: "In questi contesti ho sviluppato capacità di lavoro autonomo e in rete, e ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi." },
+          { tipo: "p", testo: "Mi sono laureata presso l'Università degli Studi di Padova nel 2001 in Psicologia Clinica e di Comunità. Ho conseguito la Specializzazione in Psicoterapia in Psicodramma Classico Moreniano. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati." },
+          { tipo: "p", testo: "In questi contesti ho sviluppato capacità di lavoro autonomo e in équipe, e ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi." },
           { tipo: "p", testo: "Ho sempre lavorato sia con l'individuo sia con il gruppo. In particolare, oltre al contesto individuale, ho condotto:" },
           { tipo: "ul", voci: [
             "Gruppi di psicoterapia per preadolescenti, adolescenti e adulti",
@@ -275,15 +275,38 @@ export const team: MembroTeam[] = [
           { tipo: "p", testo: "I temi che tratto nei percorsi proposti sono diversi:" },
           { tipo: "ul", voci: [
             "Gestione di ansia e stress",
-            "Capacità relazionali e comunicative",
+            "Capacità relazionali e tecnica comunicativa",
             "Crescita personale e consapevolezza di sé",
             "Autostima e sicurezza in sé stessi",
             "Capacità decisionali",
+            "Elaborazione del trauma",
             "Motivazione",
             "Gestione del tempo",
             "Assertività",
           ] },
-          { tipo: "p", testo: "Nella formazione e nella supervisione metto a frutto l'esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali." },
+          { tipo: "p", testo: "Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali." },
+        ],
+      },
+      {
+        titolo: "Le mie competenze",
+        blocchi: [
+          { tipo: "sottotitolo", testo: "Professionali" },
+          { tipo: "ul", voci: [
+            "Psicoterapia individuale e di gruppo",
+            "Lavoro clinico con minori, adulti e famiglie",
+            "Conduzione di gruppi terapeutici e formativi",
+            "Valutazione psicodiagnostica",
+          ] },
+          { tipo: "sottotitolo", testo: "Relazionali" },
+          { tipo: "ul", voci: [
+            "Grande esperienza nel lavoro in équipe multidisciplinari",
+            "Capacità di ascolto e collaborazione nei contesti istituzionali",
+          ] },
+          { tipo: "sottotitolo", testo: "Organizzative" },
+          { tipo: "ul", voci: [
+            "Lavoro autonomo e in rete",
+            "Gestione di progetti clinici e formativi",
+          ] },
         ],
       },
     ],
