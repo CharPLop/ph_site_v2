@@ -3,11 +3,21 @@
 // Tracciati dal set Tabler Icons (https://tabler.io/icons, licenza MIT),
 // copiati qui come SVG inline: nessuna libreria né richiesta esterna.
 // La chiave è lo slug del servizio oppure il titolo in site.ts.
+// Con site.stileIcone = "emoji" mostra l'emoji scritta in site.ts (servizi, valori,
+// metodologie, fasce d'età); con "svg", o se l'emoji manca, l'icona a tratto qui sotto.
+import { site, servizi, chiSiamo, metodologie, fasce } from "@/config/site";
 interface Props {
   slug: string;
   class?: string;
 }
 const { slug, class: cls = "" } = Astro.props;
+
+const emojiDi = (chiave: string): string | undefined =>
+  servizi.find((s) => s.slug === chiave)?.icona ??
+  chiSiamo.valori.find((v) => v.titolo === chiave)?.icona ??
+  metodologie.find((m) => m.titolo === chiave)?.icona ??
+  fasce.find((f) => f.titolo === chiave)?.emoji;
+const emoji = site.stileIcone === "emoji" ? emojiDi(slug) : undefined;
 
 const bodies: Record<string, string> = {
   "psicoterapia": // tabler: armchair
@@ -56,5 +66,5 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" view
   class={`inline-grid h-12 w-12 place-items-center rounded-[10px] bg-[var(--color-cream-deep)] text-[var(--color-verde-dark)] ${cls}`}
   aria-hidden="true"
 >
-  <Fragment set:html={svg} />
+  {emoji ? <span class="text-[1.6rem] leading-none">{emoji}</span> : <Fragment set:html={svg} />}
 </span>

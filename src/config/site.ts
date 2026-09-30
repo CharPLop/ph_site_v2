@@ -108,6 +108,9 @@ export const site = {
   fotoGruppo: "/foto/edit/team-portrait.jpg",
   fotoGruppoWebp: "/foto/edit/team-portrait.webp",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
+  // Icone di servizi, fasce d'età, valori e metodologie: "emoji" (scelta delle professioniste)
+  // oppure "svg" (icone a tratto Tabler). Le icone dei contatti restano sempre SVG.
+  stileIcone: "emoji" as "emoji" | "svg",
   // Access key Web3Forms del form contatti. Vuota = il form si vede ma all'invio
   // mostra subito il box con i canali alternativi (nessuna chiamata a Web3Forms).
   // Il guard di build la segnala e la blocca quando il sito diventa indicizzabile.
