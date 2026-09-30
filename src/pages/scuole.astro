@@ -1,12 +1,21 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { scuole, team } from "@/config/site";
+import Icona from "@/components/Icona.astro";
+import { scuole, team, site } from "@/config/site";
 const referenti = team.filter((m) => scuole.professioniste.includes(m.slug));
-const { leadMagnet, formazione, sportello, laboratori } = scuole;
+const { leadMagnet, formazione, sportello, laboratori, passi } = scuole;
+
+// Prenotazione della call gratuita: WhatsApp con messaggio già pronto per la scuola ed email con oggetto.
+const waScuola = (m: (typeof team)[number]): string => {
+  const cognome = m.nome.split(" ").at(-1);
+  const msg = `Buongiorno Dott.ssa ${cognome}, scrivo per conto di un istituto scolastico e vorrei prenotare la call gratuita di 30 minuti sul progetto per le scuole.`;
+  return `${m.whatsapp.split("?")[0]}?text=${encodeURIComponent(msg)}`;
+};
+const mailScuola = `mailto:${site.email}?subject=${encodeURIComponent("Call gratuita progetto scuole – nome dell'istituto")}&body=${encodeURIComponent("Buongiorno,\nscrivo per conto dell'istituto: \nRuolo: \nRecapito telefonico: \n\nVorrei prenotare la call gratuita di 30 minuti per il progetto scuole.\n")}`;
 ---
 
 <BaseLayout
-  title="Progetto Scuole"
+  title="Progetti di psicologia per le scuole a Brescia"
   description="Psiche Holos progetta interventi psicologici su misura per le Scuole Secondarie di I Grado: formazione docenti su DSA e BES, sportello d'ascolto, percorsi individuali e laboratori di gruppo. Scarica la presentazione completa in PDF."
   path="/scuole/"
 >
@@ -17,44 +26,19 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
     <p class="mt-5 max-w-2xl text-lg text-[var(--color-ink-soft)]">
       {scuole.intro} Rivolto alle <strong>{scuole.target}</strong>.
     </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="#call" class="btn btn-primary">Prenota una call gratuita di 30 minuti</a>
+      <a href={leadMagnet.file} download class="btn btn-ghost">↓ Scarica la presentazione (PDF)</a>
+    </div>
   </section>
 
   <!-- Obiettivo -->
   <section class="container-ph mt-10">
     <div class="rounded-[var(--radius-md)] bg-[var(--color-sage)] p-7 md:p-9">
-      <p class="kicker">Obiettivo</p>
-      <p class="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.4vw,1.6rem)] leading-snug text-[var(--color-verde)]">
+      <p class="kicker !text-[var(--color-verde-dark)]">Obiettivo</p>
+      <p class="mt-3 max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.25rem,2.4vw,1.6rem)] leading-snug text-[var(--color-verde-dark)]">
         {scuole.obiettivo}
       </p>
-    </div>
-  </section>
-
-  <!-- Lead magnet -->
-  <section class="container-ph mt-14">
-    <div class="overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-verde)] text-[var(--color-cream)] md:grid md:grid-cols-[1.6fr_1fr]">
-      <div class="p-8 md:p-10">
-        <p class="kicker text-[var(--color-sage)]">Presentazione · {leadMagnet.pagine} pagine</p>
-        <h2 class="mt-3 font-[family-name:var(--font-display)] text-[clamp(1.7rem,3vw,2.3rem)] leading-tight">
-          {leadMagnet.titolo}
-        </h2>
-        <p class="mt-1 text-lg italic text-[var(--color-sage)]">{leadMagnet.sottotitolo}</p>
-        <p class="mt-4 max-w-xl text-[0.97rem] leading-relaxed text-[var(--color-cream)]/90">
-          {leadMagnet.descrizione}
-        </p>
-        <a
-          href={leadMagnet.file}
-          download
-          class="mt-7 inline-flex items-center gap-2 rounded-full bg-[var(--color-cream)] px-7 py-3 font-medium text-[var(--color-verde)] transition hover:opacity-90"
-        >
-          ↓ Scarica la presentazione (PDF)
-        </a>
-      </div>
-      <div class="hidden items-center justify-center bg-[var(--color-verde-dark,#3a5233)] p-10 md:flex">
-        <div class="font-[family-name:var(--font-display)] text-center leading-none">
-          <span class="block text-[5rem] text-[var(--color-sage)]">3</span>
-          <span class="mt-2 block text-sm uppercase tracking-[0.2em] text-[var(--color-cream)]/80">percorsi<br />integrati</span>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -63,7 +47,13 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
     <p class="kicker">1 · Formazione docenti</p>
     <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">{formazione.sottotitolo}</h2>
     <p class="mt-4 max-w-3xl text-[var(--color-ink-soft)]">{formazione.descrizione}</p>
-    <div class="mt-7 grid gap-5 md:grid-cols-2">
+    <details class="group mt-4">
+      <summary class="inline-flex min-h-6 cursor-pointer list-none items-center gap-1.5 py-1 font-semibold text-[var(--color-verde-dark)] hover:underline [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Approfondisci: obiettivi e tematiche</span>
+        <span class="hidden group-open:inline">Riduci</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform group-open:rotate-180"><path d="M6 9l6 6l6 -6" /></svg>
+      </summary>
+    <div class="mt-5 grid gap-5 md:grid-cols-2">
       <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
         <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Obiettivi</h3>
         <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
@@ -81,6 +71,7 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
         </ul>
       </div>
     </div>
+    </details>
   </section>
 
   <!-- Sportello -->
@@ -88,7 +79,13 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
     <p class="kicker">2 · Percorsi individuali per studenti</p>
     <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">{sportello.sottotitolo}</h2>
     <p class="mt-4 max-w-3xl text-[var(--color-ink-soft)]">{sportello.descrizione}</p>
-    <div class="mt-7 grid gap-5 md:grid-cols-2">
+    <details class="group mt-4">
+      <summary class="inline-flex min-h-6 cursor-pointer list-none items-center gap-1.5 py-1 font-semibold text-[var(--color-verde-dark)] hover:underline [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Approfondisci: finalità e ambiti</span>
+        <span class="hidden group-open:inline">Riduci</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="transition-transform group-open:rotate-180"><path d="M6 9l6 6l6 -6" /></svg>
+      </summary>
+    <div class="mt-5 grid gap-5 md:grid-cols-2">
       <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
         <h3 class="font-[family-name:var(--font-display)] text-lg text-[var(--color-verde)]">Finalità</h3>
         <ul class="mt-3 space-y-2 text-[0.95rem] text-[var(--color-ink-soft)]">
@@ -106,6 +103,7 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
         </ul>
       </div>
     </div>
+    </details>
   </section>
 
   <!-- Laboratori -->
@@ -127,26 +125,56 @@ const { leadMagnet, formazione, sportello, laboratori } = scuole;
     </div>
   </section>
 
-  <!-- Referenti -->
+  <!-- Come funziona: dopo le proposte, subito prima della prenotazione -->
   <section class="container-ph mt-16">
-    <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-7 md:p-9">
-      <p class="kicker">Le referenti del progetto</p>
-      <div class="mt-4 flex flex-wrap gap-8">
-        {referenti.map((m) => (
-          <div>
-            <p class="font-[family-name:var(--font-display)] text-xl text-[var(--color-verde)]">{m.nome}</p>
-            <p class="text-sm text-[var(--color-ink-soft)]">{m.ruolo}</p>
-          </div>
-        ))}
-      </div>
-      <p class="mt-5 text-[0.85rem] text-[var(--color-ink-soft)]">Iscritte all'Ordine degli Psicologi della Lombardia · L. 4/2013</p>
-    </div>
+    <p class="kicker">Come funziona</p>
+    <h2 class="mt-3 text-[clamp(1.6rem,3vw,2.1rem)]">Dal primo contatto al progetto in classe</h2>
+    <ol class="mt-7 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {passi.map((p, i) => (
+        <li class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6">
+          <span class="font-[family-name:var(--font-display)] text-3xl leading-none text-[var(--color-argilla)]">{i + 1}</span>
+          <h3 class="mt-3 text-lg">{p.titolo}</h3>
+          <p class="mt-1 text-[0.95rem] text-[var(--color-ink-soft)]">{p.testo}</p>
+        </li>
+      ))}
+    </ol>
   </section>
 
-  <!-- CTA -->
-  <section class="container-ph mt-14 mb-4 text-center">
-    <h2 class="text-[clamp(1.5rem,3vw,2rem)]">Costruiamo insieme il progetto della tua scuola</h2>
-    <p class="mx-auto mt-3 max-w-xl text-[var(--color-ink-soft)]">Prenota una call gratuita di 30 minuti per progettare un intervento su misura per il tuo istituto.</p>
-    <a href="/contatti/" class="btn btn-primary mt-6">Progettiamo un intervento su misura</a>
+  <!-- Referenti + prenotazione della call gratuita -->
+  <section id="call" class="container-ph mt-16 mb-4 scroll-mt-24">
+    <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-cream-deep)] p-7 md:p-10">
+      <h2 class="text-center text-[clamp(1.5rem,3vw,2rem)]">Prenota una call gratuita di 30 minuti</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-center text-[var(--color-ink-soft)]">
+        Per dirigenti, referenti e insegnanti: progettiamo insieme un intervento su misura per il
+        tuo istituto. Scrivi direttamente a una delle referenti del progetto.
+      </p>
+      <ul class="mx-auto mt-8 grid max-w-3xl gap-4 sm:grid-cols-2">
+        {referenti.map((m) => (
+          <li class="flex items-center gap-4 rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-5">
+            <img src={m.avatar ?? m.foto} alt="" width="64" height="64" loading="lazy" class="h-16 w-16 shrink-0 rounded-full object-cover" />
+            <div>
+              <p class="font-[family-name:var(--font-display)] text-lg text-[var(--color-ink)]">{m.nome}</p>
+              <p class="text-sm text-[var(--color-ink-soft)]">{m.ruoloCard[0]}<br />{m.ruoloCard[1]}</p>
+              <div class="mt-3 flex flex-wrap gap-2 text-sm font-semibold">
+                <a href={waScuola(m)} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] px-3.5 py-1.5 text-[var(--color-verde-dark)] transition-colors hover:border-[var(--color-verde)]">
+                  <Icona nome="whatsapp" />WhatsApp
+                </a>
+                <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-line)] px-3.5 py-1.5 text-[var(--color-verde-dark)] transition-colors hover:border-[var(--color-verde)]">
+                  <Icona nome="telefono" />Chiama
+                </a>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-8 text-center">
+        <a href={mailScuola} class="btn btn-primary">Scrivici via email</a>
+        <p class="mt-5 text-sm text-[var(--color-ink-soft)]">
+          Preferite leggere prima?
+          <a href={leadMagnet.file} download class="link-underline font-semibold text-[var(--color-verde-dark)]">Scarica la presentazione (PDF, {leadMagnet.pagine} pagine)</a>
+        </p>
+        <p class="mt-2 text-[0.85rem] text-[var(--color-ink-soft)]">Iscritte all'Ordine degli Psicologi della Lombardia</p>
+      </div>
+    </div>
   </section>
 </BaseLayout>

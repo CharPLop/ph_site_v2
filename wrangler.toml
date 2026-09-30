@@ -3,6 +3,17 @@ name = "phsitev2"
 account_id = "7a6e07f42c865ae299814319ab9cebb8"
 compatibility_date = "2025-01-01"
 
+# ── LANCIO (vedi docs/LANCIO.md, passo 3) ──
+# Togli il commento alle righe qui sotto quando psicheholos.it è attivo su Cloudflare:
+# il sito risponde su www.psicheholos.it e l'indirizzo workers.dev smette di funzionare,
+# così Google non trova due copie del sito. Il redirect da psicheholos.it a www si fa
+# con una Redirect Rule nel pannello Cloudflare.
+# Devono restare QUI, prima di [assets]: in TOML tutto ciò che segue [assets] appartiene a quella sezione.
+# workers_dev = false
+# routes = [
+#   { pattern = "www.psicheholos.it", custom_domain = true },
+# ]
+
 [assets]
 directory = "./dist"
 not_found_handling = "404-page"

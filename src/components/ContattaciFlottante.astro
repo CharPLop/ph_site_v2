@@ -1,0 +1,66 @@
+---
+// Pulsante flottante "Prenota": solo su telefono e tablet (su desktop c'è già il bottone
+// nell'header) e mai su /contatti/, che mostra già le stesse tre professioniste.
+// Diverso da itfsite: non porta a un solo numero, apre la scelta tra le
+// tre professioniste. Usa <details>, quindi funziona anche senza JavaScript;
+// lo script serve solo a chiuderlo con Esc o toccando fuori.
+import Icona from "@/components/Icona.astro";
+import { team } from "@/config/site";
+const suContatti = Astro.url.pathname.startsWith("/contatti");
+---
+
+{!suContatti && (
+
+<details class="ph-fab fixed right-4 z-40 md:hidden" style="bottom: calc(1rem + env(safe-area-inset-bottom, 0px));">
+  <summary
+    class="ml-auto flex w-max cursor-pointer list-none items-center gap-2 rounded-full bg-[var(--color-verde-dark)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--color-ink)] [&::-webkit-details-marker]:hidden"
+    aria-label="Prenota: scegli la professionista a cui scrivere"
+  >
+    <Icona nome="whatsapp" size={20} />
+    <span>Prenota</span>
+  </summary>
+
+  <div class="absolute bottom-full right-0 mb-3 w-72 rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-3">
+    <p class="px-2 pb-2 text-sm text-[var(--color-ink-soft)]">Scrivi su WhatsApp a:</p>
+    <ul>
+      {team.map((m) => (
+        <li class="border-t border-[var(--color-line)] first:border-0">
+          <a
+            href={m.whatsapp}
+            target="_blank"
+            rel="noopener"
+            class="flex items-center gap-3 rounded-[var(--radius-sm)] px-2 py-2.5 transition-colors hover:bg-[var(--color-cream-deep)]"
+          >
+            {m.foto && (
+              <img src={m.avatar ?? m.foto} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
+            )}
+            <span class="min-w-0 flex-1">
+              <span class="block text-sm font-semibold text-[var(--color-ink)]">{m.nome}</span>
+              <span class="block text-xs text-[var(--color-ink-soft)]">{m.ambitoBreve}</span>
+            </span>
+            <span class="text-[var(--color-verde-dark)]"><Icona nome="whatsapp" size={20} /></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <a href="/contatti/" class="mt-1 block rounded-[var(--radius-sm)] px-2 py-2 text-center text-sm font-semibold text-[var(--color-verde-dark)] hover:bg-[var(--color-cream-deep)]">
+      Non sai a chi scrivere? Vai ai contatti
+    </a>
+  </div>
+</details>
+)}
+
+<script>
+  const fab = document.querySelector<HTMLDetailsElement>(".ph-fab");
+  if (fab) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && fab.open) {
+        fab.open = false;
+        fab.querySelector("summary")?.focus();
+      }
+    });
+    document.addEventListener("click", (e) => {
+      if (fab.open && !fab.contains(e.target as Node)) fab.open = false;
+    });
+  }
+</script>

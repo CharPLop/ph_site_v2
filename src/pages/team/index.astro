@@ -1,11 +1,13 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Icona from "@/components/Icona.astro";
+import Foto from "@/components/Foto.astro";
 import { team } from "@/config/site";
 ---
 
 <BaseLayout
   title="Il team"
-  description="Le tre professioniste di Psiche Holos a Brescia: Ilenia Tagliaferro (psicoterapeuta CBT), Anna Marini (psicoterapeuta) e Valentina Nicolai (psicologa scolastica)."
+  description="Le tre professioniste di Psiche Holos a Brescia: Ilenia Tagliaferro (psicologa clinica, specializzanda in psicoterapia CBT), Anna Marini (psicoterapeuta) e Valentina Nicolai (psicologa scolastica)."
   path="/team/"
 >
   <section class="container-ph pt-16 md:pt-24">
@@ -21,18 +23,17 @@ import { team } from "@/config/site";
     {team.map((m) => (
       <article class="flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)]">
         {m.foto && (
-          <img
-            src={m.foto}
+          <Foto
+            src={m.ritratto ?? m.foto}
             alt={`Ritratto di ${m.nome}`}
-            width="660"
-            height="825"
-            loading="lazy"
+            width={640}
+            height={800}
             class="aspect-[4/5] w-full object-cover object-center"
           />
         )}
         <div class="flex flex-1 flex-col p-7">
-          <h2 class="text-xl">{m.nome}</h2>
-          <p class="text-sm font-semibold text-[var(--color-verde)]">{m.ruolo}</p>
+          <h2 class="text-xl leading-tight md:min-h-[2.5em]">{m.nome}</h2>
+          <p class="mt-1 text-sm font-semibold leading-snug text-[var(--color-verde)] md:min-h-[2.75em]">{m.ruoloCard[0]}<br />{m.ruoloCard[1]}</p>
 
           <div class="mt-4 flex-1">
             <p class="text-[0.95rem] text-[var(--color-ink-soft)]">{m.bioBreve}</p>
@@ -40,7 +41,7 @@ import { team } from "@/config/site";
               href={m.sitoWeb ?? `/team/${m.slug}/`}
               target={m.sitoWeb ? "_blank" : undefined}
               rel={m.sitoWeb ? "noopener" : undefined}
-              class="link-underline mt-3 inline-block text-sm font-semibold text-[var(--color-verde)]"
+              class="link-underline mt-3 inline-block py-1 text-sm font-semibold text-[var(--color-verde)]"
             >
               {m.sitoWeb ? "Scopri di più sul suo sito →" : "Approfondisci →"}
             </a>
@@ -48,13 +49,13 @@ import { team } from "@/config/site";
 
           <div class="mt-5 flex flex-wrap gap-2 text-sm">
             <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              📞 {m.telefonoDisplay}
+              <Icona nome="telefono" class="mr-1.5 inline-block align-[-3px]" />{m.telefonoDisplay}
             </a>
             <a href={m.whatsapp} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              💬 WhatsApp
+              <Icona nome="whatsapp" class="mr-1.5 inline-block align-[-3px]" />WhatsApp
             </a>
             <a href={m.instagram} target="_blank" rel="noopener" class="rounded-full bg-[var(--color-cream-deep)] px-3 py-1 hover:bg-[var(--color-sage)]">
-              📷 Instagram
+              <Icona nome="instagram" class="mr-1.5 inline-block align-[-3px]" />Instagram
             </a>
           </div>
         </div>

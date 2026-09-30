@@ -1,21 +1,222 @@
 ---
+// ═══════════════════════════════════════════════════════════
+//  Informativa privacy e cookie — Psiche Holos
+//  BOZZA: le parti tra [DA DEFINIRE] aspettano le decisioni delle professioniste.
+//  Il guard di build le segnala e blocca la pubblicazione quando il sito diventa
+//  indicizzabile. Prima della messa online è consigliata una rilettura legale.
+// ═══════════════════════════════════════════════════════════
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { site, team, sedi } from "@/config/site";
+
+const AGGIORNAMENTO = "29 settembre 2026";
+const sede = sedi.find((s) => s.principale) ?? sedi[0];
+
+// Chi è titolare dei dati raccolti tramite il sito. Tre possibilità:
+//  • titolari autonomi (ognuna per le richieste rivolte a lei);
+//  • contitolari ex art. 26 GDPR (serve un accordo scritto tra le tre);
+//  • una sola titolare per i canali del sito.
+const MODELLO_TITOLARITA = "[DA DEFINIRE: titolari autonomi, contitolari o titolare unica]";
+// Per quanto si conservano i messaggi di chi non inizia un percorso (proposta: 12 mesi).
+const CONSERVAZIONE_CONTATTI = "[DA DEFINIRE: proposta 12 mesi]";
+// Fornitore della casella studio@psicheholos.it (Aruba, come studio@ileniatagliaferro.it).
+const PROVIDER_EMAIL = "Aruba S.p.A.";
 ---
 
 <BaseLayout
-  title="Privacy & Cookie Policy"
+  title="Privacy e cookie policy"
   description="Informativa privacy e cookie dello studio Psiche Holos."
   path="/privacy/"
+  noindex
 >
-  <section class="container-ph max-w-3xl pt-16 md:pt-24">
-    <h1 class="text-[clamp(2.2rem,4.5vw,3.2rem)]">Privacy & Cookie Policy</h1>
-    <div class="mt-6 space-y-4 text-[var(--color-ink-soft)]">
-      <p class="rounded-[var(--radius-sm)] bg-[var(--color-cream-deep)] p-4 text-sm">
-        ⚠️ Contenuto da completare. Si può adattare l'informativa già presente su
-        <code>ileniatagliaferro.it/privacy.html</code> al contesto dello studio
-        Psiche Holos (titolare del trattamento, dati raccolti, base giuridica,
-        cookie analitici, diritti dell'interessato).
+  <article class="container-ph max-w-3xl pt-16 md:pt-24">
+    <h1 class="text-[clamp(2.2rem,4.5vw,3.2rem)]">Privacy e cookie policy</h1>
+    <p class="mt-2 text-sm text-[var(--color-ink-soft)]">Ultimo aggiornamento: {AGGIORNAMENTO}</p>
+
+    <div class="prose-ph mt-10">
+      <p>
+        Questa pagina spiega quali dati personali vengono raccolti quando visiti il sito dello
+        studio Psiche Holos o ci contatti attraverso i canali indicati, perché vengono raccolti,
+        per quanto tempo vengono conservati e quali sono i tuoi diritti, ai sensi del Regolamento
+        UE 2016/679 (GDPR) e del D.Lgs. 196/2003.
+      </p>
+
+      <h2>1. Titolare del trattamento</h2>
+      <p>
+        Psiche Holos è il nome dello studio condiviso da tre professioniste, ciascuna con la propria
+        partita IVA. {MODELLO_TITOLARITA}.
+      </p>
+      <ul>
+        {team.map((m) => (
+          <li>
+            <strong>{m.nome}</strong> — {m.ruolo}
+            {m.albo ? `, Ordine degli Psicologi della Lombardia n. ${m.albo}` : ", Ordine degli Psicologi della Lombardia n. [DA DEFINIRE]"}
+            {m.piva ? `, P.IVA ${m.piva}` : ", P.IVA [DA DEFINIRE]"}
+          </li>
+        ))}
+      </ul>
+      <p>
+        Sede: {sede.indirizzo}, Brescia. Per qualsiasi richiesta sulla privacy scrivi a
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+
+      <h2>2. Quali dati raccogliamo</h2>
+      <h3>Dati che ci fornisci tu</h3>
+      <p>
+        Se compili il modulo di contatto ci invii nome, numero di telefono, email (facoltativa) e un
+        eventuale messaggio. Se ci scrivi via email o WhatsApp, o ci telefoni, riceviamo i dati che
+        scegli di comunicarci (nome, recapiti, contenuto del messaggio).
+      </p>
+      <p>
+        <strong>Ti chiediamo di non inserire nel modulo o nei messaggi informazioni sulla tua salute
+        o sulla tua situazione personale</strong>: non servono per fissare un appuntamento e ne
+        parliamo a voce, in modo riservato. Se ce le comunichi comunque, le useremo solo per
+        risponderti e le tratteremo con la riservatezza prevista dal segreto professionale.
+      </p>
+      <h3>Dati di navigazione</h3>
+      <p>
+        Come ogni sito, anche questo riceve dal tuo browser alcuni dati tecnici (indirizzo IP, tipo
+        di browser e dispositivo, pagina richiesta, data e ora), necessari a mostrarti le pagine e a
+        proteggere il sito da abusi. Solo se lo accetti dal banner, raccogliamo anche statistiche di
+        utilizzo tramite Google Analytics (vedi punto 7).
+      </p>
+      <h3>Minori</h3>
+      <p>
+        Le richieste che riguardano un minore devono essere inviate da chi esercita la responsabilità
+        genitoriale.
+      </p>
+
+      <h2>3. Perché li trattiamo e su quale base</h2>
+      <ul>
+        <li>
+          <strong>Rispondere alle tue richieste</strong> e fissare un primo colloquio: misure
+          precontrattuali adottate su tua richiesta (art. 6.1.b GDPR).
+        </li>
+        <li>
+          <strong>Far funzionare il sito e proteggerlo</strong>: legittimo interesse (art. 6.1.f GDPR).
+        </li>
+        <li>
+          <strong>Statistiche di utilizzo</strong> (Google Analytics): solo con il tuo consenso
+          (art. 6.1.a GDPR), che puoi revocare in ogni momento.
+        </li>
+        <li>
+          <strong>Adempimenti di legge</strong>, se nasce un rapporto professionale: obbligo legale
+          (art. 6.1.c GDPR).
+        </li>
+      </ul>
+      <p>
+        I dati non vengono usati per pubblicità o profilazione, non vengono venduti né ceduti a terzi
+        per finalità di marketing e non vengono usati per decisioni automatizzate.
+      </p>
+      <p>
+        Se dopo il primo contatto inizi un percorso, i dati che ti riguardano vengono trattati
+        secondo l'informativa e il consenso informato che ricevi in studio, separati da questa pagina.
+      </p>
+
+      <h2>4. Per quanto tempo li conserviamo</h2>
+      <ul>
+        <li>
+          <strong>Messaggi e recapiti di chi ci contatta</strong> senza poi iniziare un percorso:
+          {CONSERVAZIONE_CONTATTI}, poi vengono cancellati.
+        </li>
+        <li>
+          <strong>Statistiche di Google Analytics</strong>: 14 mesi, poi cancellate automaticamente.
+        </li>
+        <li>
+          <strong>Scelta sui cookie</strong>: 6 mesi, poi il banner ti chiede di nuovo.
+        </li>
+        <li>
+          <strong>Dati tecnici di navigazione</strong>: per il tempo strettamente necessario al
+          funzionamento e alla sicurezza del sito, secondo le policy del fornitore di hosting.
+        </li>
+      </ul>
+
+      <h2>5. Chi può vedere i dati</h2>
+      <p>
+        I dati sono trattati dalle professioniste dello studio. Per far funzionare il sito e i canali
+        di contatto ci appoggiamo ai seguenti fornitori, che li trattano per nostro conto o come
+        titolari autonomi dei propri servizi:
+      </p>
+      <ul>
+        <li><strong>Cloudflare</strong> — hosting del sito.</li>
+        <li><strong>Web3Forms</strong> — inoltro dei messaggi del modulo di contatto alla casella dello studio.</li>
+        <li><strong>{PROVIDER_EMAIL}</strong> — casella email dello studio, con server in Italia.</li>
+        <li><strong>Google</strong> — Google Analytics (solo con il tuo consenso) e la mappa di Google Maps nella pagina Contatti.</li>
+        <li><strong>WhatsApp (Meta)</strong> — solo se scegli di scriverci su WhatsApp.</li>
+      </ul>
+      <p>
+        Alcuni di questi fornitori hanno sede o server fuori dall'Unione Europea, in particolare negli
+        Stati Uniti. In questi casi il trasferimento avviene sulla base delle garanzie previste dal
+        GDPR, come il Data Privacy Framework UE–USA o le clausole contrattuali tipo della Commissione
+        europea. [DA DEFINIRE: verificare le garanzie di Web3Forms]
+      </p>
+
+      <h2>6. Google Maps</h2>
+      <p>
+        La pagina Contatti mostra una mappa di Google Maps per aiutarti a trovare lo studio. La mappa
+        viene caricata insieme alla pagina: in quel momento il tuo browser si collega ai server di
+        Google, che ricevono l'indirizzo IP e informazioni sul dispositivo e possono impostare propri
+        cookie, secondo la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy di Google</a>.
+      </p>
+
+      <h2>7. Cookie</h2>
+      <p>
+        I cookie sono piccoli file che il sito salva nel tuo browser. Questo sito ne usa pochissimi.
+      </p>
+      <h3>Tecnici (non richiedono consenso)</h3>
+      <ul>
+        <li>
+          <strong>ph-consenso</strong> (memoria locale del browser) — ricorda la tua scelta sui cookie
+          analitici; dura 6 mesi.
+        </li>
+      </ul>
+      <h3>Analitici (solo con il tuo consenso)</h3>
+      <p>
+        Se accetti, il sito carica Google Analytics 4 (Google Ireland Ltd), che imposta questi cookie
+        per contare le visite e capire quali pagine sono più utili:
+      </p>
+      <ul>
+        <li><strong>_ga</strong> — distingue i visitatori; dura fino a 2 anni.</li>
+        <li><strong>_ga_&lt;ID&gt;</strong> — mantiene lo stato della sessione; dura fino a 2 anni.</li>
+      </ul>
+      <p>
+        Prima della tua scelta il sito non contatta in alcun modo i server di Google Analytics. Gli
+        indicatori pubblicitari di Google restano sempre disattivati. Puoi cambiare idea quando vuoi:
+        {site.ga4Id ? (
+          <>
+            {" "}<button type="button" data-preferenze-cookie hidden class="link-underline font-semibold text-[var(--color-verde-dark)]">apri le preferenze cookie</button>
+            {" "}(il link è anche in fondo a ogni pagina).
+          </>
+        ) : (
+          <> dal link "Preferenze cookie" in fondo a ogni pagina.</>
+        )}
+      </p>
+      <p>
+        Puoi anche bloccare o cancellare i cookie dalle impostazioni del browser
+        (<a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Chrome</a>,
+        <a href="https://support.mozilla.org/it/kb/Attivare%20e%20disattivare%20i%20cookie" target="_blank" rel="noopener">Firefox</a>,
+        <a href="https://support.apple.com/it-it/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a>,
+        <a href="https://support.microsoft.com/it-it/microsoft-edge" target="_blank" rel="noopener">Edge</a>).
+      </p>
+
+      <h2>8. I tuoi diritti</h2>
+      <p>In qualsiasi momento puoi chiederci di:</p>
+      <ul>
+        <li>sapere se trattiamo tuoi dati e riceverne copia (accesso);</li>
+        <li>correggerli (rettifica) o cancellarli (cancellazione);</li>
+        <li>limitarne l'uso (limitazione) o opporti al trattamento (opposizione);</li>
+        <li>riceverli in un formato leggibile (portabilità);</li>
+        <li>revocare il consenso dato, senza conseguenze sui trattamenti già fatti.</li>
+      </ul>
+      <p>
+        Basta scrivere a <a href={`mailto:${site.email}`}>{site.email}</a>. Hai anche il diritto di
+        presentare reclamo al <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>.
+      </p>
+
+      <h2>9. Modifiche</h2>
+      <p>
+        Questa informativa può essere aggiornata, per esempio se cambiano i servizi usati dal sito.
+        La data dell'ultimo aggiornamento è indicata in cima alla pagina.
       </p>
     </div>
-  </section>
+  </article>
 </BaseLayout>

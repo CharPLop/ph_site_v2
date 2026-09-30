@@ -1,0 +1,35 @@
+# Controlli automatici a ogni push e pull request.
+# Build + guard dei segnaposto (npm run build), poi accessibilità, overflow,
+# errori JS, link rotti e validità HTML (scripts/controlla-qualita.mjs).
+# Se qualcosa non va, il commit su GitHub diventa rosso e arriva un'email.
+name: Controlli
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  controlli:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Dipendenze
+        run: npm ci
+
+      - name: Build e guard dei segnaposto
+        run: npm run build
+
+      - name: Strumenti di controllo
+        run: |
+          npm i --no-save playwright axe-core html-validate
+          npx playwright install --with-deps chromium
+
+      - name: Accessibilità, link, HTML
+        run: node scripts/controlla-qualita.mjs

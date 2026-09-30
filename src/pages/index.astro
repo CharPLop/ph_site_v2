@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import ServiceIcon from "@/components/ServiceIcon.astro";
+import Icona from "@/components/Icona.astro";
 import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 ---
 
@@ -10,9 +12,6 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 >
   <!-- ░░░ HERO ░░░ -->
   <section class="relative overflow-hidden">
-    <div class="pointer-events-none absolute -right-32 -top-40 h-[34rem] w-[34rem] rounded-full bg-[var(--color-sage)] opacity-40 blur-3xl"></div>
-    <div class="pointer-events-none absolute -left-24 top-32 h-72 w-72 rounded-full bg-[var(--color-verde-2)] opacity-10 blur-3xl"></div>
-
     <div class="container-ph relative grid items-center gap-12 pb-12 pt-16 md:grid-cols-[1.1fr_0.9fr] md:pt-24">
       <div>
         <p class="kicker reveal" style="animation-delay:.05s">Studio di Psicologia e Psicoterapia · Brescia</p>
@@ -22,8 +21,8 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
         </h1>
         <p class="reveal mt-6 max-w-xl text-lg text-[var(--color-ink-soft)]" style="animation-delay:.2s">
           Uno spazio di ascolto, accoglienza e cura per la persona in ogni fase
-          della vita: percorsi individuali, di gruppo, online e supporto
-          scolastico.
+          della vita: percorsi individuali, di gruppo, online e per il metodo di
+          studio.
         </p>
         <div class="reveal mt-8 flex flex-wrap gap-3" style="animation-delay:.28s">
           <a href="/contatti/" class="btn btn-primary">Prenota un colloquio</a>
@@ -32,7 +31,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
       </div>
 
       <div class="reveal" style="animation-delay:.34s">
-        <div class="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7 shadow-[var(--shadow-card)]">
+        <div class="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-7">
           <p class="kicker">Il team</p>
           <p class="mt-3 font-[family-name:var(--font-display)] text-2xl leading-snug">
             Tre professioniste, un'unica missione.
@@ -40,17 +39,24 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
           <ul class="mt-6 space-y-3 text-[0.95rem]">
             {team.map((m) => (
               <li class="flex items-center gap-3 border-t border-[var(--color-line)] pt-3 first:border-0 first:pt-0">
-                {m.foto && (
-                  <img src={m.foto} alt={m.nome} width="72" height="72" loading="lazy" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
-                )}
-                <span>
-                  <span class="block font-semibold leading-tight">{m.nome.replace("Dott.ssa ", "")}</span>
-                  <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruolo}</span>
-                </span>
+                <a
+                  href={m.sitoWeb ?? `/team/${m.slug}/`}
+                  target={m.sitoWeb ? "_blank" : undefined}
+                  rel={m.sitoWeb ? "noopener" : undefined}
+                  class="group flex flex-1 items-center gap-3"
+                >
+                  {m.foto && (
+                    <img src={m.avatar ?? m.foto} alt="" width="40" height="40" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
+                  )}
+                  <span>
+                    <span class="block font-semibold leading-tight group-hover:text-[var(--color-verde)] group-hover:underline">{m.nome}</span>
+                    <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruoloCard.join(" · ")}</span>
+                  </span>
+                </a>
               </li>
             ))}
           </ul>
-          <a href="/team/" class="link-underline mt-5 inline-block text-sm font-semibold text-[var(--color-verde)]">Conosci il team →</a>
+          <a href="/team/" class="link-underline mt-4 inline-block py-1 text-sm font-semibold text-[var(--color-verde)]">Conosci il team →</a>
         </div>
       </div>
     </div>
@@ -58,16 +64,19 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 
   <!-- ░░░ FOTO DI GRUPPO ░░░ -->
   <section class="container-ph mt-6">
-    <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-line)] shadow-[var(--shadow-card)]">
-      <img src={site.fotoGruppo} alt="Le tre professioniste dello studio Psiche Holos" width="1200" height="880" loading="lazy" class="h-auto w-full" />
+    <figure class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-line)]">
+      <picture>
+        <source srcset={site.fotoGruppoWebp} type="image/webp" />
+        <img src={site.fotoGruppo} alt="Le tre professioniste dello studio Psiche Holos" width="1600" height="1173" loading="lazy" class="h-auto w-full" />
+      </picture>
     </figure>
   </section>
 
   <!-- ░░░ CITAZIONE ░░░ -->
   <section class="border-y border-[var(--color-line)] bg-[var(--color-cream-deep)]">
     <div class="container-ph py-16 text-center">
-      <p class="mx-auto max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.5vw,2.5rem)] italic leading-snug text-[var(--color-verde)]">
-        “{citazione}”
+      <p class="mx-auto max-w-3xl font-[family-name:var(--font-display)] text-[clamp(1.6rem,3.5vw,2.5rem)] italic leading-snug text-[var(--color-ink)]">
+        <span class="text-[var(--color-argilla)]" aria-hidden="true">“</span>{citazione}<span class="text-[var(--color-argilla)]" aria-hidden="true">”</span>
       </p>
     </div>
   </section>
@@ -84,8 +93,8 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
 
     <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {servizi.map((s) => (
-        <a href={`/servizi/#${s.slug}`} class="group flex flex-col rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]">
-          <span class="text-3xl" aria-hidden="true">{s.icona}</span>
+        <a href={`/servizi/#${s.slug}`} class="group flex flex-col rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-6 transition-colors hover:border-[var(--color-verde)]">
+          <ServiceIcon slug={s.slug} />
           <h3 class="mt-3 text-xl group-hover:text-[var(--color-verde)]">{s.titolo}</h3>
           <p class="mt-2 text-[0.95rem] text-[var(--color-ink-soft)]">{s.testo}</p>
         </a>
@@ -99,7 +108,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
     <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
       {fasce.map((f) => (
         <div class="rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)] p-5 text-center">
-          <span class="text-3xl" aria-hidden="true">{f.emoji}</span>
+          <ServiceIcon slug={f.titolo} />
           <p class="mt-2 font-semibold text-[var(--color-verde)]">{f.titolo}</p>
           <p class="text-sm text-[var(--color-ink-soft)]">{f.testo}</p>
         </div>
@@ -123,7 +132,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
               <span class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-sage)]">0{i + 1}</span>
               <span>
                 <span class="block font-semibold">{p.titolo}</span>
-                <span class="block text-sm text-[color-mix(in_srgb,var(--color-cream)_80%,transparent)]">{p.desc}</span>
+                <span class="block text-sm text-[color-mix(in_srgb,var(--color-cream)_90%,transparent)]">{p.desc}</span>
               </span>
             </li>
           ))}
@@ -139,17 +148,32 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
         <h2 class="text-[clamp(1.8rem,4vw,2.6rem)]">Il primo passo? Contattaci.</h2>
         <p class="mt-4 max-w-md text-[var(--color-ink-soft)]">
           Non serve aver chiaro cosa dire. La prima seduta è uno spazio per
-          conoscersi. Scrivici e ti ricontatteremo in giornata.
+          conoscersi. Scrivici e ti ricontatteremo per fissare un primo colloquio.
         </p>
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a href={site.whatsapp} target="_blank" rel="noopener" class="btn btn-primary">WhatsApp</a>
-          <a href={`mailto:${site.email}`} class="btn btn-ghost">{site.email}</a>
-        </div>
+        <ul class="mt-7 max-w-md space-y-2">
+          {team.map((m) => (
+            <li>
+              <a href={m.whatsapp} target="_blank" rel="noopener" class="flex items-center gap-3 rounded-[var(--radius-sm)] border border-[var(--color-line)] bg-[var(--color-white-warm)] px-3 py-2 transition-colors hover:border-[var(--color-verde)]">
+                {m.foto && (
+                  <img src={m.avatar ?? m.foto} alt="" width="32" height="32" loading="lazy" class="h-8 w-8 shrink-0 rounded-full object-cover object-center" />
+                )}
+                <span class="flex-1 text-sm font-semibold">{m.nome}</span>
+                <span class="text-[var(--color-verde-dark)]" aria-hidden="true"><Icona nome="whatsapp" size={18} /></span>
+                <span class="sr-only">su WhatsApp</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-4 text-sm text-[var(--color-ink-soft)]">
+          Oppure scrivici a
+          <a href={`mailto:${site.email}`} class="link-underline font-semibold text-[var(--color-verde-dark)]">{site.email}</a>
+        </p>
+        <a href="/contatti/" class="btn btn-ghost mt-5">Tutti i contatti</a>
       </div>
       <div class="self-center">
         <p class="font-[family-name:var(--font-display)] text-2xl text-[var(--color-verde)]">Dove siamo</p>
-        <p class="mt-2 text-[var(--color-ink-soft)]">Via Guido Zadei, 60<br />25128 Brescia (BS)</p>
-        <p class="mt-2 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online · 🅿️ parcheggio nelle vicinanze</p>
+        <p class="mt-2 text-[var(--color-ink-soft)]">Via Guido Zadei, 60<br />Brescia (BS)</p>
+        <p class="mt-2 text-sm text-[var(--color-ink-soft)]">Su appuntamento · anche online · parcheggio nelle vicinanze</p>
       </div>
     </div>
   </section>

@@ -4,6 +4,7 @@ import BaseHead from "@/components/BaseHead.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import Analytics from "@/components/Analytics.astro";
+import ContattaciFlottante from "@/components/ContattaciFlottante.astro";
 
 interface Props {
   title: string;
@@ -33,6 +34,7 @@ const { title, description, path, noindex, image, type } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <ContattaciFlottante />
     <Analytics />
   </body>
 </html>

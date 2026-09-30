@@ -4,6 +4,7 @@ descrizione: "Parte un nuovo percorso di gruppo dedicato alla mindfulness, pensa
 data: 2026-06-01
 ctaLabel: "Scrivici per informazioni"
 ctaHref: "/contatti/"
+bozza: true # scaduta (1/6): in attesa del testo aggiornato di Anna
 ---
 
 Allo studio Psiche Holos sta per partire un nuovo **gruppo di mindfulness**: un ciclo di incontri pensato per imparare, passo dopo passo, a portare attenzione al momento presente e a prendersi cura del proprio equilibrio.

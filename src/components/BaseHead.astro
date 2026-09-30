@@ -1,4 +1,6 @@
 ---
+import { existsSync } from "node:fs";
+import nodePath from "node:path";
 import { site } from "@/config/site";
 import StudioSchema from "@/components/StudioSchema.astro";
 
@@ -25,13 +27,19 @@ const {
 const fullTitle = title.includes(site.nome) ? title : `${title} | ${site.nome}`;
 
 const canonical = new URL(path, Astro.site ?? site.url).href;
-const ogImage = new URL(image, Astro.site ?? site.url).href;
+// Anteprima per i link condivisi: quella generata da scripts/genera-og.mjs per questa
+// pagina (public/og/<nome>.jpg), altrimenti l'immagine passata o og-card.jpg.
+const nomeOg = path.replace(/^\/|\/$/g, "").replace(/\//g, "-") || "home";
+const ogGenerata = `/og/${nomeOg}.jpg`;
+const ogFile = existsSync(nodePath.join(process.cwd(), "public", ogGenerata)) ? ogGenerata : image;
+const ogImage = new URL(ogFile, Astro.site ?? site.url).href;
 
 // Breadcrumb (SEO) — costruito dal path
 const _base = Astro.site ?? site.url;
 const _labels: Record<string, string> = {
   studio: "Chi siamo", servizi: "Servizi", team: "Team", scuole: "Scuole",
   faq: "Domande frequenti", blog: "Blog", contatti: "Contatti", privacy: "Privacy",
+  "note-legali": "Note legali",
 };
 const _segs = path.split("/").filter(Boolean);
 const breadcrumb = [{ name: "Home", url: new URL("/", _base).href }];
@@ -45,12 +53,16 @@ _segs.forEach((s, i) => {
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#f8f6f0" />
 <meta name="generator" content={Astro.generator} />
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{(noindex || !site.indicizza) && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Senza JavaScript il menu mobile resta aperto sotto l'header (niente hamburger) -->
+<noscript><style>@media (max-width:767px){#nav-toggle{display:none!important}#nav-menu{display:flex!important;position:static!important;flex-direction:row!important;flex-wrap:wrap;gap:.25rem 1rem;border:0!important;padding:.25rem 0 .75rem!important;background:transparent!important}header nav{height:auto!important;flex-wrap:wrap}}</style></noscript>
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />

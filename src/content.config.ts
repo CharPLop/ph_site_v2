@@ -6,7 +6,8 @@ import { glob } from "astro/loaders";
 //  • blog  → approfondimenti educativi (articoli lunghi, sempreverdi)
 //  • news  → novità brevi (gruppi, iniziative, appuntamenti)
 //  Ogni contenuto è un file .md dentro src/content/<collection>/
-//  Imposta `bozza: true` nel frontmatter per tenerlo offline.
+//  Imposta `bozza: true` nel frontmatter per tenerlo offline: le bozze si vedono
+//  solo con `npm run dev` (con l'etichetta "Bozza") e non finiscono mai nella build.
 // ═══════════════════════════════════════════════════════════
 
 const blog = defineCollection({
@@ -15,7 +16,10 @@ const blog = defineCollection({
     titolo: z.string(),
     descrizione: z.string(),
     data: z.coerce.date(),
+    // Slug della professionista che firma (vedi team in site.ts). Se manca, firma "Psiche Holos".
+    autrice: z.enum(["ilenia-tagliaferro", "anna-marini", "valentina-nicolai"]).optional(),
     autore: z.string().default("Psiche Holos"),
+    aggiornato: z.coerce.date().optional(), // data dell'ultima revisione, se diversa da `data`
     copertina: z.string().optional(), // path in /public, es: "/foto/ilenia/ilenia-studio-01.jpg"
     copertinaAlt: z.string().optional(),
     tag: z.array(z.string()).default([]),

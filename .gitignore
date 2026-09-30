@@ -28,3 +28,9 @@ Thumbs.db
 # editor
 .idea/
 .vscode/
+
+# originali delle immagini (backup di scripts/ottimizza-immagini.mjs)
+_originali/
+
+# anteprime dei link generate a ogni build (scripts/genera-og.mjs)
+public/og/

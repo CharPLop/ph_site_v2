@@ -29,15 +29,30 @@ export interface MembroTeam {
   slug: string;
   nome: string;
   ruolo: string;
+  /** Ruolo breve su due righe per le card (pagina Team e card del team in home): le card restano allineate.
+   *  Il titolo completo resta in `ruolo` (pagina della professionista, schema, note legali). */
+  ruoloCard: [string, string];
+  /** Di cosa si occupa, in poche parole (card contatti e pulsante "Contattaci") */
+  ambitoBreve: string;
   bio: string;
   bioBreve: string;
   foto?: string;
+  /** Versione 160×160 per i tondi piccoli (generata da scripts/genera-derivate.mjs) */
+  avatar?: string;
+  /** Ritratto 4:5 con inquadratura uniforme per /team/ (generato da scripts/genera-derivate.mjs) */
+  ritratto?: string;
   telefonoDisplay: string;
   whatsapp: string;
   instagram: string;
   instagramHandle: string;
   sitoWeb?: string;
   scuole: boolean;
+  /** Numero di iscrizione all'Albo degli Psicologi della Lombardia */
+  albo?: string;
+  /** Partita IVA individuale (D.Lgs 70/2003 art. 7 → pagina /note-legali/) */
+  piva?: string;
+  /** Profili pubblici esterni (directory professionali) → sameAs nello schema */
+  profili?: string[];
   profilo?: ProfiloSezione[];
 }
 
@@ -47,7 +62,13 @@ export interface Servizio {
   titolo: string;
   testo: string;
   descrizione?: string;
+  /** Testo lungo in più paragrafi (sostituisce descrizione nella pagina Servizi) */
+  paragrafi?: string[];
+  /** Titolo sopra l'elenco dei punti (es. "Di cosa ci occupiamo:") */
+  puntiTitolo?: string;
   punti?: string[];
+  /** Paragrafo dopo l'elenco dei punti */
+  chiusura?: string;
 }
 
 export interface Fascia {
@@ -77,32 +98,45 @@ export const site = {
   tagline: "Studio di Psicologia e Psicoterapia",
   sottotitolo: "Il benessere psicologico nella sua totalità",
   descrizione:
-    "Psiche Holos è uno studio di psicologia e psicoterapia a Brescia: tre professioniste per il benessere della persona in ogni fase della vita, con percorsi individuali, di gruppo, online e supporto scolastico.",
+    "Psiche Holos è uno studio di psicologia e psicoterapia a Brescia: tre professioniste per il benessere della persona in ogni fase della vita, con percorsi individuali, di gruppo, online e per il metodo di studio.",
   url: "https://www.psicheholos.it",
-  email: "psicheholos@gmail.com",
+  // Casella dello studio su Aruba (da creare con il dominio: finché non esiste, le email
+  // mandate qui tornano indietro). Con la casella attiva va creata l'access key Web3Forms.
+  email: "studio@psicheholos.it",
   telefono: "+39 392 821 5608",
-  telefonoDisplay: "392 821 5608",
+  telefonoDisplay: "392\u00a0821\u00a05608",
   instagram: "https://www.instagram.com/psicheholos/",
   instagramHandle: "@psicheholos",
   whatsapp: wa("3928215608", "Buongiorno, vorrei prenotare un primo appuntamento presso Psiche Holos"),
   locale: "it_IT",
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
+  fotoGruppoWebp: "/foto/edit/team-portrait.webp",
   ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
+  // Icone di servizi, fasce d'età, valori e metodologie: "emoji" (scelta delle professioniste)
+  // oppure "svg" (icone a tratto Tabler). Le icone dei contatti restano sempre SVG.
+  stileIcone: "emoji" as "emoji" | "svg",
+  // Access key Web3Forms del form contatti. Vuota = il form si vede ma all'invio
+  // mostra subito il box con i canali alternativi (nessuna chiamata a Web3Forms).
+  // Il guard di build la segnala e la blocca quando il sito diventa indicizzabile.
+  web3formsKey: "",
+  // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
+  // Mettere a true SOLO dopo aver collegato il dominio reale (oggi il sito è su workers.dev).
+  indicizza: false,
 };
 
 // ── Chi siamo ───────────────────────────────────────────────
 export const chiSiamo = {
   titolo: "Uno spazio per il benessere nella sua totalità",
   paragrafi: [
-    "Psiche Holos nasce dalla volontà di creare uno spazio capace di accogliere il bisogno psicologico nella sua totalità. Ciò che più ci caratterizza è il senso di completezza: offriamo un servizio a 360 gradi.",
+    "Psiche Holos nasce dalla volontà di creare uno spazio capace di accogliere il bisogno psicologico nella sua totalità. Ciò che più ci caratterizza è il senso di completezza: competenze diverse, riunite nello stesso studio.",
     "Grazie alle competenze e alla formazione specifica e variegata di ognuna di noi, possiamo accogliere la persona in ogni fase del ciclo di vita: la presa in carico copre infanzia, adolescenza, età adulta e terza età.",
     "Nei percorsi di psicoterapia, individuali e di gruppo, ci occupiamo di disturbi d'ansia, depressione, supporto alla genitorialità e difficoltà relazionali ed emotive, grazie anche all'utilizzo di diverse metodologie.",
     "Accogliamo inoltre studenti che hanno bisogno di un supporto psicologico e di un percorso verso un metodo di studio più efficace e consapevole, oltre a percorsi di potenziamento degli apprendimenti per rinforzare lettura, scrittura e calcolo.",
     "Il benessere psicologico di ogni persona è l'obiettivo primario del nostro lavoro.",
   ],
   valori: [
-    { icona: "🌿", titolo: "Ascolto e accoglienza", testo: "Uno spazio sicuro dove raccontarsi per come si è oggi, senza giudizio." },
+    { icona: "🌿", titolo: "Ascolto e accoglienza", testo: "Uno spazio sicuro dove raccontarsi senza giudizio." },
     { icona: "🤝", titolo: "Approccio integrato", testo: "Diverse metodologie nel rispetto dell'unicità di ogni persona." },
     { icona: "🌱", titolo: "Crescita e cura", testo: "Il cambiamento richiede tempo, fiducia e relazione." },
   ],
@@ -145,10 +179,10 @@ export const sedi: Sede[] = [
     citta: "Brescia",
     titolo: "Studio Psiche Holos",
     indirizzo: "Via Guido Zadei, 60",
-    cap: "25128 Brescia (BS)",
+    cap: "25123 Brescia (BS)",
     orari: "Su appuntamento · anche online",
     mappaEmbed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2789.8!2d10.2175!3d45.534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781538e7e8fba39%3A0xc7c9f0c3e8e3d4a!2sVia+Guido+Zadei%2C+60%2C+25128+Brescia+BS!5e0!3m2!1sit!2sit!4v1",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2789.8!2d10.2175!3d45.534!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4781538e7e8fba39%3A0xc7c9f0c3e8e3d4a!2sVia+Guido+Zadei%2C+60%2C+25123+Brescia+BS!5e0!3m2!1sit!2sit!4v1",
     principale: true,
   },
 ];
@@ -158,33 +192,49 @@ export const team: MembroTeam[] = [
   {
     slug: "ilenia-tagliaferro",
     nome: "Dott.ssa Ilenia Tagliaferro",
-    ruolo: "Psicologa Clinica · Psicoterapeuta CBT",
+    ruolo: "Psicologa Clinica · Specializzanda in Psicoterapia Cognitivo-Comportamentale",
+    ruoloCard: ["Psicologa Clinica", "Specializzanda in Psicoterapia CBT"],
+    ambitoBreve: "Ansia, difficoltà emotive e relazionali",
     bioBreve:
-      "Psicologa clinica e psicoterapeuta cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
     bio:
-      "Psicologa clinica e psicoterapeuta cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
     foto: "/foto/viso/viso-ilenia.jpg",
-    telefonoDisplay: "392 821 5608",
+    avatar: "/foto/viso/avatar/viso-ilenia.webp",
+    ritratto: "/foto/viso/ritratto/viso-ilenia.jpg",
+    telefonoDisplay: "392\u00a0821\u00a05608",
     whatsapp: wa("3928215608", "Buongiorno Dott.ssa Tagliaferro"),
     instagram: ig("psicologa_ileniatagliaferro"),
     instagramHandle: "@psicologa_ileniatagliaferro",
     sitoWeb: "https://ileniatagliaferro.it",
     scuole: true,
+    albo: "26441",
+    piva: "04642290987",
   },
   {
     slug: "anna-marini",
     nome: "Dott.ssa Anna Marini",
     ruolo: "Psicologa Clinica · Psicoterapeuta",
+    ruoloCard: ["Psicologa Clinica", "Psicoterapeuta"],
+    ambitoBreve: "Psicoterapia individuale e di gruppo",
     bioBreve:
       "Psicologa e psicoterapeuta a orientamento psicodinamico, iscritta all'Ordine della Lombardia. Si occupa di sostegno e psicoterapia individuale e di gruppo, genitorialità, formazione e supervisione, mindfulness e training autogeno.",
     bio:
       "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
     foto: "/foto/viso/viso-anna.jpg",
-    telefonoDisplay: "328 357 0032",
+    avatar: "/foto/viso/avatar/viso-anna.webp",
+    ritratto: "/foto/viso/ritratto/viso-anna.jpg",
+    telefonoDisplay: "328\u00a0357\u00a00032",
     whatsapp: wa("3283570032", "Buongiorno Dott.ssa Marini"),
     instagram: ig("annamarini_psico"),
     instagramHandle: "@annamarini_psico",
     scuole: false,
+    albo: "7229",
+    // piva: "" ← da fornire (Anna)
+    profili: [
+      "https://www.guidapsicologi.it/studio/dottssa-anna-marini",
+      "https://www.miodottore.it/anna-marini-2/psicoterapeuta/brescia",
+    ],
     profilo: [
       {
         titolo: "Chi sono",
@@ -242,41 +292,55 @@ export const team: MembroTeam[] = [
     slug: "valentina-nicolai",
     nome: "Dott.ssa Valentina Nicolai",
     ruolo: "Psicologa Scolastica",
+    ruoloCard: ["Psicologa Scolastica", "DSA e BES"],
+    ambitoBreve: "DSA, BES, metodo di studio",
     bioBreve:
       "Psicologa scolastica specializzata in DSA e BES. Costruisce con ogni studente percorsi personalizzati per un metodo di studio efficace e per il potenziamento degli apprendimenti.",
     bio:
       "Sono la dott.ssa Nicolai Valentina. Ho conseguito una laurea magistrale in psicologia clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni in Disturbi Specifici dell'Apprendimento, svolgo percorsi che hanno lo scopo di condurre verso un metodo di studio più efficace e consapevole, sia per studenti con certificazioni, sia per coloro che hanno un bisogno educativo speciale, disegnando insieme ad ognuno di essi strategie e modalità personalizzate e funzionali. Essenziale, nel mio lavoro con gli studenti, è comprendere quali siano in primis i punti di forza: ognuno di loro possiede risorse fondamentali e mi piace pensare che questo sia il punto di partenza per raggiungere gli obiettivi prefissati. Creo percorsi volti al rinforzo e potenziamento degli apprendimenti, con lo scopo di rafforzare lettura, scrittura e calcolo, oltre alla creazione e costruzione di strumenti compensativi personalizzati. Fondamentale è, per la crescita e il benessere psicologico di ogni studente, che le figure che ruotano attorno percorrano la stessa via e creino una rete ben salda. Per questa ragione, svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti.",
     foto: "/foto/viso/viso-valentina.jpg",
-    telefonoDisplay: "338 608 6727",
+    avatar: "/foto/viso/avatar/viso-valentina.webp",
+    ritratto: "/foto/viso/ritratto/viso-valentina.jpg",
+    telefonoDisplay: "338\u00a0608\u00a06727",
     whatsapp: wa("3386086727", "Buongiorno Dott.ssa Nicolai"),
     instagram: ig("valentina.nicolai.psy"),
     instagramHandle: "@valentina.nicolai.psy",
     scuole: true,
+    // albo: "" ← da confermare (25086 da GuidaPsicologi)
+    // piva: "" ← da fornire (Valentina)
+    profili: ["https://www.guidapsicologi.it/studio/valentina-nicolai"],
     profilo: [
       {
         titolo: "Chi sono",
         blocchi: [
-          { tipo: "p", testo: "Sono Valentina Nicolai, psicologa. Ho conseguito la laurea magistrale in Psicologia Clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni nei Disturbi Specifici dell'Apprendimento (DSA), accompagno gli studenti verso un metodo di studio più efficace e consapevole." },
-          { tipo: "p", testo: "Lavoro sia con studenti con certificazione, sia con chi ha un bisogno educativo speciale (BES), costruendo insieme a ciascuno strategie e modalità personalizzate e funzionali." },
-        ],
-      },
-      {
-        titolo: "Di cosa mi occupo",
-        blocchi: [
-          { tipo: "p", testo: "Mi occupo principalmente di:" },
-          { tipo: "ul", voci: [
-            "Percorsi per un metodo di studio più efficace e consapevole",
-            "Rinforzo e potenziamento degli apprendimenti: lettura, scrittura e calcolo",
-            "Creazione di strumenti compensativi personalizzati",
-            "Supporto a studenti con DSA e con bisogni educativi speciali (BES)",
-          ] },
+          { tipo: "p", testo: "Sono la Dott.ssa Valentina Nicolai, psicologa scolastica, e mi occupo di apprendimento, metodo di studio e supporto a bambini e ragazzi con DSA e BES." },
+          { tipo: "p", testo: "Ho conseguito la laurea magistrale in Psicologia Clinica presso l’Università degli Studi di Bergamo e ho approfondito la mia formazione nell’ambito dei Disturbi Specifici dell’Apprendimento." },
+          { tipo: "p", testo: "Nel mio lavoro accompagno gli studenti nella scoperta delle proprie risorse e nello sviluppo di strategie di apprendimento personalizzate, affinché possano affrontare lo studio con maggiore consapevolezza, autonomia e fiducia nelle proprie capacità." },
+          { tipo: "p", testo: "Credo che ogni studente abbia un modo unico di apprendere e che le difficoltà scolastiche non definiscano il suo potenziale. Per questo, ogni percorso nasce dall’ascolto dei bisogni individuali e dalla valorizzazione dei punti di forza, per costruire insieme modalità di studio più efficaci e sostenibili." },
         ],
       },
       {
         titolo: "Come lavoro",
         blocchi: [
-          { tipo: "p", testo: "Nel lavoro con gli studenti, per me è essenziale partire dai punti di forza: ognuno possiede risorse fondamentali, e mi piace pensare che siano proprio queste il punto di partenza per raggiungere gli obiettivi." },
-          { tipo: "p", testo: "Per la crescita e il benessere di ogni studente è fondamentale che le figure che gli ruotano attorno seguano la stessa direzione e costruiscano una rete solida. Per questo svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti." },
+          { tipo: "p", testo: "Ogni studente ha caratteristiche, risorse e bisogni differenti. Per questo, non esiste un unico metodo di studio valido per tutti." },
+          { tipo: "p", testo: "Il mio lavoro parte dall’ascolto e dalla comprensione delle difficoltà dello studente, per individuare insieme strategie che siano realmente adatte al suo modo di apprendere." },
+          { tipo: "p", testo: "Attraverso attività mirate, accompagno bambini e ragazzi nell’organizzazione dello studio, nell’utilizzo di strategie efficaci e nella costruzione di un rapporto più sereno e fiducioso con l’apprendimento." },
+          { tipo: "p", testo: "Quando necessario, il percorso si apre anche al confronto con genitori, insegnanti e altri professionisti, perché una rete educativa condivisa può rappresentare una risorsa importante per la crescita e il benessere dello studente." },
+        ],
+      },
+      {
+        titolo: "Quando può essere utile un percorso di metodo di studio?",
+        blocchi: [
+          { tipo: "p", testo: "Un percorso può essere utile quando un bambino o un ragazzo:" },
+          { tipo: "ul", voci: [
+            "Fatica a organizzare il materiale e pianificare lo studio.",
+            "Impiega molto tempo per svolgere i compiti e prepararsi alle verifiche.",
+            "Non sa come affrontare lo studio in modo efficace.",
+            "Fatica a comprendere, ricordare o rielaborare le informazioni.",
+            "Vive la scuola con frustrazione, demotivazione o scarsa fiducia nelle proprie capacità.",
+            "Ha bisogno di strategie personalizzate in presenza di DSA o BES.",
+          ] },
+          { tipo: "p", testo: "Non è necessario aspettare che le difficoltà diventino insostenibili per chiedere un confronto. Anche un primo colloquio può aiutare a comprendere i bisogni dello studente e valutare insieme il percorso più adatto." },
         ],
       },
     ],
@@ -300,18 +364,27 @@ export const servizi: Servizio[] = [
     ],
   },
   {
-    slug: "supporto-scolastico",
+    slug: "metodo-di-studio",
     icona: "📚",
-    titolo: "Supporto scolastico",
-    testo: "Organizzazione e funzioni esecutive, metodo di studio e potenziamento degli apprendimenti.",
-    descrizione:
-      "Percorsi per studenti che vogliono ritrovare metodo, organizzazione e fiducia nello studio. Si lavora su funzioni esecutive, strategie di apprendimento e potenziamento di lettura, scrittura e calcolo, anche in presenza di DSA o bisogni educativi speciali (BES).",
-    punti: [
-      "Per bambini e ragazzi",
-      "Metodo di studio e organizzazione",
-      "Potenziamento degli apprendimenti",
-      "Supporto per DSA e BES",
+    titolo: "Metodo di studio e potenziamento degli apprendimenti",
+    testo: "Percorsi personalizzati per un metodo di studio efficace e consapevole.",
+    paragrafi: [
+      "Studiare non significa soltanto dedicare tempo ai libri, ma trovare il modo di apprendere che meglio si adatta alle proprie caratteristiche e ai propri bisogni.",
+      "Quando studiare diventa faticoso, i compiti richiedono molto tempo o mancano motivazione e fiducia nelle proprie capacità, può essere utile intraprendere un percorso personalizzato.",
+      "Attraverso un lavoro mirato, accompagno bambini e ragazzi nello sviluppo di un metodo di studio efficace e consapevole, potenziando le abilità di apprendimento e promuovendo una progressiva autonomia.",
+      "Ogni percorso parte dalle caratteristiche dello studente, dai suoi punti di forza e dalle sue difficoltà, per individuare strategie concrete e strumenti realmente funzionali.",
     ],
+    puntiTitolo: "Di cosa ci occupiamo:",
+    punti: [
+      "Metodo di studio e strategie di apprendimento",
+      "Organizzazione, pianificazione e gestione dei compiti",
+      "Potenziamento di lettura, scrittura e calcolo",
+      "Sviluppo delle funzioni esecutive e della metacognizione",
+      "Creazione e utilizzo di strumenti compensativi personalizzati",
+      "Supporto a studenti con DSA e BES",
+    ],
+    chiusura:
+      "I percorsi sono rivolti a bambini e ragazzi della scuola primaria e secondaria e prevedono, quando necessario, un confronto con la famiglia e la scuola, per costruire una rete di supporto coerente con i bisogni dello studente.",
   },
   {
     slug: "sostegno-genitorialita",
@@ -319,11 +392,12 @@ export const servizi: Servizio[] = [
     titolo: "Sostegno alla genitorialità",
     testo: "Accompagnamento nelle sfide educative e relazionali.",
     descrizione:
-      "Uno spazio di confronto per i genitori che attraversano sfide educative e relazionali, o momenti di cambiamento come la nascita, la crescita o le difficoltà a scuola. Insieme si cercano strategie e uno sguardo nuovo sulla relazione con i figli.",
+      "Uno spazio di confronto per i genitori che attraversano sfide educative e relazionali, o momenti di cambiamento come la nascita, la crescita o le difficoltà a scuola. Insieme si cercano strategie e uno sguardo nuovo sulla relazione con i figli. Accompagniamo anche i genitori nella fase della separazione, per tutelare il benessere psicologico dei figli e trovare insieme un'organizzazione più serena della quotidianità.",
     punti: [
       "Per genitori e famiglie",
       "Sfide educative e relazionali",
       "Accompagnamento nei cambiamenti",
+      "Accompagnamento nella separazione",
       "Singoli incontri o percorsi",
     ],
   },
@@ -337,7 +411,7 @@ export const servizi: Servizio[] = [
     punti: [
       "Per operatori, insegnanti e genitori",
       "Formazione su misura",
-      "Supervisione di casi e gruppi",
+      "Supervisione di casi, individuale e di gruppo",
       "Anche per gli istituti scolastici",
     ],
   },
@@ -364,9 +438,8 @@ export const servizi: Servizio[] = [
       "Le sedute a distanza, in videochiamata, mantengono la stessa qualità e riservatezza di quelle in studio. Una soluzione comoda per chi vive lontano, viaggia spesso o preferisce un ambiente familiare, senza rinunciare alla continuità del percorso.",
     punti: [
       "In videochiamata",
-      "Stessa qualità e riservatezza",
+      "Stessa riservatezza delle sedute in studio",
       "Comoda e flessibile",
-      "Per adolescenti e adulti",
     ],
   },
 ];
@@ -382,28 +455,29 @@ export const fasce: Fascia[] = [
 
 // ── Metodologie ─────────────────────────────────────────────
 export const metodologie: Metodologia[] = [
-  { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Approccio basato sull'evidenza scientifica per modificare schemi di pensiero disfunzionali." },
+  { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Strumenti per riconoscere e modificare schemi di pensiero disfunzionali." },
   { icona: "🧘", titolo: "Mindfulness", testo: "Pratiche di consapevolezza per ridurre lo stress e coltivare equilibrio emotivo." },
-  { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena." },
+  { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena del proprio mondo interiore." },
   { icona: "🌊", titolo: "Training Autogeno", testo: "Rilassamento profondo per l'autoregolazione e la gestione dell'ansia." },
 ];
 
-// ── FAQ (10 reali) ──────────────────────────────────────────
+// ── FAQ ──────────────────────────────────────────
 export const faq: FaqItem[] = [
   { domanda: "Come funziona il primo appuntamento?", risposta: "Il primo colloquio è un momento di conoscenza reciproca. Non serve preparare nulla di specifico: si racconta il motivo per cui si è chiesto aiuto, con i propri tempi. Insieme si valuta il percorso più adatto." },
   { domanda: "Quanto dura un percorso di psicoterapia?", risposta: "La durata varia molto in base alla persona e agli obiettivi. Ne parliamo insieme fin dal primo incontro." },
-  { domanda: "Devo raccontare tutto alla prima seduta?", risposta: "Assolutamente no. La prima seduta non è un interrogatorio. Racconti ciò che ti senti, con i tuoi tempi. È uno spazio di incontro, conoscenza e ascolto — per conoscerci, capire cosa ti ha portato fin qui e costruire insieme un percorso possibile." },
+  { domanda: "Devo raccontare tutto alla prima seduta?", risposta: "No. La prima seduta non è un interrogatorio. Racconti ciò che ti senti, con i tuoi tempi. È uno spazio di incontro, conoscenza e ascolto — per conoscerci, capire cosa ti ha portato fin qui e costruire insieme un percorso possibile." },
   { domanda: "E se piango durante la seduta?", risposta: "Le emozioni sono benvenute. Piangere non è un fallimento, è un modo naturale di esprimere ciò che si sente. Lo studio è uno spazio sicuro e senza giudizio, dove ogni emozione ha il diritto di essere accolta." },
   { domanda: "Se non mi sento subito meglio, la terapia non funziona?", risposta: "Il cambiamento richiede tempo, fiducia e cura. La prima seduta non serve a risolvere tutto — è il primo passo per capirti meglio. Non serve stare meglio subito: il percorso si costruisce insieme, seduta dopo seduta." },
   { domanda: "Mio figlio fa fatica a scuola, è svogliato?", risposta: "Le difficoltà scolastiche non sono un segno di incapacità o svogliatezza. Spesso sono un segnale che qualcosa non sta funzionando come dovrebbe. Un ragazzo che fa fatica può essere stanco, in ansia, confuso, oppure non ha ancora trovato il metodo giusto per lui. La fatica va ascoltata, non eliminata in fretta." },
-  { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. La qualità e la riservatezza sono le stesse delle sedute in presenza." },
-  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo in giornata per fissare un primo appuntamento." },
-  { domanda: "Lo studio è accessibile?", risposta: "Lo studio si trova in Via Guido Zadei 60 a Brescia, con possibilità di parcheggio nelle vicinanze. Per eventuali esigenze di accessibilità, contattaci e troveremo la soluzione migliore." },
-  { domanda: "Lavorate con bambini e adolescenti?", risposta: "Assolutamente sì. Il nostro team lavora con tutte le fasce d'età: infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai è inoltre specializzata in psicologia scolastica, DSA e BES." },
+  { domanda: "Fate anche sedute online?", risposta: "Sì, tutte le professioniste dello studio offrono la possibilità di sedute online tramite videochiamata. Nel primo colloquio valutiamo insieme se è la modalità adatta." },
+  { domanda: "Come posso prenotare?", risposta: "Puoi contattarci via WhatsApp, email o telefono. Scrivici un messaggio e ti risponderemo per fissare un primo appuntamento orientativo e di conoscenza, a cui seguirà la presa in carico più adeguata al bisogno." },
+  { domanda: "Lavorate con bambini e adolescenti?", risposta: "Sì. Nello studio si lavora con infanzia, adolescenza, età adulta, genitorialità e terza età. La Dott.ssa Nicolai si occupa in particolare di DSA e BES." },
+  { domanda: "Per un percorso con un minore serve il consenso di entrambi i genitori?", risposta: "Sì. Per un percorso psicologico con un bambino o un ragazzo serve il consenso di entrambi i genitori, o di chi esercita la responsabilità genitoriale, anche quando i genitori sono separati. Se ne parla con calma nel primo incontro." },
+  { domanda: "Il primo incontro va fatto insieme a mio figlio?", risposta: "Di solito no: il primo colloquio è con i genitori, per raccontare cosa vi preoccupa e capire insieme come procedere. Con gli adolescenti si valuta di volta in volta." },
+  { domanda: "Cosa resta riservato di ciò che racconta mio figlio?", risposta: "Lo spazio personale del bambino o del ragazzo è la base della fiducia, e va rispettato. I genitori vengono aggiornati sull'andamento del percorso; le situazioni di rischio vengono sempre condivise con la famiglia." },
   { domanda: "Vi occupate solo di DSA o anche di altre difficoltà?", risposta: "Non solo di DSA. Ci occupiamo anche di BES, metodo di studio, difficoltà attentive, organizzazione, strategie di apprendimento e benessere scolastico più in generale." },
   { domanda: "È necessario avere una certificazione o una diagnosi per chiedere supporto?", risposta: "No, non è necessario. Si può richiedere un supporto anche in assenza di una certificazione o di una diagnosi specifica. A volte possono emergere difficoltà nello studio, nell'organizzazione, nell'attenzione o nella gestione scolastica che meritano ascolto e approfondimento, anche senza un inquadramento diagnostico." },
   { domanda: "Quello che racconto resta riservato?", risposta: "Sì. Le professioniste dello studio sono tenute al segreto professionale: ciò che emerge nei colloqui resta riservato. Lo studio è uno spazio sicuro, dove parlare liberamente e senza giudizio." },
-  { domanda: "La psicoterapia è detraibile? C'è il Bonus psicologo?", risposta: "Le sedute di psicoterapia rientrano tra le spese sanitarie detraibili al 19% nella dichiarazione dei redditi: è sufficiente conservare la ricevuta o la fattura. Esiste inoltre il Bonus psicologo, un contributo statale a sostegno delle spese di psicoterapia. Importi, requisiti e finestre di domanda cambiano nel tempo: verifica le condizioni aggiornate o chiedici informazioni." },
 ];
 
 // ── Progetto Scuole (Ilenia + Valentina) ────────────────────
@@ -413,6 +487,13 @@ export const scuole = {
     "Psiche Holos progetta interventi su misura per le scuole, dalla formazione dei docenti al supporto diretto a studenti e famiglie.",
   obiettivo:
     "Supportare la scuola nella costruzione di un ambiente educativo attento non solo al rendimento, ma anche al benessere psicologico, emotivo e relazionale degli studenti.",
+  // "Come funziona" nella pagina Scuole — da confermare con Ilenia e Valentina
+  passi: [
+    { titolo: "Call di 30 minuti", testo: "Gratuita: ci raccontate i bisogni della scuola e il contesto delle classi." },
+    { titolo: "Proposta su misura", testo: "Obiettivi, attività, tempi e preventivo, costruiti sull'istituto." },
+    { titolo: "Realizzazione", testo: "In classe e con i docenti, coinvolgendo le famiglie quando serve." },
+    { titolo: "Restituzione", testo: "Un incontro finale per condividere cosa è emerso e i possibili passi successivi." },
+  ],
   professioniste: ["ilenia-tagliaferro", "valentina-nicolai"],
   // usato dal banner in home
   pilastri: [
@@ -487,5 +568,12 @@ export const nav = [
   { label: "Scuole", href: "/scuole/" },
   { label: "FAQ", href: "/faq/" },
   { label: "Blog", href: "/blog/" },
+];
+
+// Footer: come il menu principale + Novità e Contatti (nell'header "Contatti"
+// non c'è: lo sostituisce il bottone "Prenota un colloquio", che porta alla stessa pagina).
+export const navFooter = [
+  ...nav.filter((v) => v.href !== "/contatti/"),
+  { label: "Novità", href: "/novita/" },
   { label: "Contatti", href: "/contatti/" },
 ];

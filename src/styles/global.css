@@ -25,33 +25,38 @@
 
 /* ═══════════════════════════════════════════════════════════
    PSICHE HOLOS — Design System
-   Direzione: organica · editoriale · calda · sanitaria-rassicurante
+   Palette A+ (29/09/2026): verde del logo invariato; neutri "carta e
+   inchiostro" allineati a ileniatagliaferro.it; testo secondario ≥ 7:1.
+   I nomi dei token restano quelli storici (cream, white-warm…) per non
+   toccare le pagine: cambiano solo i valori.
    ═══════════════════════════════════════════════════════════ */
 
 @theme {
   /* ── Palette brand Psiche Holos ── */
-  --color-verde: #4a6741; /* primario   */
-  --color-verde-2: #6b8e5b; /* secondario */
-  --color-sage: #c5d4bf; /* salvia     */
-  --color-cream: #f7f4ec; /* crema (bg) */
+  --color-verde: #4a6741; /* verde del logo: titoli, link, accenti (6,0:1 su carta) */
+  --color-verde-2: #6b8e5b; /* solo decorativo: NON per testo (3,5:1) */
+  --color-verde-dark: #3a5233; /* bottoni, voce attiva, testo su salvia (8,6:1 col bianco) */
+  --color-sage: #c5d4bf; /* salvia: solo dettagli, mai sotto testo lungo */
+  --color-cream: #f8f6f0; /* carta calda: sfondo pagina (era #f7f4ec) */
+  --color-argilla: #8f5a35; /* accento caldo, SOLO dettagli: kicker, numeri, virgolette (5,3:1 su carta, 4,9:1 su sabbia) */
 
-  /* ── Neutri derivati (coerenti col verde) ── */
-  --color-ink: #25301f; /* testo principale (verde-carbone) */
-  --color-ink-soft: #4f5a47; /* testo secondario */
-  --color-line: #e3ddcf; /* bordi su crema */
-  --color-cream-deep: #efe9da; /* superfici alternate */
-  --color-white-warm: #fffdf8;
+  /* ── Neutri ── */
+  --color-ink: #25301f; /* testo principale (13,1:1 su carta) */
+  --color-ink-soft: #465041; /* testo secondario (8,0:1 su carta; era #4f5a47) */
+  --color-line: #e1e3da; /* bordi (era #e3ddcf) */
+  --color-cream-deep: #f3ecdf; /* sabbia: sezioni alternate e riquadri (palette B; era #f0f1eb) */
+  --color-white-warm: #ffffff; /* card (era #fffdf8) */
 
   /* ── Tipografia ── */
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Nunito Sans", system-ui, -apple-system, sans-serif;
 
-  /* ── Raggi & ombre ── */
+  /* ── Raggi & ombre (forma B: pillole per i bottoni, niente ombre) ── */
   --radius-sm: 0.5rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.75rem;
-  --shadow-soft: 0 18px 40px -24px rgba(37, 48, 31, 0.35);
-  --shadow-card: 0 24px 60px -32px rgba(37, 48, 31, 0.45);
+  --radius-md: 0.75rem; /* card (era 1rem) */
+  --radius-lg: 1rem; /* riquadri grandi e foto (era 1.75rem) */
+  --shadow-soft: none; /* ombre disattivate: la separazione la fanno i bordi */
+  --shadow-card: none;
 
   /* ── Container ── */
   --breakpoint-3xl: 90rem;
@@ -90,7 +95,7 @@ h1, h2, h3, h4 {
 
 /* Focus accessibile */
 :focus-visible {
-  outline: 2px solid var(--color-verde);
+  outline: 2px solid var(--color-verde-dark);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -113,7 +118,7 @@ h1, h2, h3, h4 {
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-verde);
+  color: var(--color-argilla);
 }
 
 /* Link sottolineato organico */
@@ -138,17 +143,15 @@ h1, h2, h3, h4 {
   letter-spacing: 0.01em;
   padding: 0.85rem 1.6rem;
   border-radius: 999px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
 }
 .btn-primary {
-  background-color: var(--color-verde);
-  color: var(--color-cream);
-  box-shadow: var(--shadow-soft);
+  background-color: var(--color-verde-dark);
+  color: #ffffff;
 }
 .btn-primary:hover {
   background-color: var(--color-ink);
-  transform: translateY(-2px);
 }
 .btn-ghost {
   background-color: transparent;
