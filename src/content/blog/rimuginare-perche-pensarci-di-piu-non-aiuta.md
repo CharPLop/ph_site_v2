@@ -5,7 +5,6 @@ data: 2026-09-29
 copertina: "/foto/corridoio/corridoio.jpg"
 copertinaAlt: "Il corridoio d'ingresso dello studio Psiche Holos"
 tag: ["ansia", "rimuginio", "cognitivo-comportamentale"]
-bozza: true
 ---
 
 *E se va male? E se non ce la faccio? E se ho sbagliato?* Sono domande che tutti ci facciamo. A volte però non si fermano: tornano la sera, prima di addormentarsi, e si rincorrono senza arrivare a una risposta. Questo girare intorno agli stessi pensieri si chiama rimuginio.

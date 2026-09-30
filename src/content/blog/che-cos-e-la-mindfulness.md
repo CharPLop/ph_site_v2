@@ -7,7 +7,6 @@ autore: "Psiche Holos"
 copertina: "/foto/ilenia/ilenia-studio-01.jpg"
 copertinaAlt: "Cuscini a terra in una stanza luminosa dello studio"
 tag: ["mindfulness", "benessere", "stress"]
-bozza: true # da confermare con le professioniste
 ---
 
 *Mindfulness* si traduce di solito con "consapevolezza". Jon Kabat-Zinn, che per primo l'ha portata nei contesti di cura occidentali, la descrive come l'attenzione che nasce quando la rivolgiamo **di proposito**, **al momento presente** e **senza giudicare** ciò che troviamo.

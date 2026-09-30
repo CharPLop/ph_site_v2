@@ -5,7 +5,6 @@ data: 2026-09-29
 copertina: "/foto/anna/anna-studio-1.jpg"
 copertinaAlt: "Una stanza dello studio con poltrone e tappeto"
 tag: ["training autogeno", "rilassamento", "stress"]
-bozza: true
 ---
 
 Il training autogeno è una tecnica di rilassamento messa a punto dallo psichiatra tedesco Johannes Heinrich Schultz, che la descrisse nel 1932. Il nome dice già molto: *autogeno* significa "che si genera da sé". Non è qualcuno a rilassarci dall'esterno: è la persona stessa che, con un allenamento graduale, impara a portare il corpo e la mente verso uno stato di calma.

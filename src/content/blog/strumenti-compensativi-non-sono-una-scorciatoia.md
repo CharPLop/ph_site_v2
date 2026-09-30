@@ -5,7 +5,6 @@ data: 2026-09-29
 copertina: "/foto/ilenia/ilenia-libreria.jpg"
 copertinaAlt: "Poltrone e libreria in uno degli spazi dello studio"
 tag: ["DSA", "metodo di studio", "scuola"]
-bozza: true
 ---
 
 Quando a un ragazzo con un Disturbo Specifico dell'Apprendimento viene proposta una mappa concettuale o la sintesi vocale, capita di sentire un dubbio, a volte espresso ad alta voce: *così non si impegna*, *è un aiuto in più rispetto agli altri*. È un dubbio comprensibile, ma nasce da un equivoco su che cosa siano davvero gli strumenti compensativi.
