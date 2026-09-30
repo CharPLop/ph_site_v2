@@ -39,31 +39,28 @@ const PUBLIC = path.join(ROOT, "public");
 
 const VISI = path.join(PUBLIC, "foto", "viso");
 
-// Ritratto verticale (mezzo busto): quadrato sulla parte alta, dove c'è il viso.
-// Foto orizzontale (primo piano): ritaglio automatico sul soggetto.
-// RITAGLIO_VERTICALE: [lato del quadrato in % della larghezza, partenza dall'alto in % dell'altezza].
-// Si può regolare per singola foto se il viso risulta tagliato o decentrato.
-const RITAGLIO_VERTICALE = { predefinito: [0.6, 0.06], "viso-valentina": [0.72, 0.08] };
+// Avatar tondi: ricavati dal ritratto uniforme (vedi RITRATTO più sotto), così in tutto
+// il sito le tre professioniste hanno la stessa inquadratura: viso e spalle, centrate.
 async function avatar(buf, nome) {
-  const img = sharp(buf).rotate();
-  const { width: w, height: h } = await img.metadata();
-  const [lato, alto] = RITAGLIO_VERTICALE[nome] ?? RITAGLIO_VERTICALE.predefinito;
-  const s = Math.round(w * lato);
-  const base = h > w
-    ? img.extract({ left: Math.round((w - s) / 2), top: Math.round(h * alto), width: s, height: s }).resize(160, 160)
-    : img.resize(160, 160, { fit: "cover", position: sharp.strategy.attention });
-  return base.webp({ quality: 78 }).toBuffer();
+  const r = await (await ritratto(buf, nome)).toBuffer();
+  const { width: w, height: h } = await sharp(r).metadata();
+  const lato = Math.round(w * 0.84);
+  return sharp(r)
+    .extract({ left: Math.round((w - lato) / 2), top: Math.round(h * 0.03), width: lato, height: lato })
+    .resize(160, 160)
+    .webp({ quality: 80 })
+    .toBuffer();
 }
 const lavori = [];
 
-// Ritratti uniformi per /team/: per ogni foto, dove sono nella foto originale (in % dell'altezza)
+// Ritratti uniformi: per ogni foto, dove sono nella foto originale (in % dell'altezza)
 // l'attaccatura dei capelli in alto e il mento, e il centro del viso (in % della larghezza).
-// Il ritaglio mette la testa a circa il 46% dell'altezza del riquadro, con un po' d'aria sopra.
-// Se cambia una foto, vanno aggiornati i suoi tre numeri.
+// "testa" = quanta parte del riquadro occupa la testa (0,53 per tutte: come Anna, che è già un primo piano).
+// Se cambia una foto, vanno aggiornati i suoi numeri.
 const RITRATTO = {
-  "viso-ilenia": { capelli: 0.085, mento: 0.30, centro: 0.52 },
-  "viso-anna": { capelli: 0.02, mento: 0.55, centro: 0.52 },
-  "viso-valentina": { capelli: 0.14, mento: 0.45, centro: 0.50, testa: 0.5 },
+  "viso-ilenia": { capelli: 0.02, mento: 0.55, centro: 0.51, testa: 0.53 },
+  "viso-anna": { capelli: 0.02, mento: 0.55, centro: 0.52, testa: 0.53 },
+  "viso-valentina": { capelli: 0.14, mento: 0.46, centro: 0.545, testa: 0.53 },
 };
 async function ritratto(buf, nome) {
   const img = sharp(buf).rotate();
