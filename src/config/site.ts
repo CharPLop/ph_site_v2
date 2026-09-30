@@ -29,6 +29,9 @@ export interface MembroTeam {
   slug: string;
   nome: string;
   ruolo: string;
+  /** Ruolo breve su due righe per le card (pagina Team e card del team in home): le card restano allineate.
+   *  Il titolo completo resta in `ruolo` (pagina della professionista, schema, note legali). */
+  ruoloCard: [string, string];
   /** Di cosa si occupa, in poche parole (card contatti e pulsante "Contattaci") */
   ambitoBreve: string;
   bio: string;
@@ -190,6 +193,7 @@ export const team: MembroTeam[] = [
     slug: "ilenia-tagliaferro",
     nome: "Dott.ssa Ilenia Tagliaferro",
     ruolo: "Psicologa Clinica · Specializzanda in Psicoterapia Cognitivo-Comportamentale",
+    ruoloCard: ["Psicologa Clinica", "Specializzanda in Psicoterapia CBT"],
     ambitoBreve: "Ansia, difficoltà emotive e relazionali",
     bioBreve:
       "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia e di difficoltà emotive e relazionali.",
@@ -211,6 +215,7 @@ export const team: MembroTeam[] = [
     slug: "anna-marini",
     nome: "Dott.ssa Anna Marini",
     ruolo: "Psicologa Clinica · Psicoterapeuta",
+    ruoloCard: ["Psicologa Clinica", "Psicoterapeuta"],
     ambitoBreve: "Psicoterapia individuale e di gruppo",
     bioBreve:
       "Psicologa e psicoterapeuta a orientamento psicodinamico, iscritta all'Ordine della Lombardia. Si occupa di sostegno e psicoterapia individuale e di gruppo, genitorialità, formazione e supervisione, mindfulness e training autogeno.",
@@ -287,6 +292,7 @@ export const team: MembroTeam[] = [
     slug: "valentina-nicolai",
     nome: "Dott.ssa Valentina Nicolai",
     ruolo: "Psicologa Scolastica",
+    ruoloCard: ["Psicologa Scolastica", "DSA e BES"],
     ambitoBreve: "DSA, BES, metodo di studio",
     bioBreve:
       "Psicologa scolastica specializzata in DSA e BES. Costruisce con ogni studente percorsi personalizzati per un metodo di studio efficace e per il potenziamento degli apprendimenti.",

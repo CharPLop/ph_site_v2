@@ -32,8 +32,8 @@ import { team } from "@/config/site";
           />
         )}
         <div class="flex flex-1 flex-col p-7">
-          <h2 class="text-xl">{m.nome}</h2>
-          <p class="text-sm font-semibold text-[var(--color-verde)]">{m.ruolo}</p>
+          <h2 class="text-xl leading-tight md:min-h-[2.5em]">{m.nome}</h2>
+          <p class="mt-1 text-sm font-semibold leading-snug text-[var(--color-verde)] md:min-h-[2.75em]">{m.ruoloCard[0]}<br />{m.ruoloCard[1]}</p>
 
           <div class="mt-4 flex-1">
             <p class="text-[0.95rem] text-[var(--color-ink-soft)]">{m.bioBreve}</p>
