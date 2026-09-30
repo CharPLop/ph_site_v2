@@ -31,7 +31,7 @@ import { team } from "@/config/site";
               <img src={m.avatar ?? m.foto} alt="" width="36" height="36" loading="lazy" class="h-9 w-9 shrink-0 rounded-full object-cover object-center" />
             )}
             <span class="min-w-0 flex-1">
-              <span class="block text-sm font-semibold text-[var(--color-ink)]">{m.nome.replace("Dott.ssa ", "")}</span>
+              <span class="block text-sm font-semibold text-[var(--color-ink)]">{m.nome}</span>
               <span class="block text-xs text-[var(--color-ink-soft)]">{m.ambitoBreve}</span>
             </span>
             <span class="text-[var(--color-verde-dark)]"><Icona nome="whatsapp" size={20} /></span>

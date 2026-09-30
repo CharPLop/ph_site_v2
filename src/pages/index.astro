@@ -49,7 +49,7 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
                     <img src={m.avatar ?? m.foto} alt="" width="40" height="40" class="h-10 w-10 shrink-0 rounded-full object-cover object-center" />
                   )}
                   <span>
-                    <span class="block font-semibold leading-tight group-hover:text-[var(--color-verde)] group-hover:underline">{m.nome.replace("Dott.ssa ", "")}</span>
+                    <span class="block font-semibold leading-tight group-hover:text-[var(--color-verde)] group-hover:underline">{m.nome}</span>
                     <span class="block text-sm text-[var(--color-ink-soft)]">{m.ruolo}</span>
                   </span>
                 </a>
@@ -157,13 +157,17 @@ import { site, team, servizi, fasce, scuole, citazione } from "@/config/site";
                 {m.foto && (
                   <img src={m.avatar ?? m.foto} alt="" width="32" height="32" loading="lazy" class="h-8 w-8 shrink-0 rounded-full object-cover object-center" />
                 )}
-                <span class="flex-1 text-sm font-semibold">{m.nome.replace("Dott.ssa ", "")}</span>
+                <span class="flex-1 text-sm font-semibold">{m.nome}</span>
                 <span class="text-[var(--color-verde-dark)]" aria-hidden="true"><Icona nome="whatsapp" size={18} /></span>
                 <span class="sr-only">su WhatsApp</span>
               </a>
             </li>
           ))}
         </ul>
+        <p class="mt-4 text-sm text-[var(--color-ink-soft)]">
+          Oppure scrivici a
+          <a href={`mailto:${site.email}`} class="link-underline font-semibold text-[var(--color-verde-dark)]">{site.email}</a>
+        </p>
         <a href="/contatti/" class="btn btn-ghost mt-5">Tutti i contatti</a>
       </div>
       <div class="self-center">

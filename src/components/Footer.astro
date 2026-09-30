@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
       <ul class="mt-2 space-y-0.5 text-sm">
         {team.map((m) => (
           <li>
-            <span class="opacity-70">{m.nome.replace("Dott.ssa ", "").split(" ")[0]} · </span>
+            <span class="opacity-70">{m.nome} · </span>
             <a href={`tel:+39${m.telefonoDisplay.replace(/\s/g, "")}`} class="link-underline inline-block py-1">{m.telefonoDisplay}</a>
           </li>
         ))}

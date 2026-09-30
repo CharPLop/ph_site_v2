@@ -90,7 +90,7 @@ const brescia = sedi.find((s) => s.mappaEmbed);
 
       <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="mt-6 space-y-4" data-senza-key={site.web3formsKey ? undefined : "true"}>
         <input type="hidden" name="access_key" value={site.web3formsKey}>
-        <input type="hidden" name="subject" value="Nuovo contatto dal sito Psiche Holos" data-oggetto-base="Nuovo contatto dal sito Psiche Holos">
+        <input type="hidden" name="subject" value="[Da smistare] Nuovo contatto dal sito Psiche Holos" data-oggetto-base="Nuovo contatto dal sito Psiche Holos">
         <input type="hidden" name="from_name" value="Sito Psiche Holos">
         <input type="checkbox" name="botcheck" class="hidden" tabindex="-1">
 
@@ -152,13 +152,16 @@ const brescia = sedi.find((s) => s.mappaEmbed);
 
   <script>
     const phForm = document.getElementById('contactForm');
-    // L'oggetto dell'email riporta a chi è rivolta la richiesta
+    // L'oggetto dell'email comincia con la destinataria, così nella casella dello studio
+    // si vede subito per chi è (e si possono creare regole di inoltro su Aruba):
+    //   "[Dott.ssa Anna Marini] Nuovo contatto dal sito Psiche Holos"
+    //   "[Da smistare] Nuovo contatto dal sito Psiche Holos"
     const per = document.getElementById('cf-per');
     const oggetto = phForm?.querySelector('input[name="subject"]');
     if (per && oggetto) {
       per.addEventListener('change', () => {
         const base = oggetto.dataset.oggettoBase;
-        oggetto.value = per.value.startsWith('Non so') ? base : `${base} — per ${per.value}`;
+        oggetto.value = per.value.startsWith('Non so') ? `[Da smistare] ${base}` : `[${per.value}] ${base}`;
       });
     }
     if (phForm) {
