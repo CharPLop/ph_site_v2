@@ -15,7 +15,7 @@ export interface Sede {
 }
 
 export interface ProfiloBlocco {
-  tipo: "p" | "ul";
+  tipo: "p" | "ul" | "sottotitolo";
   testo?: string;
   voci?: string[];
 }
@@ -220,7 +220,7 @@ export const team: MembroTeam[] = [
     bioBreve:
       "Psicologa e psicoterapeuta a orientamento psicodinamico, iscritta all'Ordine della Lombardia. Si occupa di sostegno e psicoterapia individuale e di gruppo, genitorialità, formazione e supervisione, mindfulness e training autogeno.",
     bio:
-      "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
+      "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Ho conseguito la Specializzazione in Psicoterapia in Psicodramma Classico Moreniano. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in équipe ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, elaborazione del trauma, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
     foto: "/foto/viso/viso-anna.jpg",
     avatar: "/foto/viso/avatar/viso-anna.webp",
     ritratto: "/foto/viso/ritratto/viso-anna.jpg",
@@ -236,21 +236,26 @@ export const team: MembroTeam[] = [
       "https://www.miodottore.it/anna-marini-2/psicoterapeuta/brescia",
     ],
     profilo: [
+      // Presentazione scritta da Anna (file "presentaz_per_sito.docx", 30/09/2026): testo suo,
+      // corretti solo i refusi. Non riformulare.
       {
         titolo: "Chi sono",
         blocchi: [
-          { tipo: "p", testo: "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229)." },
-          { tipo: "p", testo: "Mi sono laureata presso l'Università degli Studi di Padova nel 2001 in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati." },
-          { tipo: "p", testo: "In questi contesti ho sviluppato capacità di lavoro autonomo e in rete, e ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi." },
-          { tipo: "p", testo: "Ho sempre lavorato sia con l'individuo sia con il gruppo. In particolare, oltre al contesto individuale, ho condotto:" },
+          { tipo: "p", testo: "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all’Ordine degli Psicologi della Lombardia (n. 7229)." },
+          { tipo: "p", testo: "Mi sono laureata presso l’Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Ho conseguito la Specializzazione in Psicoterapia in Psicodramma Classico Moreniano." },
+          { tipo: "p", testo: "Mi sono formata e ho lavorato per molti anni all’interno di servizi pubblici e studi privati." },
+          { tipo: "p", testo: "In questi contesti ho sviluppato capacità di lavoro autonomo e in équipe ed ho avuto l’occasione di occuparmi di benessere psicologico lungo tutto l’arco della vita: bambini, adolescenti, adulti, terza età e famiglie." },
+          { tipo: "p", testo: "Ho imparato a redigere e gestire progetti clinici individuali e formativi." },
+          { tipo: "p", testo: "Ho sempre lavorato sia con l’individuo sia col gruppo." },
+          { tipo: "p", testo: "In particolare, oltre al contesto individuale, ho condotto:" },
           { tipo: "ul", voci: [
-            "Gruppi di psicoterapia per preadolescenti, adolescenti e adulti",
-            "Gruppi di educazione alla salute",
-            "Gruppi di accompagnamento alla nascita e alla crescita",
-            "Gruppi di educazione all'affettività e alla sessualità nelle scuole",
-            "E perfino gruppi per neo-nonni!",
+            "gruppi di Psicoterapia per preadolescenti, per adolescenti e per adulti;",
+            "gruppi di Educazione alla Salute;",
+            "di Accompagnamento alla nascita e alla Crescita;",
+            "di Educazione all’Affettività e alla Sessualità nelle scuole",
+            "e perfino gruppi per neo-nonni.",
           ] },
-          { tipo: "p", testo: "Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione e lavoro nei servizi e nelle istituzioni." },
+          { tipo: "p", testo: "Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni." },
         ],
       },
       {
@@ -258,32 +263,56 @@ export const team: MembroTeam[] = [
         blocchi: [
           { tipo: "p", testo: "Nel mio lavoro mi occupo principalmente di:" },
           { tipo: "ul", voci: [
-            "Sostegno psicologico e psicoterapia individuale",
-            "Sostegno psicologico e psicoterapia di gruppo",
+            "Sostegno psicologico e Psicoterapia individuale",
+            "Sostegno psicologico e Psicoterapia di gruppo",
             "Lavoro clinico con preadolescenti e adolescenti",
             "Sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative)",
-            "Formazione e supervisione per operatori socio-educativi, insegnanti e genitori",
-            "Insegnamento individuale e di gruppo di mindfulness e training autogeno",
+            "Formazione e supervisione per operatori socioeducativi, insegnanti e genitori",
+            "Insegnamento individuale e di gruppo di Mindfulness e Training Autogeno",
           ] },
         ],
       },
       {
         titolo: "Come lavoro",
         blocchi: [
-          { tipo: "p", testo: "Mi caratterizza un approccio psicodinamico, nel quale integro anche diverse metodologie — tra cui psicodramma, mindfulness, training autogeno ed EMDR — in base alle caratteristiche e ai bisogni specifici di ognuno." },
-          { tipo: "p", testo: "Nelle sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia in quello di gruppo. Credo molto nella valorizzazione delle caratteristiche personali di ciascuno: è proprio a partire da queste che costruisco, insieme al paziente, un percorso di potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali." },
-          { tipo: "p", testo: "I temi che tratto nei percorsi proposti sono diversi:" },
+          { tipo: "p", testo: "Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno." },
+          { tipo: "p", testo: "Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell’approccio individuale sia gruppale." },
+          { tipo: "p", testo: "Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali." },
+          { tipo: "p", testo: "I temi che tratto nei percorsi proposti sono svariati:" },
           { tipo: "ul", voci: [
             "Gestione di ansia e stress",
-            "Capacità relazionali e comunicative",
+            "Capacità relazionali e tecnica comunicativa",
             "Crescita personale e consapevolezza di sé",
             "Autostima e sicurezza in sé stessi",
             "Capacità decisionali",
+            "Elaborazione del trauma",
             "Motivazione",
             "Gestione del tempo",
             "Assertività",
           ] },
-          { tipo: "p", testo: "Nella formazione e nella supervisione metto a frutto l'esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali." },
+          { tipo: "p", testo: "Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali." },
+        ],
+      },
+      {
+        titolo: "Le mie competenze",
+        blocchi: [
+          { tipo: "sottotitolo", testo: "Professionali" },
+          { tipo: "ul", voci: [
+            "psicoterapia individuale e di gruppo",
+            "lavoro clinico con minori, adulti e famiglie",
+            "conduzione di gruppi terapeutici e formativi",
+            "valutazione psicodiagnostica",
+          ] },
+          { tipo: "sottotitolo", testo: "Relazionali" },
+          { tipo: "ul", voci: [
+            "grande esperienza nel lavoro in équipe multidisciplinari",
+            "capacità di ascolto e collaborazione nei contesti istituzionali",
+          ] },
+          { tipo: "sottotitolo", testo: "Organizzative" },
+          { tipo: "ul", voci: [
+            "lavoro autonomo e in rete",
+            "gestione di progetti clinici e formativi",
+          ] },
         ],
       },
     ],
@@ -306,7 +335,7 @@ export const team: MembroTeam[] = [
     instagram: ig("valentina.nicolai.psy"),
     instagramHandle: "@valentina.nicolai.psy",
     scuole: true,
-    // albo: "" ← da confermare (25086 da GuidaPsicologi)
+    albo: "25086",
     // piva: "" ← da fornire (Valentina)
     profili: ["https://www.guidapsicologi.it/studio/valentina-nicolai"],
     profilo: [
