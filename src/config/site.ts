@@ -36,6 +36,8 @@ export interface MembroTeam {
   foto?: string;
   /** Versione 160×160 per i tondi piccoli (generata da scripts/genera-derivate.mjs) */
   avatar?: string;
+  /** Ritratto 4:5 con inquadratura uniforme per /team/ (generato da scripts/genera-derivate.mjs) */
+  ritratto?: string;
   telefonoDisplay: string;
   whatsapp: string;
   instagram: string;
@@ -195,6 +197,7 @@ export const team: MembroTeam[] = [
       "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
     foto: "/foto/viso/viso-ilenia.jpg",
     avatar: "/foto/viso/avatar/viso-ilenia.webp",
+    ritratto: "/foto/viso/ritratto/viso-ilenia.jpg",
     telefonoDisplay: "392\u00a0821\u00a05608",
     whatsapp: wa("3928215608", "Buongiorno Dott.ssa Tagliaferro"),
     instagram: ig("psicologa_ileniatagliaferro"),
@@ -215,6 +218,7 @@ export const team: MembroTeam[] = [
       "Mi chiamo Anna Marini, sono psicologa e psicoterapeuta, iscritta all'Ordine degli Psicologi della Lombardia (n. 7229). Mi sono laureata presso l'Università degli Studi di Padova nel 2001, in Psicologia Clinica e di Comunità. Mi sono formata e ho lavorato per molti anni all'interno di servizi pubblici e studi privati. In questi contesti ho sviluppato capacità di lavoro autonomo e in rete ed ho avuto l'occasione di occuparmi di benessere psicologico lungo tutto l'arco della vita: bambini, adolescenti, adulti, terza età e famiglie. Ho imparato a redigere e gestire progetti clinici individuali e formativi. Ho sempre lavorato sia con l'individuo sia col gruppo. In particolare, oltre al contesto individuale, ho condotto: gruppi di psicoterapia per preadolescenti, per adolescenti e per adulti; gruppi di educazione alla salute, di accompagnamento alla nascita e alla crescita; di educazione all'affettività e alla sessualità nelle scuole e perfino gruppi per neo-nonni! Ho partecipato a numerosi corsi, convegni e percorsi di supervisione su tematiche legate ad adolescenza e preadolescenza, genitorialità, disabilità fisica e mentale, multiculturalità, inclusione, lavoro nei servizi e nelle istituzioni. Nel mio lavoro mi occupo principalmente di: sostegno psicologico e psicoterapia individuale, sostegno psicologico e psicoterapia di gruppo, lavoro clinico con preadolescenti e adolescenti, sostegno alla genitorialità e accompagnamento nei momenti di cambiamento (nascita, crescita, difficoltà educative), formazione e supervisione per operatori socio-educativi, insegnanti e genitori, insegnamento individuale e di gruppo di mindfulness e training autogeno. Mi caratterizza un approccio psicodinamico, in cui però integro anche diverse metodologie – tra cui psicodramma, mindfulness, training autogeno ed EMDR – in base alle specifiche caratteristiche individuali e ai bisogni specifici di ognuno. Nelle mie sedute utilizzo il colloquio clinico, ma anche modalità attive, sia nell'approccio individuale sia gruppale. Credo molto nella valorizzazione delle caratteristiche personali di ognuno, ed è proprio in base a queste che col paziente strutturo un percorso volto al potenziamento di sé attraverso piccoli e graduali cambiamenti funzionali. I temi che tratto nei percorsi proposti sono svariati: gestione di ansia e stress, capacità relazionali e tecnica comunicativa, crescita personale e consapevolezza di sé, autostima e sicurezza in sé stessi, capacità decisionali, motivazione, gestione del tempo, assertività. Nella formazione e nella supervisione metto a frutto la grande esperienza accumulata nel lavoro in équipe multidisciplinari e nella collaborazione professionale nei contesti istituzionali.",
     foto: "/foto/viso/viso-anna.jpg",
     avatar: "/foto/viso/avatar/viso-anna.webp",
+    ritratto: "/foto/viso/ritratto/viso-anna.jpg",
     telefonoDisplay: "328\u00a0357\u00a00032",
     whatsapp: wa("3283570032", "Buongiorno Dott.ssa Marini"),
     instagram: ig("annamarini_psico"),
@@ -285,11 +289,12 @@ export const team: MembroTeam[] = [
     ruolo: "Psicologa Scolastica",
     ambitoBreve: "DSA, BES, metodo di studio",
     bioBreve:
-      "Si occupa di apprendimento, metodo di studio e supporto a bambini e ragazzi con DSA e BES.",
+      "Psicologa scolastica specializzata in DSA e BES. Costruisce con ogni studente percorsi personalizzati per un metodo di studio efficace e per il potenziamento degli apprendimenti.",
     bio:
       "Sono la dott.ssa Nicolai Valentina. Ho conseguito una laurea magistrale in psicologia clinica presso l'Università degli Studi di Bergamo e, grazie alle successive specializzazioni in Disturbi Specifici dell'Apprendimento, svolgo percorsi che hanno lo scopo di condurre verso un metodo di studio più efficace e consapevole, sia per studenti con certificazioni, sia per coloro che hanno un bisogno educativo speciale, disegnando insieme ad ognuno di essi strategie e modalità personalizzate e funzionali. Essenziale, nel mio lavoro con gli studenti, è comprendere quali siano in primis i punti di forza: ognuno di loro possiede risorse fondamentali e mi piace pensare che questo sia il punto di partenza per raggiungere gli obiettivi prefissati. Creo percorsi volti al rinforzo e potenziamento degli apprendimenti, con lo scopo di rafforzare lettura, scrittura e calcolo, oltre alla creazione e costruzione di strumenti compensativi personalizzati. Fondamentale è, per la crescita e il benessere psicologico di ogni studente, che le figure che ruotano attorno percorrano la stessa via e creino una rete ben salda. Per questa ragione, svolgo consulenze e aggiornamenti con genitori, insegnanti e professionisti.",
     foto: "/foto/viso/viso-valentina.jpg",
     avatar: "/foto/viso/avatar/viso-valentina.webp",
+    ritratto: "/foto/viso/ritratto/viso-valentina.jpg",
     telefonoDisplay: "338\u00a0608\u00a06727",
     whatsapp: wa("3386086727", "Buongiorno Dott.ssa Nicolai"),
     instagram: ig("valentina.nicolai.psy"),

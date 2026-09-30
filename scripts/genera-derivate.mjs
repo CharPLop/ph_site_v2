@@ -7,6 +7,8 @@
 //  Cosa genera (solo con --apply):
 //  • public/foto/viso/avatar/<nome>.webp — 160×160, ritaglio sul soggetto:
 //    usato per i tondi da 32–80 px (card team in home, contatti, pulsante Prenota);
+//  • public/foto/viso/ritratto/<nome>.jpg e .webp — ritratto 4:5 a mezzo busto, con il viso
+//    alla stessa altezza e grandezza per tutte (card di /team/ e pagina della professionista);
 //  • public/foto/edit/team-portrait.webp — stessa foto del gruppo in WebP;
 //  • public/foto/{anna,ilenia,valentina,corridoio}/*.webp — foto dello studio in WebP
 //    (le usa il componente Foto.astro: carosello di /studio/ e copertine del blog);
@@ -54,6 +56,29 @@ async function avatar(buf, nome) {
 }
 const lavori = [];
 
+// Ritratti uniformi per /team/: per ogni foto, dove sono nella foto originale (in % dell'altezza)
+// l'attaccatura dei capelli in alto e il mento, e il centro del viso (in % della larghezza).
+// Il ritaglio mette la testa a circa il 46% dell'altezza del riquadro, con un po' d'aria sopra.
+// Se cambia una foto, vanno aggiornati i suoi tre numeri.
+const RITRATTO = {
+  "viso-ilenia": { capelli: 0.085, mento: 0.30, centro: 0.52 },
+  "viso-anna": { capelli: 0.02, mento: 0.55, centro: 0.52 },
+  "viso-valentina": { capelli: 0.14, mento: 0.45, centro: 0.50, testa: 0.5 },
+};
+async function ritratto(buf, nome) {
+  const img = sharp(buf).rotate();
+  const { width: w, height: h } = await img.metadata();
+  const r = RITRATTO[nome] ?? { capelli: 0.05, mento: 0.5, centro: 0.5 };
+  const testa = (r.mento - r.capelli) * h;
+  const H = Math.min(h, testa / (r.testa ?? 0.46));
+  const W = Math.min(w, H * 0.8);
+  let top = Math.max(0, r.capelli * h - 0.07 * H);
+  if (top + H > h) top = h - H;
+  const left = Math.min(Math.max(0, r.centro * w - W / 2), w - W);
+  return img.extract({ left: Math.round(left), top: Math.round(top), width: Math.round(W), height: Math.round(W / 0.8) })
+    .resize({ width: 640, height: 800, fit: "cover", withoutEnlargement: true });
+}
+
 for (const f of await fs.readdir(VISI)) {
   if (!/\.(jpe?g|png|webp)$/i.test(f)) continue;
   const nome = f.replace(/\.[^.]+$/, "");
@@ -62,6 +87,10 @@ for (const f of await fs.readdir(VISI)) {
     dst: path.join(VISI, "avatar", `${nome}.webp`),
     fai: (buf) => avatar(buf, nome),
   });
+  lavori.push(
+    { src: path.join(VISI, f), dst: path.join(VISI, "ritratto", `${nome}.jpg`), fai: async (buf) => (await ritratto(buf, nome)).jpeg({ quality: 84, mozjpeg: true }).toBuffer() },
+    { src: path.join(VISI, f), dst: path.join(VISI, "ritratto", `${nome}.webp`), fai: async (buf) => (await ritratto(buf, nome)).webp({ quality: 80 }).toBuffer() },
+  );
 }
 // Foto dello studio (carosello e copertine del blog): WebP della stessa misura
 for (const cartella of ["anna", "ilenia", "valentina", "corridoio"]) {

@@ -1,13 +1,17 @@
 ---
-// Pulsante flottante "Prenota" (tutte le pagine).
+// Pulsante flottante "Prenota": solo su telefono e tablet (su desktop c'è già il bottone
+// nell'header) e mai su /contatti/, che mostra già le stesse tre professioniste.
 // Diverso da itfsite: non porta a un solo numero, apre la scelta tra le
 // tre professioniste. Usa <details>, quindi funziona anche senza JavaScript;
 // lo script serve solo a chiuderlo con Esc o toccando fuori.
 import Icona from "@/components/Icona.astro";
 import { team } from "@/config/site";
+const suContatti = Astro.url.pathname.startsWith("/contatti");
 ---
 
-<details class="ph-fab fixed right-4 z-40" style="bottom: calc(1rem + env(safe-area-inset-bottom, 0px));">
+{!suContatti && (
+
+<details class="ph-fab fixed right-4 z-40 md:hidden" style="bottom: calc(1rem + env(safe-area-inset-bottom, 0px));">
   <summary
     class="ml-auto flex w-max cursor-pointer list-none items-center gap-2 rounded-full bg-[var(--color-verde-dark)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--color-ink)] [&::-webkit-details-marker]:hidden"
     aria-label="Prenota: scegli la professionista a cui scrivere"
@@ -44,6 +48,7 @@ import { team } from "@/config/site";
     </a>
   </div>
 </details>
+)}
 
 <script>
   const fab = document.querySelector<HTMLDetailsElement>(".ph-fab");

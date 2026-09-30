@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Icona from "@/components/Icona.astro";
+import Foto from "@/components/Foto.astro";
 import { team } from "@/config/site";
 ---
 
@@ -22,12 +23,11 @@ import { team } from "@/config/site";
     {team.map((m) => (
       <article class="flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-[var(--color-line)] bg-[var(--color-white-warm)]">
         {m.foto && (
-          <img
-            src={m.foto}
+          <Foto
+            src={m.ritratto ?? m.foto}
             alt={`Ritratto di ${m.nome}`}
-            width="800"
-            height="1000"
-            loading="lazy"
+            width={640}
+            height={800}
             class="aspect-[4/5] w-full object-cover object-center"
           />
         )}
