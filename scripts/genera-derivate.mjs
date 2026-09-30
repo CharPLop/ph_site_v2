@@ -62,7 +62,43 @@ const RITRATTO = {
   "viso-anna": { capelli: 0.02, mento: 0.55, centro: 0.52, testa: 0.53 },
   "viso-valentina": { capelli: 0.14, mento: 0.46, centro: 0.545, testa: 0.53 },
 };
+// Correzione leggera di luce e colore, solo dove serve (l'originale resta intatto).
+// Viso di Ilenia: più luce, via la dominante violacea, incarnato caldo (variante "A" scelta il 30/09).
+const CORREZIONE = {
+  "viso-ilenia": { bilanciamento: 0.15, calore: 1.03, gamma: 0.88, saturazione: 1.08 },
+};
+async function correggi(buf, nome) {
+  const c = CORREZIONE[nome];
+  if (!c) return buf;
+  const { data, info } = await sharp(buf).rotate().removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const n = info.width * info.height;
+  const px = new Float32Array(n * 3);
+  const media = [0, 0, 0];
+  for (let i = 0; i < n * 3; i++) { px[i] = data[i]; media[i % 3] += data[i] / n; }
+  const grigio = (media[0] + media[1] + media[2]) / 3;
+  const k = media.map((m) => 1 + c.bilanciamento * (grigio / m - 1)); // bilanciamento del bianco parziale
+  k[0] *= c.calore; k[2] /= c.calore;                                   // un filo di calore
+  const lum = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    for (let ch = 0; ch < 3; ch++) px[i * 3 + ch] *= k[ch];
+    lum[i] = (px[i * 3] + px[i * 3 + 1] + px[i * 3 + 2]) / 3;
+  }
+  const ordinati = Float32Array.from(lum).sort();
+  const basso = ordinati[Math.floor(n * 0.01)], alto = ordinati[Math.floor(n * 0.995)];
+  const out = Buffer.alloc(n * 3);
+  for (let i = 0; i < n * 3; i++) {
+    const v = Math.min(1, Math.max(0, (px[i] - basso) / (alto - basso)));
+    out[i] = Math.round(255 * Math.pow(v, c.gamma));                     // livelli + un po' di luce
+  }
+  return sharp(out, { raw: { width: info.width, height: info.height, channels: 3 } })
+    .modulate({ saturation: c.saturazione })
+    .sharpen({ sigma: 0.8 })
+    .jpeg({ quality: 95 })
+    .toBuffer();
+}
+
 async function ritratto(buf, nome) {
+  buf = await correggi(buf, nome);
   const img = sharp(buf).rotate();
   const { width: w, height: h } = await img.metadata();
   const r = RITRATTO[nome] ?? { capelli: 0.05, mento: 0.5, centro: 0.5 };
