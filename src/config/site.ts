@@ -196,9 +196,9 @@ export const team: MembroTeam[] = [
     ruoloCard: ["Psicologa Clinica", "Specializzanda in Psicoterapia CBT"],
     ambitoBreve: "Ansia, difficoltà emotive e relazionali",
     bioBreve:
-      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia, di difficoltà emotive e relazionali e di EMDR.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagna bambini, adolescenti e adulti in percorsi di ascolto, supporto e crescita, occupandosi di ansia, di difficoltà emotive e relazionali, con EMDR e Schema Therapy.",
     bio:
-      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità.",
+      "Psicologa clinica, specializzanda in psicoterapia cognitivo-comportamentale. Accompagno bambini, adolescenti e adulti in percorsi di supporto psicologico e psicoterapia, offrendo uno spazio sicuro di ascolto, accoglienza e crescita. Mi occupo di ansia, difficoltà emotive e relazionali, aiutando le persone a ritrovare equilibrio e a costruire nuove risorse per affrontare la quotidianità. Nel mio lavoro utilizzo anche EMDR e Schema Therapy.",
     foto: "/foto/viso/viso-ilenia.jpg",
     avatar: "/foto/viso/avatar/viso-ilenia.webp",
     ritratto: "/foto/viso/ritratto/viso-ilenia.jpg",
@@ -487,6 +487,8 @@ export const metodologie: Metodologia[] = [
   { icona: "🧠", titolo: "Tecniche Cognitive e Comportamentali", testo: "Strumenti per riconoscere e modificare schemi di pensiero disfunzionali." },
   { icona: "🧘", titolo: "Mindfulness", testo: "Pratiche di consapevolezza per ridurre lo stress e coltivare equilibrio emotivo." },
   { icona: "🎭", titolo: "Psicodramma", testo: "Esplorazione di dinamiche interne e relazionali attraverso la messa in scena del proprio mondo interiore." },
+  { icona: "🪞", titolo: "Schema Therapy", testo: "Un approccio per riconoscere gli schemi emotivi che si ripetono nel tempo e comprenderne l'origine." },
+  { icona: "👁️", titolo: "EMDR", testo: "Un metodo per elaborare esperienze e ricordi difficili." },
   { icona: "🌊", titolo: "Training Autogeno", testo: "Rilassamento profondo per l'autoregolazione e la gestione dell'ansia." },
 ];
 
