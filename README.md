@@ -1,6 +1,6 @@
 # Psiche Holos — ph_site_v2
 
-Sito istituzionale dello studio **Psiche Holos** (Brescia · Rovato · Iseo).
+Sito istituzionale dello studio **Psiche Holos** (Brescia).
 Stack: **Astro 5** + **Tailwind CSS v4** (plugin Vite) + `@astrojs/sitemap`.
 Multi-pagina statico, ottimizzato per SEO e Core Web Vitals.
 
@@ -25,18 +25,23 @@ src/
 └── pages/                  ← una pagina = una rotta (index, studio, team, servizi, scuole, contatti, privacy)
 ```
 
-## Deploy su Cloudflare Pages
+## Pubblicazione
 
-1. Push del repo su GitHub.
-2. Cloudflare → Compute → Workers & Pages → Create → tab Pages → Connect to Git.
-3. Build settings: preset `Astro`, build command `npm run build`, output `dist`.
-4. Save and Deploy → URL `*.pages.dev`.
-5. Dominio: aggiungilo come sito su Cloudflare (nameserver da Aruba), poi Custom domains nel progetto Pages. Aggiorna `site` in `astro.config.mjs`.
+Hosting su **GitHub Pages**. Ogni push su `main` lancia il workflow **Pubblica**
+(`.github/workflows/pubblica.yml`): build con il guard dei segnaposto e deploy su Pages.
+Il workflow **Controlli** verifica accessibilità, link e HTML su ogni push.
 
-## ⚠️ Contenuti da completare (cerca `TODO` nel codice)
+- **Prima del lancio** (anteprima, sempre noindex): https://charplop.github.io/ph_site_v2/
+  — `npm run build:anteprima` adatta la build alla sottocartella (`scripts/anteprima-github.mjs`).
+- **Dopo il lancio** (variabile di repo `DOMINIO_ATTIVO` = `si`): https://www.psicheholos.it
 
-- **Bio Anna Marini e Valentina Nicolai** (`src/config/site.ts`).
-- **Email / telefono / Instagram ufficiali dello studio** (ora placeholder coi recapiti di Ilenia).
-- **Dominio reale** in `astro.config.mjs` e `robots.txt`.
-- **Privacy policy** (`src/pages/privacy.astro`).
-- **Foto** team/sedi + immagine OG `public/og-default.jpg` (1200×630).
+Le foto originali ad alta risoluzione stanno in `_originali/` (le scartate in
+`_originali/non-usate/`, fuori dal repo).
+
+Messa online, DNS ed email: `docs/LANCIO.md`.
+
+## Blog e novità
+
+Un file `.md` per articolo in `src/content/blog/` (novità in `src/content/news/`),
+campi del frontmatter in `src/content.config.ts`. Con `bozza: true` il contenuto
+si vede solo con `npm run dev` e non va online.

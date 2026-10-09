@@ -2,26 +2,17 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
-import react from '@astrojs/react';
-import keystatic from '@keystatic/astro';
-
-// Keystatic (pannello per blog e novità) solo in sviluppo: `npm run dev` → /keystatic.
-// La build di produzione resta statica e non lo include.
-const sviluppo = process.argv.includes('dev');
 
 // ───────────────────────────────────────────────────────────
-//  IMPORTANTE — quando compri il dominio:
-//  1. cambia `site` qui sotto col dominio reale (con https://, niente slash finale)
-//  2. su Cloudflare Pages il dominio si configura dal dashboard (NIENTE file CNAME)
-//  3. `base` resta '/' (dominio custom)
+//  Hosting: GitHub Pages (workflow .github/workflows/pubblica.yml), dominio
+//  www.psicheholos.it impostato in Settings → Pages (niente file CNAME: con il
+//  deploy da GitHub Actions viene ignorato). Vedi docs/LANCIO.md.
 // ───────────────────────────────────────────────────────────
 export default defineConfig({
-  site: 'https://www.psicheholos.it', // ← PLACEHOLDER: aggiorna col dominio reale
+  site: 'https://www.psicheholos.it',
   base: '/',
-  // In sviluppo 'ignore': le API di Keystatic non usano lo slash finale
-  trailingSlash: sviluppo ? 'ignore' : 'always',
+  trailingSlash: 'always',
   integrations: [
-    ...(sviluppo ? [react(), keystatic()] : []),
     sitemap({
       changefreq: 'monthly',
       priority: 0.7,

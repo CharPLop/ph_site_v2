@@ -9,7 +9,7 @@
 //  DA COMPLETARE (build fallisce solo se il sito è indicizzabile):
 //    testi ancora provvisori.
 //  LANCIO (solo se indicizzabile): canonical, robots e sitemap sullo stesso
-//    dominio, niente link a workers.dev. Finché site.indicizza = false (noindex su
+//    dominio, niente link a workers.dev o github.io. Finché site.indicizza = false (noindex su
 //    tutte le pagine) sono solo avvisi, così i fix urgenti si possono
 //    pubblicare; appena si toglie il noindex diventano bloccanti.
 // ═══════════════════════════════════════════════════════════
@@ -70,7 +70,7 @@ for (const f of file) {
 }
 
 // ── Controlli di lancio (solo quando il sito è indicizzabile) ──
-// canonical, sitemap e robots devono puntare tutti allo stesso dominio, e non a workers.dev.
+// canonical, sitemap e robots devono puntare tutti allo stesso dominio, e non a workers.dev o github.io.
 if (indicizzabile) {
   const canon = home.match(/<link[^>]+rel="canonical"[^>]+href="([^"]+)"/i)?.[1] ?? "";
   let host = "";
@@ -84,7 +84,8 @@ if (indicizzabile) {
   try { await fs.access(path.join(DIST, "sitemap-index.xml")); } catch { errori.push("sitemap-index.xml mancante"); }
   for (const f of file) {
     const t = await fs.readFile(f, "utf8");
-    if (/workers\.dev/.test(t)) errori.push(`${path.relative(DIST, f).split(path.sep).join("/")}: link a workers.dev`);
+    const m = t.match(/[\w.-]+\.(?:workers\.dev|github\.io)/);
+    if (m) errori.push(`${path.relative(DIST, f).split(path.sep).join("/")}: link a ${m[0]}`);
   }
 }
 
