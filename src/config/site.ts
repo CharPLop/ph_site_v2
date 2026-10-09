@@ -144,7 +144,7 @@ export const chiSiamo = {
 
 export const quandoRivolgersi = {
   intro:
-    "Ci si può rivolgere a noi in tanti momenti diversi della vita, anche senza un motivo preciso. Per esempio quando:",
+    "Ci si può rivolgere a noi in tanti momenti diversi della vita, anche senza motivazioni complesse. Per esempio quando:",
   motivi: [
     "Ansia, preoccupazione costante o attacchi di panico",
     "Tristezza persistente, calo di energia e di motivazione",
@@ -159,7 +159,7 @@ export const quandoRivolgersi = {
     "Se ti riconosci anche solo in parte in queste situazioni, possiamo parlarne. Il primo colloquio è uno spazio per conoscersi, senza impegno.",
 };
 
-export const citazione = "Il primo passo non deve essere perfetto. Deve solo essere fatto.";
+export const citazione = "Ogni momento può essere quello giusto. Puoi iniziare da dove sei.";
 
 // ── Galleria studio (foto reali) ────────────────────────
 export const galleria = [
@@ -427,6 +427,7 @@ export const servizi: Servizio[] = [
       "Sfide educative e relazionali",
       "Accompagnamento nei cambiamenti",
       "Accompagnamento nella separazione",
+      "Percorsi di gruppo per facilitare condivisione e confronto",
       "Singoli incontri o percorsi",
     ],
   },
