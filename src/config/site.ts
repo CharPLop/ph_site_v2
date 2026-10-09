@@ -336,7 +336,7 @@ export const team: MembroTeam[] = [
     instagramHandle: "@valentina.nicolai.psy",
     scuole: true,
     albo: "25086",
-    // piva: "" ← da fornire (Valentina)
+    piva: "04479840987",
     profili: ["https://www.guidapsicologi.it/studio/valentina-nicolai"],
     profilo: [
       {
