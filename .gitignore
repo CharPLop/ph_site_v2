@@ -26,8 +26,8 @@ Thumbs.db
 .idea/
 .vscode/
 
-# originali delle immagini (backup di scripts/ottimizza-immagini.mjs)
-_originali/
+# foto scartate: restano solo sul PC (gli originali usati sono nel repo, in _originali/)
+_originali/non-usate/
 
 # anteprime dei link generate a ogni build (scripts/genera-og.mjs)
 public/og/

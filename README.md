@@ -27,10 +27,16 @@ src/
 
 ## Pubblicazione
 
-Hosting su **GitHub Pages**, dominio `www.psicheholos.it` (DNS su Aruba).
-Ogni push su `main` lancia il workflow **Pubblica** (`.github/workflows/pubblica.yml`):
-build con il guard dei segnaposto e deploy su Pages. Il workflow **Controlli**
-verifica accessibilità, link e HTML su ogni push.
+Hosting su **GitHub Pages**. Ogni push su `main` lancia il workflow **Pubblica**
+(`.github/workflows/pubblica.yml`): build con il guard dei segnaposto e deploy su Pages.
+Il workflow **Controlli** verifica accessibilità, link e HTML su ogni push.
+
+- **Prima del lancio** (anteprima, sempre noindex): https://charplop.github.io/ph_site_v2/
+  — `npm run build:anteprima` adatta la build alla sottocartella (`scripts/anteprima-github.mjs`).
+- **Dopo il lancio** (variabile di repo `DOMINIO_ATTIVO` = `si`): https://www.psicheholos.it
+
+Le foto originali ad alta risoluzione stanno in `_originali/` (le scartate in
+`_originali/non-usate/`, fuori dal repo).
 
 Messa online, DNS ed email: `docs/LANCIO.md`.
 

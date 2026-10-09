@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "node scripts/genera-og.mjs && astro build && node scripts/controlla-segnaposto.mjs",
+    "build:anteprima": "npm run build && node scripts/anteprima-github.mjs",
     "preview": "astro preview",
     "immagini": "node scripts/ottimizza-immagini.mjs",
     "astro": "astro"

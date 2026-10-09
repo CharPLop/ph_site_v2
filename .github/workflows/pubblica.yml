@@ -1,8 +1,10 @@
-# Pubblica il sito su GitHub Pages (www.psicheholos.it) a ogni push su main.
-# Parte solo quando la variabile di repository PAGES_ATTIVE vale "si"
-# (Settings → Secrets and variables → Actions → Variables): finché il dominio
-# non è pronto i push su main non pubblicano nulla. Si può lanciare anche a mano
-# da Actions → Pubblica → Run workflow.
+# Pubblica il sito su GitHub Pages a ogni push su main (o a mano da
+# Actions → Pubblica → Run workflow).
+#  • Prima del lancio: anteprima su https://charplop.github.io/ph_site_v2/
+#    (npm run build:anteprima, sempre in noindex).
+#  • Dal lancio, con la variabile di repository DOMINIO_ATTIVO = "si"
+#    (Settings → Secrets and variables → Actions → Variables): sito per
+#    www.psicheholos.it (npm run build). Vedi docs/LANCIO.md.
 # La build include il guard dei segnaposto: se trova un bloccante, non pubblica.
 name: Pubblica
 
@@ -22,7 +24,6 @@ concurrency:
 
 jobs:
   build:
-    if: vars.PAGES_ATTIVE == 'si' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -36,8 +37,13 @@ jobs:
       - name: Dipendenze
         run: npm ci
 
-      - name: Build e guard dei segnaposto
-        run: npm run build
+      - name: Build (dominio o anteprima)
+        run: |
+          if [ "${{ vars.DOMINIO_ATTIVO }}" = "si" ]; then
+            npm run build
+          else
+            npm run build:anteprima
+          fi
 
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -64,7 +64,8 @@ git merge --no-ff fix/sprint1-bloccanti -m "Merge fix/sprint1-bloccanti: sito pr
 git push origin main
 ```
 
-Il workflow *Pubblica* non parte ancora (manca la variabile del passo 3): va bene così.
+Il workflow *Pubblica* aggiorna l'anteprima su `charplop.github.io/ph_site_v2/`, sempre in
+noindex: va bene così, il dominio arriva al passo 3.
 
 ---
 
@@ -75,11 +76,12 @@ Nel repo `CharPLop/ph_site_v2`:
 1. **Verifica del dominio** (impedisce che altri lo usino su GitHub): avatar → *Settings* →
    *Pages* → *Add a domain* → `psicheholos.it`. GitHub mostra un record **TXT**
    `_github-pages-challenge-charplop`: aggiungilo su Aruba (passo 4) e torna qui a premere *Verify*.
-2. Repo → *Settings* → *Pages* → *Source*: **GitHub Actions**.
-3. Repo → *Settings* → *Secrets and variables* → *Actions* → *Variables* → nuova variabile
-   `PAGES_ATTIVE` = `si`.
-4. *Actions* → **Pubblica** → *Run workflow* su `main`.
-5. *Settings* → *Pages* → *Custom domain*: `www.psicheholos.it` → *Save*.
+2. Repo → *Settings* → *Secrets and variables* → *Actions* → *Variables* → nuova variabile
+   `DOMINIO_ATTIVO` = `si`: da qui *Pubblica* costruisce il sito per il dominio e non più
+   l'anteprima.
+3. *Actions* → **Pubblica** → *Run workflow* su `main`.
+4. Repo → *Settings* → *Pages* → *Custom domain*: `www.psicheholos.it` → *Save*.
+   Da questo momento `charplop.github.io/ph_site_v2/` rimanda al dominio.
 
 Verifica: il run *Pubblica* è verde.
 
@@ -144,7 +146,7 @@ Con `psicheholos@gmail.com` come proprietario, poi Pier e le professioniste come
 
 ---
 
-## 7. Spegnere il vecchio hosting
+## 7. Spegnere il vecchio hosting (si può fare anche prima del lancio)
 
 1. Cloudflare (account di Pier) → *Workers & Pages* → `phsitev2` → *Settings* → *Delete*.
    Verifica: `https://phsitev2.pierangelo-lopresti.workers.dev` non risponde più.
