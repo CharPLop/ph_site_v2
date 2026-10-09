@@ -1,0 +1,54 @@
+# Pubblica il sito su GitHub Pages (www.psicheholos.it) a ogni push su main.
+# Parte solo quando la variabile di repository PAGES_ATTIVE vale "si"
+# (Settings → Secrets and variables → Actions → Variables): finché il dominio
+# non è pronto i push su main non pubblicano nulla. Si può lanciare anche a mano
+# da Actions → Pubblica → Run workflow.
+# La build include il guard dei segnaposto: se trova un bloccante, non pubblica.
+name: Pubblica
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: vars.PAGES_ATTIVE == 'si' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Dipendenze
+        run: npm ci
+
+      - name: Build e guard dei segnaposto
+        run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

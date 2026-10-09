@@ -121,7 +121,7 @@ export const site = {
   // Il guard di build la segnala e la blocca quando il sito diventa indicizzabile.
   web3formsKey: "",
   // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
-  // Mettere a true SOLO dopo aver collegato il dominio reale (oggi il sito è su workers.dev).
+  // Mettere a true SOLO dopo aver collegato il dominio reale (psicheholos.it su GitHub Pages, vedi docs/LANCIO.md).
   indicizza: false,
 };
 

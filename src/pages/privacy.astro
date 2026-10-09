@@ -1,24 +1,22 @@
 ---
 // ═══════════════════════════════════════════════════════════
 //  Informativa privacy e cookie — Psiche Holos
-//  BOZZA: le parti tra [DA DEFINIRE] aspettano le decisioni delle professioniste.
-//  Il guard di build le segnala e blocca la pubblicazione quando il sito diventa
-//  indicizzabile. Prima della messa online è consigliata una rilettura legale.
+//  Titolare unica: Dott.ssa Valentina Nicolai, che intesta dominio e account del sito
+//  (deciso il 9/10/2026; lo studio non è una società). Le P.IVA mancanti escono come
+//  [DA DEFINIRE]: il guard di build blocca la pubblicazione finché ci sono.
+//  Prima della messa online è consigliata una rilettura legale.
 // ═══════════════════════════════════════════════════════════
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { site, team, sedi } from "@/config/site";
 
-const AGGIORNAMENTO = "29 settembre 2026";
+const AGGIORNAMENTO = "9 ottobre 2026";
 const sede = sedi.find((s) => s.principale) ?? sedi[0];
 
-// Chi è titolare dei dati raccolti tramite il sito. Tre possibilità:
-//  • titolari autonomi (ognuna per le richieste rivolte a lei);
-//  • contitolari ex art. 26 GDPR (serve un accordo scritto tra le tre);
-//  • una sola titolare per i canali del sito.
-const MODELLO_TITOLARITA = "[DA DEFINIRE: titolari autonomi, contitolari o titolare unica]";
-// Per quanto si conservano i messaggi di chi non inizia un percorso (proposta: 12 mesi).
-const CONSERVAZIONE_CONTATTI = "[DA DEFINIRE: proposta 12 mesi]";
-// Fornitore della casella studio@psicheholos.it (Aruba, come studio@ileniatagliaferro.it).
+// Titolare del trattamento per il sito e i suoi canali di contatto.
+const titolare = team.find((m) => m.slug === "valentina-nicolai") ?? team[0];
+// Per quanto si conservano i messaggi di chi non inizia un percorso.
+const CONSERVAZIONE_CONTATTI = "12 mesi dall'ultimo contatto";
+// Fornitore delle caselle @psicheholos.it (Aruba, come studio@ileniatagliaferro.it).
 const PROVIDER_EMAIL = "Aruba S.p.A.";
 ---
 
@@ -43,7 +41,13 @@ const PROVIDER_EMAIL = "Aruba S.p.A.";
       <h2>1. Titolare del trattamento</h2>
       <p>
         Psiche Holos è il nome dello studio condiviso da tre professioniste, ciascuna con la propria
-        partita IVA. {MODELLO_TITOLARITA}.
+        partita IVA: non è una società. Titolare del trattamento dei dati raccolti tramite questo
+        sito e i suoi canali di contatto è la <strong>{titolare.nome}</strong>, {sede.indirizzo},
+        Brescia{titolare.piva ? `, P.IVA ${titolare.piva}` : ", P.IVA [DA DEFINIRE]"}.
+      </p>
+      <p>
+        Se la tua richiesta riguarda un'altra professionista dello studio, le viene inoltrata: da quel
+        momento è lei a trattare i tuoi dati, come titolare autonoma. Le professioniste dello studio sono:
       </p>
       <ul>
         {team.map((m) => (
@@ -116,7 +120,11 @@ const PROVIDER_EMAIL = "Aruba S.p.A.";
       <ul>
         <li>
           <strong>Messaggi e recapiti di chi ci contatta</strong> senza poi iniziare un percorso:
-          {CONSERVAZIONE_CONTATTI}, poi vengono cancellati.
+          {CONSERVAZIONE_CONTATTI}, poi vengono cancellati dalle caselle dello studio.
+        </li>
+        <li>
+          <strong>Copia dei messaggi inviati con il modulo</strong> presso Web3Forms, il servizio che
+          li inoltra: secondo i tempi del fornitore, al massimo 3 anni.
         </li>
         <li>
           <strong>Statistiche di Google Analytics</strong>: 14 mesi, poi cancellate automaticamente.
@@ -126,28 +134,30 @@ const PROVIDER_EMAIL = "Aruba S.p.A.";
         </li>
         <li>
           <strong>Dati tecnici di navigazione</strong>: per il tempo strettamente necessario al
-          funzionamento e alla sicurezza del sito, secondo le policy del fornitore di hosting.
+          funzionamento e alla sicurezza del sito, secondo le policy del fornitore di hosting (GitHub).
         </li>
       </ul>
 
       <h2>5. Chi può vedere i dati</h2>
       <p>
-        I dati sono trattati dalle professioniste dello studio. Per far funzionare il sito e i canali
+        I dati sono trattati dalla titolare e, per le richieste rivolte a loro, dalle altre
+        professioniste dello studio. Per far funzionare il sito e i canali
         di contatto ci appoggiamo ai seguenti fornitori, che li trattano per nostro conto o come
         titolari autonomi dei propri servizi:
       </p>
       <ul>
-        <li><strong>Cloudflare</strong> — hosting del sito.</li>
-        <li><strong>Web3Forms</strong> — inoltro dei messaggi del modulo di contatto alla casella dello studio.</li>
-        <li><strong>{PROVIDER_EMAIL}</strong> — casella email dello studio, con server in Italia.</li>
+        <li><strong>GitHub (GitHub Inc., gruppo Microsoft)</strong> — hosting del sito.</li>
+        <li><strong>Web3Forms (Web3Creative)</strong> — inoltro dei messaggi del modulo di contatto alla casella dello studio.</li>
+        <li><strong>{PROVIDER_EMAIL}</strong> — caselle email dello studio e delle professioniste, con server in Italia.</li>
         <li><strong>Google</strong> — Google Analytics (solo con il tuo consenso) e la mappa di Google Maps nella pagina Contatti.</li>
         <li><strong>WhatsApp (Meta)</strong> — solo se scegli di scriverci su WhatsApp.</li>
       </ul>
       <p>
-        Alcuni di questi fornitori hanno sede o server fuori dall'Unione Europea, in particolare negli
-        Stati Uniti. In questi casi il trasferimento avviene sulla base delle garanzie previste dal
-        GDPR, come il Data Privacy Framework UE–USA o le clausole contrattuali tipo della Commissione
-        europea. [DA DEFINIRE: verificare le garanzie di Web3Forms]
+        Alcuni di questi fornitori hanno sede o server fuori dall'Unione Europea: GitHub, Google e
+        Meta negli Stati Uniti, Web3Forms in India. In questi casi il trasferimento avviene sulla base
+        delle garanzie previste dal GDPR: il Data Privacy Framework UE–USA o le clausole contrattuali
+        tipo della Commissione europea, che per Web3Forms sono incluse nel suo accordo sul
+        trattamento dei dati.
       </p>
 
       <h2>6. Google Maps</h2>

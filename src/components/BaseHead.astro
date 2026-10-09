@@ -55,6 +55,8 @@ _segs.forEach((s, i) => {
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#f8f6f0" />
 <meta name="generator" content={Astro.generator} />
+<!-- GitHub Pages non permette header HTTP personalizzati: la Referrer-Policy va qui -->
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
