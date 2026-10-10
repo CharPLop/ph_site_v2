@@ -61,7 +61,7 @@ const abs = (p?: string): string | undefined =>
   p ? new URL(p, site.url).href : undefined;
 
 const studio = {
-  "@type": ["MedicalBusiness", "Psychologist"],
+  "@type": "MedicalBusiness", // "Psychologist" non esiste in schema.org
   "@id": studioId,
   name: site.nome,
   alternateName: site.tagline,

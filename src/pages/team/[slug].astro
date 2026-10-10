@@ -11,13 +11,22 @@ export function getStaticPaths() {
 }
 
 const { membro } = Astro.props;
+// Title e descrizione per Google (la presentazione nella pagina resta quella scritta da ciascuna)
+const seo: Record<string, { titolo: string; descrizione?: string }> = {
+  "anna-marini": {
+    titolo: "Dott.ssa Anna Marini, psicoterapeuta a Brescia | Psiche Holos",
+    descrizione: "Dott.ssa Anna Marini, psicologa e psicoterapeuta a orientamento psicodinamico a Brescia: psicoterapia individuale e di gruppo, genitorialità, mindfulness.",
+  },
+  "valentina-nicolai": { titolo: "Dott.ssa Valentina Nicolai, psicologa scolastica a Brescia" },
+};
 // Lo schema Person di ogni professionista è già nel @graph di StudioSchema
 // (incluso in ogni pagina): qui non va ripetuto.
 ---
 
 <BaseLayout
   title={membro.nome}
-  description={membro.bioBreve}
+  seoTitle={seo[membro.slug]?.titolo}
+  description={seo[membro.slug]?.descrizione ?? membro.bioBreve}
   path={`/team/${membro.slug}/`}
 >
   <section class="container-ph pt-16 md:pt-24">

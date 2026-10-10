@@ -8,19 +8,21 @@ import ContattaciFlottante from "@/components/ContattaciFlottante.astro";
 
 interface Props {
   title: string;
+  /** title per Google se diverso da quello della pagina (il breadcrumb usa sempre title) */
+  seoTitle?: string;
   description?: string;
   path?: string;
   noindex?: boolean;
   image?: string;
   type?: "website" | "article";
 }
-const { title, description, path, noindex, image, type } = Astro.props;
+const { title, seoTitle, description, path, noindex, image, type } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="it">
   <head>
-    <BaseHead title={title} description={description} path={path} noindex={noindex} image={image} type={type} />
+    <BaseHead title={title} seoTitle={seoTitle} description={description} path={path} noindex={noindex} image={image} type={type} />
   </head>
   <body>
     <a

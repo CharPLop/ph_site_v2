@@ -6,6 +6,8 @@ import StudioSchema from "@/components/StudioSchema.astro";
 
 interface Props {
   title: string;
+  /** title per Google, usato così com'è (senza aggiungere "| Psiche Holos") */
+  seoTitle?: string;
   description?: string;
   /** path della pagina (es. "/studio/") per canonical/OG */
   path?: string;
@@ -16,6 +18,7 @@ interface Props {
 
 const {
   title,
+  seoTitle,
   description = site.descrizione,
   path = Astro.url.pathname,
   image = "/foto/edit/og-card.jpg",
@@ -24,7 +27,7 @@ const {
 } = Astro.props;
 
 // title coerente: "Pagina | Psiche Holos" (la home passa già il title completo)
-const fullTitle = title.includes(site.nome) ? title : `${title} | ${site.nome}`;
+const fullTitle = seoTitle ?? (title.includes(site.nome) ? title : `${title} | ${site.nome}`);
 
 const canonical = new URL(path, Astro.site ?? site.url).href;
 // Anteprima per i link condivisi: quella generata da scripts/genera-og.mjs per questa
