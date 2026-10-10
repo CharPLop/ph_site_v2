@@ -112,7 +112,7 @@ export const site = {
   logo: "/loghi/logo-psiche-holos.png",
   fotoGruppo: "/foto/edit/team-portrait.jpg",
   fotoGruppoWebp: "/foto/edit/team-portrait.webp",
-  ga4Id: "", // ← incolla qui l'ID GA4 (es. "G-XXXXXXX") per attivare analytics + banner cookie
+  ga4Id: "G-NY2FDE7FQ2", // GA4 "Psiche Holos" (account psicheholos@gmail.com): attiva analytics + banner cookie
   // Icone di servizi, fasce d'età, valori e metodologie: "emoji" (scelta delle professioniste)
   // oppure "svg" (icone a tratto Tabler). Le icone dei contatti restano sempre SVG.
   stileIcone: "emoji" as "emoji" | "svg",
