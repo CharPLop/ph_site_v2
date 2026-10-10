@@ -3,11 +3,12 @@
 > **Stato: sito online dal 10/10/2026** su https://www.psicheholos.it (GitHub Pages, HTTPS).
 > Fatti: dominio e `studio@` su Aruba, DNS, Pages con dominio verificato, Web3Forms, Search Console
 > (proprietà Dominio, sitemap, indicizzazione delle pagine principali), vecchio Worker Cloudflare spento,
-> GA4 `G-NY2FDE7FQ2` con banner di consenso (account psicheholos@gmail.com, conservazione 14 mesi).
+> GA4 `G-NY2FDE7FQ2` con banner di consenso (account psicheholos@gmail.com, conservazione 14 mesi),
+> scheda Google: psicheholos@gmail.com proprietario, CAP 25123, sito con UTM, categorie, descrizione (10/10).
 > Differenze rispetto al piano: SPF, DKIM e DMARC (`p=none`) li ha creati Aruba da sola; Search Console
 > verificata con un secondo TXT `@`; la scheda Google "Psiche Holos" esisteva già (account di Anna) e
 > non ha telefono, quindi neanche i dati per Google del sito.
-> Da fare: Bing, scheda Google (accesso, CAP 25123, sito, categorie), caselle personali, verifica in due
+> Da fare: Bing, scheda Google (proprietà principale a psicheholos@gmail.com, foto), caselle personali, verifica in due
 > passaggi su Aruba, P.IVA di Anna, DMARC a `p=quarantine` dopo un mese.
 
 Da seguire nell'ordine. Tempo stimato: circa 2 ore di lavoro, più l'attesa del DNS
