@@ -82,8 +82,14 @@ const GA4 = site.ga4Id;
         function track(name, params) { if (window.__phGA && window.gtag) window.gtag("event", name, params || {}); }
 
         var banner = document.getElementById("ph-cookie");
-        function mostra() { if (banner) banner.hidden = false; }
-        function nascondi() { if (banner) banner.hidden = true; }
+        // Altezza del banner in --ph-cookie-h: il pulsante "Prenota" su mobile sale sopra il banner
+        function misura() {
+          var h = banner && !banner.hidden ? banner.offsetHeight : 0;
+          document.documentElement.style.setProperty("--ph-cookie-h", h + "px");
+        }
+        function mostra() { if (banner) banner.hidden = false; misura(); }
+        function nascondi() { if (banner) banner.hidden = true; misura(); }
+        window.addEventListener("resize", misura);
 
         var stato = leggi();
         if (stato === "granted") loadGA();

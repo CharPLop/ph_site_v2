@@ -11,7 +11,7 @@ const suContatti = Astro.url.pathname.startsWith("/contatti");
 
 {!suContatti && (
 
-<details class="ph-fab fixed right-4 z-40 md:hidden" style="bottom: calc(1rem + env(safe-area-inset-bottom, 0px));">
+<details class="ph-fab fixed right-4 z-40 md:hidden" style="bottom: calc(1rem + var(--ph-cookie-h, 0px) + env(safe-area-inset-bottom, 0px));">
   <summary
     class="ml-auto flex w-max cursor-pointer list-none items-center gap-2 rounded-full bg-[var(--color-verde-dark)] px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-[var(--color-ink)] [&::-webkit-details-marker]:hidden"
     aria-label="Prenota: scegli la professionista a cui scrivere"
