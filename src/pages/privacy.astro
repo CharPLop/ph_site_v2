@@ -2,8 +2,8 @@
 // ═══════════════════════════════════════════════════════════
 //  Informativa privacy e cookie — Psiche Holos
 //  Titolare unica: Dott.ssa Valentina Nicolai, che intesta dominio e account del sito
-//  (deciso il 9/10/2026; lo studio non è una società). Le P.IVA mancanti escono come
-//  [DA DEFINIRE]: il guard di build blocca la pubblicazione finché ci sono.
+//  (deciso il 9/10/2026; lo studio non è una società). Albo e P.IVA si mostrano solo se
+//  presenti in src/config/site.ts: quelle mancanti vanno aggiunte appena arrivano.
 //  Prima della messa online è consigliata una rilettura legale.
 // ═══════════════════════════════════════════════════════════
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -43,7 +43,7 @@ const PROVIDER_EMAIL = "Aruba S.p.A.";
         Psiche Holos è il nome dello studio condiviso da tre professioniste, ciascuna con la propria
         partita IVA: non è una società. Titolare del trattamento dei dati raccolti tramite questo
         sito e i suoi canali di contatto è la <strong>{titolare.nome}</strong>, {sede.indirizzo},
-        Brescia{titolare.piva ? `, P.IVA ${titolare.piva}` : ", P.IVA [DA DEFINIRE]"}.
+        Brescia{titolare.piva ? `, P.IVA ${titolare.piva}` : ""}.
       </p>
       <p>
         Se la tua richiesta riguarda un'altra professionista dello studio, le viene inoltrata: da quel
@@ -53,8 +53,8 @@ const PROVIDER_EMAIL = "Aruba S.p.A.";
         {team.map((m) => (
           <li>
             <strong>{m.nome}</strong> — {m.ruolo}
-            {m.albo ? `, Ordine degli Psicologi della Lombardia n. ${m.albo}` : ", Ordine degli Psicologi della Lombardia n. [DA DEFINIRE]"}
-            {m.piva ? `, P.IVA ${m.piva}` : ", P.IVA [DA DEFINIRE]"}
+            {m.albo ? `, Ordine degli Psicologi della Lombardia n. ${m.albo}` : ""}
+            {m.piva ? `, P.IVA ${m.piva}` : ""}
           </li>
         ))}
       </ul>

@@ -119,10 +119,10 @@ export const site = {
   // Access key Web3Forms del form contatti. Vuota = il form si vede ma all'invio
   // mostra subito il box con i canali alternativi (nessuna chiamata a Web3Forms).
   // Il guard di build la segnala e la blocca quando il sito diventa indicizzabile.
-  web3formsKey: "",
+  web3formsKey: "fba1bcd3-fdc8-4305-bae2-426c069186f2",
   // false = tutte le pagine escono con <meta name="robots" content="noindex, nofollow">.
   // Mettere a true SOLO dopo aver collegato il dominio reale (psicheholos.it su GitHub Pages, vedi docs/LANCIO.md).
-  indicizza: false,
+  indicizza: true,
 };
 
 // ── Chi siamo ───────────────────────────────────────────────
@@ -336,7 +336,7 @@ export const team: MembroTeam[] = [
     instagramHandle: "@valentina.nicolai.psy",
     scuole: true,
     albo: "25086",
-    // piva: "" ← da fornire (Valentina)
+    piva: "04479840987",
     profili: ["https://www.guidapsicologi.it/studio/valentina-nicolai"],
     profilo: [
       {
