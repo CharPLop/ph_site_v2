@@ -68,7 +68,9 @@ const studio = {
   description: site.descrizione,
   url: site.url,
   email: site.email,
-  telephone: site.telefono,
+  // Niente telefono dello studio: la scheda Google "Psiche Holos" non ne ha (10/10/2026) e
+  // site.telefono è il cellulare di Ilenia, già sulla sua scheda personale. I numeri
+  // delle professioniste restano visibili nelle pagine (contatti, team).
   image: abs("/foto/edit/team-portrait.jpg"),
   logo: abs(site.logo),
   priceRange: "€€",
