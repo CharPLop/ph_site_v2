@@ -3,6 +3,17 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Icona from "@/components/Icona.astro";
 import { site, sedi, team } from "@/config/site";
 const brescia = sedi.find((s) => s.mappaEmbed);
+// "Come ci hai conosciuto?": serve a capire quali canali portano richieste (guida-strategia, H1)
+const origini: string[] = [
+  "Ricerca su Google o Google Maps",
+  "Instagram",
+  "GuidaPsicologi o MioDottore",
+  "Amici o familiari",
+  "Scuola",
+  "Medico o altro professionista",
+  "Volantino o biglietto",
+  "Altro",
+];
 ---
 
 <BaseLayout
@@ -114,13 +125,23 @@ const brescia = sedi.find((s) => s.mappaEmbed);
             class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]">
         </div>
 
-        <div>
-          <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-per">A chi vuoi scrivere?</label>
-          <select id="cf-per" name="destinataria"
-            class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]">
-            <option value="Non so, indirizzatemi voi">Non so, indirizzatemi voi</option>
-            {team.map((m) => <option value={m.nome}>{m.nome}</option>)}
-          </select>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-per">A chi vuoi scrivere?</label>
+            <select id="cf-per" name="destinataria"
+              class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]">
+              <option value="Non so, indirizzatemi voi">Non so, indirizzatemi voi</option>
+              {team.map((m) => <option value={m.nome}>{m.nome}</option>)}
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-[var(--color-ink-soft)]" for="cf-origine">Come ci hai conosciuto? <span class="font-normal">(opzionale)</span></label>
+            <select id="cf-origine" name="come_ci_hai_conosciuto"
+              class="mt-1.5 w-full rounded-[10px] border border-[var(--color-line)] bg-white px-4 py-2.5 text-[var(--color-ink)] outline-none transition focus:border-[var(--color-verde)] focus:ring-2 focus:ring-[var(--color-sage)]">
+              <option value="">Scegli…</option>
+              {origini.map((o) => <option value={o}>{o}</option>)}
+            </select>
+          </div>
         </div>
 
         <div>
