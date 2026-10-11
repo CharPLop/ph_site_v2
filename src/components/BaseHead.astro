@@ -63,7 +63,7 @@ _segs.forEach((s, i) => {
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+{path !== "/404/" && <link rel="canonical" href={canonical} />}
 {(noindex || !site.indicizza) && <meta name="robots" content="noindex, nofollow" />}
 
 <!-- Senza JavaScript il menu mobile resta aperto sotto l'header (niente hamburger) -->
